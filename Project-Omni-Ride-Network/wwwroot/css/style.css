@@ -50,6 +50,10 @@ nav ul li{
 	padding: 10px;
 	margin: 5px;
 	border-bottom: 2px solid var(--border);
+	user-select: none;
+}
+
+a{
 	text-decoration: none;
 	color: var(--font);
 }
