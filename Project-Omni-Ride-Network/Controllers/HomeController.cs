@@ -12,6 +12,21 @@ namespace Project_Omni_Ride_Network {
             return View();
         }
 
+        #region Error Routes
+
+        [Route("error/404")]
+        public IActionResult Error404() {
+            return View();
+        }
+
+        [Route("error/{code:int}")]
+        public IActionResult Error(int code) {
+            // TODO maybe handle different error codes
+            return View();
+        }
+
+        #endregion
+
         #region Vehicle Information Routes
 
         [Route("overview")]
