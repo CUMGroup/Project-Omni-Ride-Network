@@ -1,13 +1,39 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>@ViewData["Title"] - Project_Omni_Ride_Network</title>
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </head>
-    <body>
-        @RenderBody()
-    </body>
+	<head>
+		<meta charset="UTF-8"/>
+		 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>@ViewData["Title"]</title>
+		<link rel="icon" type="image" href="~/images/icon.png"/>
+		<link rel="stylesheet" href="~/css/style.css" />
+	</head>
+	
+	<body>
+		<div>
+			<header> <h1>&nbsp;</h1> </header>
+			<nav>
+				<div class="nav_left">
+					<ul>
+						<li class="active">Home</li>
+						<li>Fahrzeugübersicht</li>
+						<li>Bewertung</li>
+						<li>Kontakt</li>
+					</ul>
+				</div>
+				<div class="login">
+					<ul>
+						<li class="login-field">Log in</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		
+		
+		<section class="main">
+			@RenderBody()
+		</section>
+		<footer>
+			
+		</footer>
+	</body>
 </html>
