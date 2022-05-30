@@ -35,6 +35,8 @@ namespace Project_Omni_Ride_Network {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider) {
 
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
+
             app.UseDnaFramework();
 
             if (env.IsDevelopment()) {
