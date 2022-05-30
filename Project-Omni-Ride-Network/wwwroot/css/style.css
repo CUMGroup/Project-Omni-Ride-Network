@@ -50,6 +50,8 @@ nav ul li{
 	padding: 10px;
 	margin: 5px;
 	border-bottom: 2px solid var(--border);
+	text-decoration: none;
+	color: var(--font);
 }
 
 nav ul li:hover{
