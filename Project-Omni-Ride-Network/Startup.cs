@@ -1,21 +1,29 @@
+using Dna.AspNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
     public class Startup {
+
+        #region Public Properties
+
+        public IConfiguration Configuration { get; }
+
+        #endregion
+
+        #region Constructor
+
         public Startup(IConfiguration configuration) {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        #endregion
+
+        #region Configuration
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
@@ -26,6 +34,9 @@ namespace Project_Omni_Ride_Network {
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider) {
+
+            app.UseDnaFramework();
+
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             } else {
@@ -47,5 +58,7 @@ namespace Project_Omni_Ride_Network {
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        #endregion
     }
 }
