@@ -4,21 +4,30 @@ using Microsoft.EntityFrameworkCore;
 
 using System;
 
-namespace Project_Omni_Ride_Network.Data.DataModels {
-    public class Costumer {
+namespace Project_Omni_Ride_Network {
+    public class Customer {
 
-        //[Required]
-        //public int CostumerId { get; set; }
-        // Querverweis auf Objekt
+        public ApplicationUser User { get; set; }
+        [Key]
+        [ForeignKey("User")]
+        public string UserId { get; set; }        
 
+        [Required]
+        [MaxLength(4)]
         public string KdTitle { get; set; }
 
+        [Required]
+        [MaxLength(20)]
         public string KdSurname { get; set; }
 
+        [Required]
+        [MaxLength(15)]
         public string KdName { get; set; }
 
+        [Required]
         public DateTime KdBirth { get; set; }
 
+        [Required]
         public int Paymnt { get; set; }
 
     }

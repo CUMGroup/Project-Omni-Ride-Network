@@ -4,17 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 using System;
 
-namespace Project_Omni_Ride_Network.Data.DataModels {
+namespace Project_Omni_Ride_Network {
     public class Rating {
 
-        //[Required]
-        //public string UserId { get; set; }
-        // Querverweis auf Objekt
+        public Customer User { get; set; }
+        [Key]
+        [ForeignKey("User")]
+        public string UserId { get; set; }
 
+        [Required]
+        [MaxLength(256)]
         public string Comment { get; set; }
 
+        [Required]
         public int Stars { get; set; }
 
+        [Required]
         public DateTime CmntTime { get; set; }
 
     }

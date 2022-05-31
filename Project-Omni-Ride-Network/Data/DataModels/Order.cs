@@ -4,22 +4,25 @@ using Microsoft.EntityFrameworkCore;
 
 using System;
 
-namespace Project_Omni_Ride_Network.Data.DataModels {
+namespace Project_Omni_Ride_Network {
     public class Order {
 
+        [Key]
+        public string OrderId { get; set; }
+
         [Required]
-        public int OrderId { get; set; }
+        public Customer User { get; set; }
 
-        //public string UserId { get; set; }
-        // Querverweis auf Objekt
+        [Required]
+        public Vehicle Vehicle { get; set; }
 
-        //public string VehicleId { get; set; }
-        // Querverweis auf Objekt
-
+        [Required]
         public DateTime DateTimePickUp { get; set; }
 
+        [Required]
         public DateTime DateTimeReturn { get; set; }
 
+        [Required]
         public int optAdd { get; set; }
 
 
