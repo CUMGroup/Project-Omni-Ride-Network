@@ -9,30 +9,31 @@
 	</head>
 	
 	<body>
-		<div>
-			<header> <h1>&nbsp;</h1> </header>
+		<div class="wrapper">
+			<div>
+				<header> <h1>&nbsp;</h1> </header>
 
-			<nav>
-				<div class="nav_left">
-					<ul>
-						<li class="@(ViewData["Title"].ToString() == "Home" ? "active" : "")"><a href="/">Home</a></li>
-						<li class="@(ViewData["Title"].ToString() == "Fahrzeuge" ? "active" : "")"><a href="/overview">Fahrzeugübersicht</a></li>
-						<li class="@(ViewData["Title"].ToString() == "Bewertung" ? "active" : "")"><a href="/rating">Bewertung</a></li>
-						<li class="@(ViewData["Title"].ToString() == "Kontakt" ? "active" : "")"><a href="/contact">Kontakt</a></li>
-					</ul>
-				</div>
-				<div class="login">
-					<ul>
-						<li class="login-field"><a href="/login">Log in</a></li>
-					</ul>
-				</div>
-			</nav>
+				<nav>
+					<div class="nav_left">
+						<ul>
+							<li class="@(ViewData["Title"].ToString() == "Home" ? "active" : "")"><a href="/">Home</a></li>
+							<li class="@(ViewData["Title"].ToString() == "Fahrzeuge" ? "active" : "")"><a href="/overview">Fahrzeugübersicht</a></li>
+							<li class="@(ViewData["Title"].ToString() == "Bewertung" ? "active" : "")"><a href="/rating">Bewertung</a></li>
+							<li class="@(ViewData["Title"].ToString() == "Kontakt" ? "active" : "")"><a href="/contact">Kontakt</a></li>
+						</ul>
+					</div>
+					<div class="login">
+						<ul>
+							<li class="login-field"><a href="/login">Log in</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		
+			<section class="main">
+				@RenderBody()
+			</section>
 		</div>
-		
-		<section class="main">
-			@RenderBody()
-		</section>
-		
 		<footer>
 			<ul>
 				<li class="mail"><a href="/contact">Kontakt</a></li>

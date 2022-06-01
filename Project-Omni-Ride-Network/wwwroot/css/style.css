@@ -10,12 +10,21 @@
 	--bright_red: #ff6969;
 }
 
+html, body {
+	height: 100vh;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+}
+
 body{
     background: var(--background);
     color: var(--font);
-    display: grid;
 	padding: 0px;
 	margin: 0px;
+}
+
+.wrapper {
 }
 
 header{
@@ -31,6 +40,7 @@ header{
 
 header h1{
 	user-select: none;
+	line-height: 4em;
 }
 
 nav{
@@ -103,7 +113,7 @@ body::-webkit-scrollbar-thumb {
 
 
 .main{
-    margin-top: 150px;
+    margin-top: 10px;
 	margin-left: 10px;
 	margin-right: 10px;
 }
@@ -111,8 +121,11 @@ body::-webkit-scrollbar-thumb {
 footer{
     display: flex;
 	background: var(--border);
-	height: 200px;
 	justify-content: space-around;	
+	bottom:0;
+	left:0;
+	right:0;
+
 }
 
 footer ul{
