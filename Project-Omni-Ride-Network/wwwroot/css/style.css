@@ -176,6 +176,17 @@ footer{
 
 }
 
+a {
+  box-shadow: inset 0 0 0 0 var(--column_bright);
+
+  margin: 0 -.25rem;
+  padding: 0 .25rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+a:hover {
+  box-shadow: inset 200px 0 0 0 var(--column_bright);
+  color: white;
+}
 .center{
  text-align:center;
 }
