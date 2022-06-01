@@ -64,7 +64,7 @@ nav ul li:hover{
 }
 nav ul li.active{
 	background: var(--column_dark);
-	border-bottom: 2px solid var(--column_dark);
+	border-bottom: 2px solid var(--bright_red);
 }
 
 .nav_left{
@@ -110,11 +110,37 @@ body::-webkit-scrollbar-thumb {
 
 footer{
     display: flex;
-	background: var(--column_dark);
-	
+	background: var(--border);
+	height: 200px;
+	justify-content: space-around;	
 }
 
-footer div{
+footer ul{
 	display: block;
-	
+	list-style: none;
+}
+
+footer ul li{
+	padding: 10px;
+}
+
+footer ul li.mail{
+	list-style-image: url("~/images/mail.png");
+	padding-inline-start: 1ch;
+}
+footer ul li.tell{
+	list-style-image: url("/images/phone.png");
+	padding-inline-start: 1ch;
+}
+footer ul li.instagram{
+	list-style-image: url("/images/instagram.png");
+	padding-inline-start: 1ch;
+}
+footer ul li.youtube{
+	list-style-image: url("/images/youtube.png");
+	padding-inline-start: 1ch;
+}
+
+footer div.copyright{
+	clear: left;
 }

@@ -14,11 +14,14 @@
 
 			<nav>
 				<div class="nav_left">
+					@{
+						var pageName = ViewContext.RouteData.Values["controller"].ToString();
+					}
 					<ul>
-						<li><a href="/">Home</a></li>
-						<li><a href="/overview">Fahrzeugübersicht</a></li>
-						<li><a href="/rating">Bewertung</a></li>
-						<li><a href="/contact">Kontakt</a></li>
+						<li class="@(pageName == 'Home' ? 'active' : '')"><a href="/">Home</a></li>
+						<li class="@(pageName == 'Fahrzeugübersicht' ? 'active' : '')"><a href="/overview">Fahrzeugübersicht</a></li>
+						<li class="@(pageName == 'Bewertung' ? 'active' : '')"><a href="/rating">Bewertung</a></li>
+						<li class="@(pageName == 'Kontakt' ? 'active' : '')"><a href="/contact">Kontakt</a></li>
 					</ul>
 				</div>
 				<div class="login">
@@ -34,7 +37,24 @@
 		</section>
 		
 		<footer>
-			
+			<ul>
+				<li class="mail"><a href="/contact">Kontakt</a></li>
+				<li class="tell">+49 176 6130 0820</li>
+				<li class="instagram"><a href="https://www.instagram.com/carutilitymanagement/" target="_blank">Instagram</a></li>
+				<li class="youtube"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">YouTube</a></li>
+			</ul>
+			<ul>
+				<li><a href="/partner">Unsere Partner</a></li>
+				<li><a href="/karriere">Karriere bei uns!</a></li>
+				<li style="color: #202020">75 69 75 87</li>
+				<li style="color: #202020">I like trains</li>
+				<li>&copy Copyright @DateTime.Now.Year</li>
+			</ul>
+			<ul>
+				<li><a href="/impressum">Impressum</a></li>
+				<li><a href="/datenschutz">Datenschutz</a></li>
+				<li><a href="/agb">AGBs</a></li>
+			</ul>
 		</footer>
 	</body>
 </html>
