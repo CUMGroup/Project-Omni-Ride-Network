@@ -143,7 +143,7 @@ footer ul li{
 }
 
 footer ul li.mail{
-	list-style-image: url("~/images/mail.png");
+	list-style-image: url("/images/mail.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.tell{
