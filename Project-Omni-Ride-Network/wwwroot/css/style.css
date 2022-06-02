@@ -20,8 +20,9 @@ html, body {
 body{
     background: var(--background);
     color: var(--font);
-	padding: 0px;
-	margin: 0px;
+	padding: 0pt;
+	margin: 0pt;
+	font-family: arial, sans-serif;
 }
 
 .wrapper {
@@ -46,7 +47,7 @@ header h1{
 nav{
     background: var(--border);
     overflow: hidden;
-	height: 70px;
+	height: 70pt;
 	width: 100%;
 }
 
@@ -57,9 +58,9 @@ nav ul{
 }
 
 nav ul li{
-	padding: 10px;
-	margin: 5px;
-	border-bottom: 2px solid var(--border);
+	padding: 10pt;
+	margin: 5pt;
+	border-bottom: 2pt solid var(--border);
 	user-select: none;
 }
 
@@ -70,11 +71,11 @@ a{
 
 nav ul li:hover{
 	background: var(--column_dark);
-	border-bottom: 2px solid var(--deep_red);
+	border-bottom: 2pt solid var(--deep_red);
 }
 nav ul li.active{
 	background: var(--column_dark);
-	border-bottom: 2px solid var(--bright_red);
+	border-bottom: 2pt solid var(--bright_red);
 }
 
 .nav_left{
@@ -83,39 +84,43 @@ nav ul li.active{
 
 .login-field:hover{
 	background: var(--bright_red);
-	border-width: 0px;
+	border-width: 0pt;
 }
 .login-field{
 	background: var(--column_bright);
-	border-width: 0px;
+	border-width: 0pt;
 }
 
 .login{
-	margin-right: 40px;
+	margin-right: 40pt;
 	float: right;
 }
 
 body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
     background-color: var(--column_dark);
 }
  
  body::-webkit-scrollbar {
-    width: 8px;
+    width: 8pt;
     background-color: var(--accents);
  }
  
 body::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10pt;
+    -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,.3);
     background-color: var(--accents);
 }
 
 
 .main{
-    margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 10px;
+    margin-top: 10pt;
+	margin-left: 10pt;
+	margin-right: 10pt;
+	width: 70%;
+	justify-self: center;
+	padding-bottom: 20pt;
+	font-size: 14pt;
 }
 
 footer{
@@ -134,7 +139,7 @@ footer ul{
 }
 
 footer ul li{
-	padding: 10px;
+	padding: 10pt;
 }
 
 footer ul li.mail{
