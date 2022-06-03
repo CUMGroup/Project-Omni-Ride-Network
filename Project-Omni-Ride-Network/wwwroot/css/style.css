@@ -28,7 +28,7 @@ body{
 /*header-----------------------------------------------*/
 header{
     display: block;
-    background-image: url("banner.jpg");
+    background-image: url("/images/banner.jpg");
     background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -146,19 +146,19 @@ footer ul li{
 }
 
 footer ul li.mail{
-	list-style-image: url("mail.png");
+	list-style-image: url("/images/mail.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.tell{
-	list-style-image: url("phone.png");
+	list-style-image: url("/images/phone.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.instagram{
-	list-style-image: url("instagram.png");
+	list-style-image: url("/images/instagram.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.youtube{
-	list-style-image: url("youtube.png");
+	list-style-image: url("/images/youtube.png");
 	padding-inline-start: 1ch;
 }
 
@@ -177,6 +177,7 @@ h1.home{
 .werbevid{
 	padding-bottom: 50%;
 	position: relative;
+	margin: 0 10%;
 }
 
 .container {
