@@ -28,7 +28,7 @@ body{
 /*header-----------------------------------------------*/
 header{
     display: block;
-    background-image: url("/images/banner.jpg");
+    background-image: url("banner.jpg");
     background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -114,9 +114,7 @@ body::-webkit-scrollbar-thumb {
 
 
 .main{
-    margin-top: 10pt;
-	margin-left: 10pt;
-	margin-right: 10pt;
+	margin: 1.25em auto;
 	width: 70%;
 	justify-self: center;
 	padding-bottom: 20pt;
@@ -128,6 +126,9 @@ body::-webkit-scrollbar-thumb {
 footer{
     display: flex;
 	background: var(--border);
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
 	justify-content: space-around;	
 	bottom:0;
 	left:0;
@@ -136,7 +137,7 @@ footer{
 }
 
 footer ul{
-	display: block;
+	width: 10em;
 	list-style: none;
 }
 
@@ -145,19 +146,19 @@ footer ul li{
 }
 
 footer ul li.mail{
-	list-style-image: url("/images/mail.png");
+	list-style-image: url("mail.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.tell{
-	list-style-image: url("/images/phone.png");
+	list-style-image: url("phone.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.instagram{
-	list-style-image: url("/images/instagram.png");
+	list-style-image: url("instagram.png");
 	padding-inline-start: 1ch;
 }
 footer ul li.youtube{
-	list-style-image: url("/images/youtube.png");
+	list-style-image: url("youtube.png");
 	padding-inline-start: 1ch;
 }
 
@@ -174,21 +175,35 @@ h1.home{
 }
 
 .werbevid{
-	text-align: center;
+	padding-bottom: 50%;
+	position: relative;
 }
 
 .container {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.unterstrichen{
+	text-decoration: underline;
+}
+
+mark.home{
+	background: none;
+	color: var(--bright_red);
+	font-size: 18pt;
 }
 
 .column {
-    flex: 1;
     background-color: var(--border);
-    box-sizing: box-sizing;
-	width: 150pt;
-	height : 100pt;
-	text-align : center;
-	margin: 50pt;
+    height: 100pt;
+    width: 10em;
+    text-align: center;
+    margin: 25pt;
+    padding: 25pt;
 }
 
 a.intext{
