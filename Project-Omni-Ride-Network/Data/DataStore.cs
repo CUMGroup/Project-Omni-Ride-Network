@@ -43,20 +43,50 @@ namespace Project_Omni_Ride_Network.Data {
             // TODO
         }
 
+        public async Task RemoveUserAsync() {
+            //TODO
+        }
+
         #endregion
 
         #region Vehicles
 
-        public async Task AddVehicleAsync() {
-            // TODO
+        public async Task<Vehicle> AddVehicleAsync(Vehicle v) {
+
+            if (v == null)
+                throw new DatabaseAPIException("Cannot add undefined Vehicle to Database");
+
+            string vehID = Guid.NewGuid().ToString("N");
+            bool unique;
+            do {
+                unique = true;
+                if (dbContext.Vehicles.Where(e => e.VehicleId.Equals(vehID)).Any()) {
+                    vehID = Guid.NewGuid().ToString("N");
+                    unique = false;
+                }
+            } while (!unique);
+            v.VehicleId = vehID;
+            dbContext.Vehicles.Add(v);
+            await dbContext.SaveChangesAsync();
+            return v;
         }
 
-        public async Task RemoveVehicleAsync() {
-            // TODO
+        public async Task<bool> RemoveVehicleAsync(Vehicle v) {
+            if(String.IsNullOrWhiteSpace(v?.VehicleId)) {
+                throw new DatabaseAPIException("VehicleID can't be null when removing");
+            }
+
+            var veh = dbContext.Vehicles.Where(e => e.VehicleId.Equals(v.VehicleId));
+            if (veh.Any()) {
+                dbContext.Vehicles.Remove(veh.First());
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
-        public async Task GetAllVehiclesAsync() {
-            // TODO
+        public async Task<List<Vehicle>> GetAllVehiclesAsync() {
+            return dbContext.Vehicles.ToList();
         }
 
         #endregion

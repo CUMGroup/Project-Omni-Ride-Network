@@ -32,7 +32,6 @@ namespace Project_Omni_Ride_Network {
         [MaxLength(10)]
         public string Color { get; set; }
 
-        [Required]
         [MaxLength(10)]
         public string Plate { get; set; }
 
