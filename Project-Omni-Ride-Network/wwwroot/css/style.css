@@ -25,9 +25,7 @@ body{
 	font-family: arial, sans-serif;
 }
 
-.wrapper {
-}
-
+/*header-----------------------------------------------*/
 header{
     display: block;
     background-image: url("/images/banner.jpg");
@@ -96,6 +94,8 @@ nav ul li.active{
 	float: right;
 }
 
+
+/*Scrollbar and main ------------------------------------------------------------*/
 body::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
     background-color: var(--column_dark);
@@ -114,18 +114,21 @@ body::-webkit-scrollbar-thumb {
 
 
 .main{
-    margin-top: 10pt;
-	margin-left: 10pt;
-	margin-right: 10pt;
+	margin: 1.25em auto;
 	width: 70%;
 	justify-self: center;
 	padding-bottom: 20pt;
 	font-size: 14pt;
 }
 
+
+/*footer --------------------------------------------------------*/
 footer{
     display: flex;
 	background: var(--border);
+	flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
 	justify-content: space-around;	
 	bottom:0;
 	left:0;
@@ -134,7 +137,7 @@ footer{
 }
 
 footer ul{
-	display: block;
+	width: 10em;
 	list-style: none;
 }
 
@@ -161,4 +164,57 @@ footer ul li.youtube{
 
 footer div.copyright{
 	clear: left;
+}
+
+
+/*Indexpage -------------------------------------------------------------*/
+h1.home{
+	color: var(--deep_red);
+	font-size: 30pt;
+	text-align: center;
+}
+
+.werbevid{
+	padding-bottom: 50%;
+	position: relative;
+	margin: 0 10%;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.unterstrichen{
+	text-decoration: underline;
+}
+
+mark.home{
+	background: none;
+	color: var(--bright_red);
+	font-size: 18pt;
+}
+
+.column {
+    background-color: var(--border);
+    height: 100pt;
+    width: 10em;
+    text-align: center;
+    margin: 25pt;
+    padding: 25pt;
+}
+
+a.intext{
+  box-shadow: inset 0 0 0 0 var(--column_bright);
+  color: var(--deep_red);
+  margin: 0 -.25rem;
+  padding: 0 .25rem;
+  transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+a:hover.intext{
+  box-shadow: inset 200pt 0 0 0 var(--column_bright);
+  color: var(--font);
 }
