@@ -93,12 +93,29 @@ namespace Project_Omni_Ride_Network.Data {
 
         #region Orders
 
-        public async Task AddOrderAsync() {
-            //TODO
+        public async Task<Order> AddOrderAsync(Order o) {
+            if(o == null || o.Vehicle == null || o.User == null) {
+                throw new DatabaseAPIException("Order is not complete!");
+            }
+
+            string orderID = Guid.NewGuid().ToString("N");
+            bool unique;
+            do {
+                unique = true;
+                if (dbContext.Orders.Where(e => e.OrderId.Equals(orderID)).Any()) {
+                    orderID = Guid.NewGuid().ToString("N");
+                    unique = false;
+                }
+            } while (!unique);
+            o.OrderId = orderID;
+            dbContext.Orders.Add(o);
+            await dbContext.SaveChangesAsync();
+            return o;
+
         }
 
-        public async Task GetOrdersAsync() {
-            // TODO
+        public async Task<List<Order>> GetOrdersAsync() {
+            return dbContext.Orders.ToList();
         }
 
         #endregion
