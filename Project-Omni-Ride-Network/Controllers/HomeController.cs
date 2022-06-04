@@ -73,6 +73,16 @@ namespace Project_Omni_Ride_Network {
             return View();
         }
 
+        [Route("karriere")]
+        public IActionResult Karriere() {
+            return View();
+        }
+
+        [Route("datenschutz")]
+        public IActionResult Datenschutz() {
+            return View();
+        }
+
         [Route("partner")]
         public IActionResult Partner() {
             return View();
