@@ -122,12 +122,23 @@ namespace Project_Omni_Ride_Network.Data {
 
         #region Ratings
 
-        public async Task AddRatingAsync() {
-            // TODO
+        public async Task<Rating> AddRatingAsync(Rating r) {
+            if (r.User == null)
+                throw new DatabaseAPIException("User can't be null");
+
+            r.UserId = r.User.UserId;
+
+            if(dbContext.Rating.Where(e => e.UserId.Equals(r.UserId)).Any()) {
+                throw new DatabaseAPIException("User already made a Review");
+            }
+
+            dbContext.Rating.Add(r);
+            await dbContext.SaveChangesAsync();
+            return r;
         }
 
-        public async Task GetRatingsAsync() {
-            // TODO
+        public async Task<List<Rating>> GetRatingsAsync() {
+            return dbContext.Rating.ToList();
         }
 
         #endregion
