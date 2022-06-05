@@ -218,3 +218,13 @@ a:hover.intext{
   box-shadow: inset 200pt 0 0 0 var(--column_bright);
   color: var(--font);
 }
+
+
+/*Impressum page*/
+.imprint-table {
+	width: 100%;
+}
+
+.imprint-table tr td {
+	vertical-align:top;
+}
