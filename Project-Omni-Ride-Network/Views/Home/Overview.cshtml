@@ -2,3 +2,7 @@
     ViewData["Title"] = "Fahrzeuge";
 }
 <h1>Hello World</h1>
+@foreach (var veh in Model.Vehicles) { 
+    <a href="/booking/@veh.VehicleId">@veh.Brand - @veh.Model</a>
+    <br />
+}
