@@ -94,8 +94,9 @@ namespace Project_Omni_Ride_Network {
         }
 
         [Route("rating")]
-        public IActionResult Rating() {
-            return View();
+        public async Task<IActionResult> Rating() {
+            List<Rating> ratings = await dbStore.GetRatingsAsync();
+            return View(new RatingViewModel() { Ratings = ratings });
         }
 
         #endregion
