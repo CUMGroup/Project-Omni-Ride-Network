@@ -37,7 +37,22 @@ namespace Project_Omni_Ride_Network {
         [Route("booking/{id}")]
         public IActionResult Booking(string id) {
             //TODO Handle id -> Give to View Model
-            return View();
+            BookingViewModel test = new BookingViewModel(new Vehicle() {
+                VehicleId = id,
+                Type = 1,
+                BasicPrice = 50,
+                Brand = "Subuwu",
+                Model = "WRX STI",
+                Category = 1,
+                Color = "Korallblau 2",
+                Firm = "Bubatz SE",
+                Plate = "SUB-UWU",
+                PriceHD = 2.71828f,
+                PriceInsu = 3.1415f,
+                PathToImg = "~/images/icon.png"
+                
+            }) ;
+            return View(test);
         }
 
         #endregion
