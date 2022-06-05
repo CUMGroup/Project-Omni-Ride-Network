@@ -25,6 +25,10 @@ body{
 	font-family: arial, sans-serif;
 }
 
+h2 {
+	color: var(--font);
+}
+
 /*header-----------------------------------------------*/
 header{
     display: block;
@@ -227,4 +231,10 @@ a:hover.intext{
 
 .imprint-table tr td {
 	vertical-align:top;
+}
+
+/*Error seite*/
+
+.error h1 {
+	color: var(--deep_red);
 }
