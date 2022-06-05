@@ -1,16 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
 
     public class HomeController : Controller {
 
-        public HomeController() {
+        private readonly DataStore dbStore;
 
+        public HomeController(DataStore dbStore) {
+            this.dbStore = dbStore;
+            dbStore.EnsureDataStore();
         }
 
         public IActionResult Index() {
             return View();
         }
+
+        #region DEBUG ROUTES
+
+        [ConditionalAttribute("DEBUG")]
+        [Route("addtestdata")]
+        public async void AddTestData() {
+            await dbStore.AddVehicleAsync(new Vehicle() {
+                Type = 1,
+                BasicPrice = 50,
+                Brand = "Subuwu",
+                Model = "WRX STI",
+                Category = 1,
+                Color = "Korallblau 2",
+                Firm = "Bubatz SE",
+                Plate = "SUB-UWU",
+                PriceHD = 2.71828f,
+                PriceInsu = 3.1415f,
+                PathToImg = "~/images/icon.png"
+            });
+        }
+
+        #endregion
 
         #region Error Routes
 
@@ -30,14 +59,19 @@ namespace Project_Omni_Ride_Network {
         #region Vehicle Information Routes
 
         [Route("overview")]
-        public IActionResult Overview() {
-            return View();
+        public async Task<IActionResult> Overview() {
+            List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
+            return View(new OverviewViewModel() { Vehicles = vehicles });
         }
 
         [Route("booking/{id}")]
-        public IActionResult Booking(string id) {
-            //TODO Handle id -> Give to View Model
-            return View();
+        public async Task<IActionResult> Booking(string id) {
+            List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
+            var veh = vehicles.Where(e => id.Equals(e.VehicleId));
+            if (veh.Any())
+                return View(new BookingViewModel(veh.First()));
+            else
+                return NotFound();
         }
 
         #endregion

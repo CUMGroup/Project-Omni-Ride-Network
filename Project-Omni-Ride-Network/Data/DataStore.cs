@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_Omni_Ride_Network.Data {
+namespace Project_Omni_Ride_Network {
     public class DataStore {
 
         #region Protected Members
@@ -27,6 +27,10 @@ namespace Project_Omni_Ride_Network.Data {
 
         public async Task EnsureDataStoreAsync() {
             await dbContext.Database.EnsureCreatedAsync();
+        }
+
+        public void EnsureDataStore() {
+            dbContext.Database.EnsureCreated();
         }
 
         #region Login
