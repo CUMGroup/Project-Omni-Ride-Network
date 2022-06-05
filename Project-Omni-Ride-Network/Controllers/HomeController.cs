@@ -22,7 +22,7 @@ namespace Project_Omni_Ride_Network {
         #region DEBUG ROUTES
 
         [ConditionalAttribute("DEBUG")]
-        [Route("addtestdata")]
+        [Route(Routes.DEBUG_TESTDATA)]
         public async void AddTestData() {
             /*await dbStore.AddVehicleAsync(new Vehicle() {
                 Type = 1,
@@ -43,12 +43,12 @@ namespace Project_Omni_Ride_Network {
 
         #region Error Routes
 
-        [Route("error/404")]
+        [Route(Routes.ERROR_404)]
         public IActionResult Error404() {
             return View();
         }
 
-        [Route("error/{code:int}")]
+        [Route(Routes.ERROR_GENERIC)]
         public IActionResult Error(int code) {
             // TODO maybe handle different error codes
             return View();
@@ -58,13 +58,13 @@ namespace Project_Omni_Ride_Network {
 
         #region Vehicle Information Routes
 
-        [Route("overview")]
+        [Route(Routes.OVERVIEW)]
         public async Task<IActionResult> Overview() {
             List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
             return View(new OverviewViewModel() { Vehicles = vehicles });
         }
 
-        [Route("booking/{id}")]
+        [Route(Routes.BOOKING)]
         public async Task<IActionResult> Booking(string id) {
             List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
             var veh = vehicles.Where(e => id.Equals(e.VehicleId));
@@ -74,7 +74,7 @@ namespace Project_Omni_Ride_Network {
                 return NotFound();
         }
 
-        [Route("booking/{id}")]
+        [Route(Routes.BOOKING)]
         [HttpPost]
         public IActionResult PlaceOrder(string id) {
             // TODO check form and place order in db
@@ -85,28 +85,28 @@ namespace Project_Omni_Ride_Network {
 
         #region User Specific Routes
 
-        [Route("login")]
+        [Route(Routes.LOGIN)]
         public IActionResult Login() {
             return View();
         }
 
-        [Route("register")]
+        [Route(Routes.REGISTER)]
         public IActionResult Register() {
             return View();
         }
 
-        [Route("profile")]
+        [Route(Routes.PROFILE)]
         public IActionResult Profile() {
             return View();
         }
 
-        [Route("rating")]
+        [Route(Routes.RATING)]
         public async Task<IActionResult> Rating() {
             List<Rating> ratings = await dbStore.GetRatingsAsync();
             return View(new RatingViewModel() { Ratings = ratings });
         }
 
-        [Route("rating")]
+        [Route(Routes.RATING)]
         [HttpPost]
         public IActionResult AddRating() {
             // TODO check form and add rating to db
@@ -117,32 +117,32 @@ namespace Project_Omni_Ride_Network {
 
         #region Page Information Routes
 
-        [Route("contact")]
+        [Route(Routes.CONTACT)]
         public IActionResult Contact() {
             return View();
         }
 
-        [Route("karriere")]
+        [Route(Routes.KARRIERE)]
         public IActionResult Karriere() {
             return View();
         }
 
-        [Route("datenschutz")]
+        [Route(Routes.DATENSCHUTZ)]
         public IActionResult Datenschutz() {
             return View();
         }
 
-        [Route("partner")]
+        [Route(Routes.PARTNER)]
         public IActionResult Partner() {
             return View();
         }
 
-        [Route("impressum")]
+        [Route(Routes.IMPRESSUM)]
         public IActionResult Impressum() {
             return View();
         }
 
-        [Route("agb")]
+        [Route(Routes.AGB)]
         public IActionResult AGB() {
             return View();
         }
