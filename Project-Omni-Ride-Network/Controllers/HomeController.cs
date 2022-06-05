@@ -50,7 +50,7 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.ERROR_GENERIC)]
         public IActionResult Error(int code) {
-            // TODO maybe handle different error codes
+            TempData["ErrorCode"] = code;
             return View();
         }
 

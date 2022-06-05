@@ -6,14 +6,35 @@
 		<title>@ViewData["Title"]</title>
 		<link rel="icon" type="image" href="~/images/icon.png"/>
 		<link rel="stylesheet" href="~/css/style.css" />
+		<script src="https://code.jquery.com/jquery-3.5.0.js" ></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$(".menubutton").click(function() {
+					$("nav").toggleClass("navactive");
+				});
+			});
+		</script>
 	</head>
 	
 	<body>
 		<div class="wrapper">
+			<section id="menubar">
+				<div>
+					<div class="menubuttoncontainer">
+						<ul>
+							<li>
+								<a class="menubutton" href="#menu">
+									<img class="img-menu-button" src="~/images/menu.png"/>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
 			<div>
 				<header> <h1>&nbsp;</h1> </header>
 
-				<nav>
+				<nav class="nav">
 					<div class="nav_left">
 						<ul>
 							<li class="@(ViewData["Title"].ToString() == "Home" ? "active" : "")"><a href="/">Home</a></li>
