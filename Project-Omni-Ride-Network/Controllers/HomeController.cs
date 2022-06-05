@@ -24,7 +24,7 @@ namespace Project_Omni_Ride_Network {
         [ConditionalAttribute("DEBUG")]
         [Route("addtestdata")]
         public async void AddTestData() {
-            await dbStore.AddVehicleAsync(new Vehicle() {
+            /*await dbStore.AddVehicleAsync(new Vehicle() {
                 Type = 1,
                 BasicPrice = 50,
                 Brand = "Subuwu",
@@ -36,7 +36,7 @@ namespace Project_Omni_Ride_Network {
                 PriceHD = 2.71828f,
                 PriceInsu = 3.1415f,
                 PathToImg = "~/images/icon.png"
-            });
+            });*/
         }
 
         #endregion
