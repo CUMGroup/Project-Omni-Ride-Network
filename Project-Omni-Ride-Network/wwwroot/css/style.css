@@ -44,13 +44,19 @@ header{
 header h1{
 	user-select: none;
 	line-height: 4em;
+	margin-top: 0em;
 }
 
-nav{
-    background: var(--border);
-    overflow: hidden;
+nav {
+	background: var(--border);
+	overflow: hidden;
 	height: 70pt;
 	width: 100%;
+	-webkit-transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
+	-moz-transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
+	-ms-transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
+	-o-transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
+	transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
 }
 
 nav ul{
@@ -78,6 +84,10 @@ nav ul li:hover{
 nav ul li.active{
 	background: var(--column_dark);
 	border-bottom: 2pt solid var(--bright_red);
+}
+nav ul li a {
+	padding: 2em;
+	margin: -2em;
 }
 
 .nav_left{
@@ -125,6 +135,88 @@ body::-webkit-scrollbar-thumb {
 	font-size: 14pt;
 }
 
+#menubar {
+	display: block;
+	height:40px;
+}
+
+#menubar .menubuttoncontainer ul {
+	display: block;
+	width: 2em;
+	margin:0em;
+	padding:0.1em 0em 0.1em 1em;
+	margin-left:.3em;
+}
+
+#menubar .menubuttoncontainer ul li {
+	display: inline;
+	padding: 0em;
+	margin: 0em;
+}
+
+#menubar .menubuttoncontainer ul li a.menubutton {
+	display: none;
+	padding:0em;
+}
+
+.menubuttoncontainer {
+	display:inline-block;
+	margin-top:6px;
+}
+
+img.img-menu-button {
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	margin: auto 0 auto;
+}
+
+/* Mobile View */
+@media screen and (max-width:800px) {
+	body {
+		font-size: 90%;
+	}
+}
+
+@media screen and (min-width:670px) {
+	nav.nav {
+		display: block !important;
+	}
+}
+
+@media screen and (max-width:670px) {
+	body {
+		font-size: 86%;
+	}
+
+	#menubar .menubuttoncontainer ul li a.menubutton {
+		display:block;
+	}
+
+	.nav {
+		height: 0px;
+	}
+	.nav.navactive {
+		height: 200pt;
+	}
+
+	.nav_left {
+		display:block;
+		float:none;
+	}
+	nav ul{
+		display: block;
+		flex-wrap:unset;
+		margin: 0;
+		padding:0;
+	}
+	nav .login {
+		display:block;
+		margin: 0;
+		float:none;
+	}
+
+}
 
 /*footer --------------------------------------------------------*/
 footer{
