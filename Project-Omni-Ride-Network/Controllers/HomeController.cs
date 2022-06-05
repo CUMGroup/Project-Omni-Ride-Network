@@ -74,6 +74,13 @@ namespace Project_Omni_Ride_Network {
                 return NotFound();
         }
 
+        [Route("booking/{id}")]
+        [HttpPost]
+        public IActionResult PlaceOrder(string id) {
+            // TODO check form and place order in db
+            return Ok();
+        }
+
         #endregion
 
         #region User Specific Routes
@@ -97,6 +104,13 @@ namespace Project_Omni_Ride_Network {
         public async Task<IActionResult> Rating() {
             List<Rating> ratings = await dbStore.GetRatingsAsync();
             return View(new RatingViewModel() { Ratings = ratings });
+        }
+
+        [Route("rating")]
+        [HttpPost]
+        public IActionResult AddRating() {
+            // TODO check form and add rating to db
+            return Ok();
         }
 
         #endregion
