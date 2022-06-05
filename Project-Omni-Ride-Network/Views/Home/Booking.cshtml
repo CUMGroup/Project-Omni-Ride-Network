@@ -1,4 +1,32 @@
 @{
     ViewData["Title"] = "Booking";
 }
-<h1>Hello World</h1>
+@Model Project-Omni-Ride-Network.BookingViewModel
+				<div class="container fahrzeuginfo">
+					<div class="attributes">
+						<div class="container row">
+							<div class="carattribute">
+								<mark class="tabellenueberschrift">Anbieter</mark> <br> @Model.Vehicle.Firm
+							</div>
+							<div class="carattribute">
+								<mark class="tabellenueberschrift">Kategorie</mark> <br> @Model.Vehicle.Category
+							</div>
+						</div>
+						<div class="container row">
+							<div class="carattribute">
+								<mark class="tabellenueberschrift">Automarke</mark> <br> @Model.Vehicle.Brand
+							</div>
+							<div class="carattribute">
+								<mark class="tabellenueberschrift">Modell</mark> <br> @Model.Vehicle.Model
+							</div>
+							<div class="carattribute">
+								<mark class="tabellenueberschrift">Farbe</mark> <br> @Model.Vehicle.Color
+							</div>
+						</div>
+					</div>
+					
+					<div>
+						<img src="icon.png" width="120em" height="120em"/>
+						<p><mark class="tabellenueberschrift">Kennzeichen:</mark> <br> @Model.Vehicle.Plate</p>
+					</div>
+				</div>
