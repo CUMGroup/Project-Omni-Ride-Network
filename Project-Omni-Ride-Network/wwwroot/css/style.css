@@ -218,3 +218,32 @@ a:hover.intext{
   box-shadow: inset 200pt 0 0 0 var(--column_bright);
   color: var(--font);
 }
+/*booking----------------------------------------------*/
+
+.fahrzeuginfo{
+	justify-content: space-between;
+	align-items:flex-end;
+	flex-wrap: wrap-reverse;
+	border: 2pt solid var(--border);
+	padding: 1em;
+}
+
+.row{
+	align-items:flex-start;
+	justify-content: space-between;
+}
+
+.attributes{
+	display: flex;
+	flex-flow: column;
+}
+
+.carattribute{
+	align-items: start;
+	padding: 1em;
+}
+
+.tabellenueberschrift{
+	color: var(--accents);
+	background: none;
+}
