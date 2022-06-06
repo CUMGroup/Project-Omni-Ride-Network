@@ -33,22 +33,18 @@ namespace Project_Omni_Ride_Network {
             dbContext.Database.EnsureCreated();
         }
 
-        #region Login
+        #region Customer
 
-        public async Task CheckLoginAsync() {
-            // TODO
+        public async Task AddCustomerAsync(Customer c) {
+            if (c == null || c.User == null)
+                throw new DatabaseAPIException("Cannot add undefinded Customer to Database");
+
+            dbContext.Customers.Add(c);
+            await dbContext.SaveChangesAsync();
         }
 
-        public async Task AddNewUserAsync() {
-            // TODO
-        }
-
-        public async Task GetCustomersAsync() {
-            // TODO
-        }
-
-        public async Task RemoveUserAsync() {
-            //TODO
+        public async Task<List<Customer>> GetCustomersAsync() {
+            return dbContext.Customers.ToList();
         }
 
         #endregion
@@ -127,7 +123,7 @@ namespace Project_Omni_Ride_Network {
         #region Ratings
 
         public async Task<Rating> AddRatingAsync(Rating r) {
-            if (r.User == null)
+            if (r == null || r.User == null)
                 throw new DatabaseAPIException("User can't be null");
 
             r.UserId = r.User.UserId;
