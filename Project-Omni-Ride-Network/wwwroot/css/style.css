@@ -220,16 +220,18 @@ a:hover.intext{
 }
 /*booking----------------------------------------------*/
 
-.fahrzeuginfo{
-	justify-content: space-between;
-	align-items:flex-end;
+.container.fahrzeuginfo {
+	justify-content: space-around;
+	align-items: flex-end;
 	flex-wrap: wrap-reverse;
 	border: 2pt solid var(--border);
 	padding: 1em;
+	width: 60%;
+	justify-self: center;
 }
 
 .row{
-	align-items:flex-start;
+	align-items: center;
 	justify-content: space-between;
 }
 
