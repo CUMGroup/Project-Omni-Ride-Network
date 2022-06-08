@@ -19,27 +19,6 @@ namespace Project_Omni_Ride_Network {
             return View();
         }
 
-        #region DEBUG ROUTES
-
-        [ConditionalAttribute("DEBUG")]
-        [Route(Routes.DEBUG_TESTDATA)]
-        public async void AddTestData() {
-            /*await dbStore.AddVehicleAsync(new Vehicle() {
-                Type = 1,
-                BasicPrice = 50,
-                Brand = "Subuwu",
-                Model = "WRX STI",
-                Category = 1,
-                Color = "Korallblau 2",
-                Firm = "Bubatz SE",
-                Plate = "SUB-UWU",
-                PriceHD = 2.71828f,
-                PriceInsu = 3.1415f,
-                PathToImg = "~/images/icon.png"
-            });*/
-        }
-
-        #endregion
 
         #region Error Routes
 

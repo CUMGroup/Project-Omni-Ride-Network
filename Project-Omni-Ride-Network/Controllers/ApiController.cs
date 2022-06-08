@@ -156,7 +156,7 @@ namespace Project_Omni_Ride_Network {
 
         [HttpPost]
         [Route(Routes.VEHICLE_API)]
-        [Authorize(Roles = UserRoles.Admin, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize(Roles = UserRoles.Admin)]
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
             try {
                 await dbStore.AddVehicleAsync(v);
