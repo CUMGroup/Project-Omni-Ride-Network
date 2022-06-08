@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,21 +14,23 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
-    public class AuthenticationController : ControllerBase {
+    public class ApiController : ControllerBase {
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
 
-        public AuthenticationController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
         }
+
+        #region Authentication
 
         [HttpPost]
         [Route(Routes.LOGIN)]
@@ -57,8 +61,9 @@ namespace Project_Omni_Ride_Network {
 
                 return Ok(new {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                    expiration = token.ValidTo,
+                    role = userRoles.First()
+                }) ;
             }
 
             return Unauthorized();
@@ -99,5 +104,69 @@ namespace Project_Omni_Ride_Network {
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
+
+        [HttpPost]
+        [Route(Routes.REGISTER_ADMIN)]
+        [Authorize(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterApiModel model) {
+            var userExists = await userManager.FindByEmailAsync(model.Email);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "User creation failed: User already exists" });
+            ApplicationUser user = new ApplicationUser {
+                Email = model.Email,
+                UserName = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+            {
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                if (await roleManager.RoleExistsAsync(UserRoles.Admin)) {
+                    await userManager.AddToRoleAsync(user, UserRoles.Admin);
+                }
+
+            }
+            Customer customer = new Customer {
+                KdBirth = model.KdBirth,
+                KdName = model.KdName,
+                KdSurname = model.KdSurname,
+                KdTitle = model.KdTitle,
+                Paymnt = model.Paymnt,
+                User = user,
+                UserId = await userManager.GetUserIdAsync(user)
+            };
+            try {
+                await dbStore.AddCustomerAsync(customer);
+            } catch (DatabaseAPIException e) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
+        }
+
+        #endregion
+
+        #region Vehicles
+
+        [HttpPost]
+        [Route(Routes.VEHICLE_API)]
+        [Authorize(Roles = UserRoles.Admin, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
+            try {
+                await dbStore.AddVehicleAsync(v);
+            } catch (DatabaseAPIException e) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "Vehicle created successfully!" });
+        }
+        #endregion
+
     }
 }

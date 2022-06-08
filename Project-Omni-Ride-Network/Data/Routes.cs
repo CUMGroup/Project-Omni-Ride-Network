@@ -25,5 +25,9 @@ namespace Project_Omni_Ride_Network {
         public const string PARTNER = "partner";
         public const string IMPRESSUM = "impressum";
         public const string AGB = "agb";
+
+
+        public const string VEHICLE_API = "addvehicle";
+        public const string REGISTER_ADMIN = "registeradmin";
     }
 }
