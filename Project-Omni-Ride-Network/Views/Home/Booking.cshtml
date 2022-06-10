@@ -8,7 +8,7 @@
 				<mark class="tabellenueberschrift">Anbieter</mark> <br> @Model.Vehicle.Firm
 			</div>
 			<div class="carattribute">
-				<mark class="tabellenueberschrift">Kategorie</mark> <br> @Model.Vehicle.Category
+				<mark class="tabellenueberschrift">Kategorie</mark> <br> @(Model.Vehicle.Category == 1 ? "Leih" : "Sharing") - Fahrzeug
 			</div>
 		</div>
 		<div class="container row">
@@ -57,7 +57,10 @@
 				<input name="refuel" id="refuel" class="" type="checkbox" /> 
 				Refuel-Option<br />
 			</div>
-		</div>
+		</div> <br /><br />
+
+		<lable class="booking lable">Gesamtpreis:</lable>
+		&nbsp; <div id="geamtpreis"></div> &euro;<br /><br />
 
 	</form>
 </div>
