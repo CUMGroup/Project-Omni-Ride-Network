@@ -30,6 +30,34 @@
 	</div>
 </div>
 
-<div class="conatainer">
+<br />
 
+<div class="conatainer fahrzeuginfo">
+	<script src="~/js/preisberechnung.js"></script>
+	<form onchange="inputchange()" method="POST" action="">
+		<lable class="booking lable">Basispreis:</lable>
+		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
+
+		<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
+		<input id="pickupdate" class="dateinput" type="date" /> <br /><br />
+
+		<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
+		<input id="returndate" class="dateinput" type="date" /> <br /><br />
+
+		<div class="flex">
+			<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;
+		
+			<div>
+				<input name="versicherung" id="vollkasko" class="" type="checkbox" />
+				Vollkasko
+				<input name="versicherung" id="teilkasko" class="" type="checkbox" />
+				Teilkasko<br />
+				<lable class="booking hinweis">(Teilkasko mit 500&euro; Selbstbeteiligung)</lable><br /><br />
+		
+				<input name="refuel" id="refuel" class="" type="checkbox" /> 
+				Refuel-Option<br />
+			</div>
+		</div>
+
+	</form>
 </div>
