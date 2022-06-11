@@ -10,6 +10,7 @@ namespace Project_Omni_Ride_Network {
         [Key]
         public string VehicleId { get; set; }
 
+        // Sharing, Rental, ...
         [Required]
         public int Category { get; set; }
 
@@ -17,6 +18,7 @@ namespace Project_Omni_Ride_Network {
         [MaxLength(20)]
         public string Firm { get; set; }
 
+        // Type := Car, Bike, ...
         [Required]
         public int Type { get; set; }
 
