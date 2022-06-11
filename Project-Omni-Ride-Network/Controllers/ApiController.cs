@@ -166,6 +166,33 @@ namespace Project_Omni_Ride_Network {
 
             return Ok(new ApiResponse { Status = "Success", Message = "Vehicle created successfully!" });
         }
+
+
+        public async Task<PartialViewResult> GetVehicleListView(int? page, string searchTxt, int? categoryFilter, string brandFilter, string modelFilter, int? typeFilter, float? minPrice, float? maxPrice) {
+
+            IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();
+
+            if(!String.IsNullOrWhiteSpace(searchTxt))
+                veh = veh.Where(e => e.Brand.ToLower().Contains(searchTxt)
+                || e.Model.ToLower().Contains(searchTxt)
+                || e.Firm.ToLower().Contains(searchTxt));
+
+            if (categoryFilter != null)
+                veh = veh.Where(e => e.Category == categoryFilter);
+            if (!String.IsNullOrWhiteSpace(brandFilter))
+                veh = veh.Where(e => e.Brand.Equals(brandFilter));
+            if (!String.IsNullOrWhiteSpace(modelFilter))
+                veh = veh.Where(e => e.Model.Equals(modelFilter));
+            if (typeFilter != null)
+                veh = veh.Where(e => e.Type == typeFilter);
+            if (minPrice != null)
+                veh = veh.Where(e => e.BasicPrice >= minPrice);
+            if (maxPrice != null)
+                veh = veh.Where(e => e.BasicPrice <= maxPrice);
+
+
+
+        }
         #endregion
 
     }
