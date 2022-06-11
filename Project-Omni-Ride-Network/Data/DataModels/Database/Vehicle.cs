@@ -51,5 +51,12 @@ namespace Project_Omni_Ride_Network {
         public string PathToImg { get; set; }
 
 
+        public string GetCategoryAsString() => 
+            Category switch {
+                1 => "Leihe",
+                2 => "Sharing",
+                _ => "",
+            };
+
     }
 }

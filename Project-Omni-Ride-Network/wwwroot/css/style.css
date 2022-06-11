@@ -316,6 +316,111 @@ a:hover.intext{
 }
 
 
+/* Overview */
+
+.overview-grid {
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(12,1fr);
+	grid-template-rows: 1fr;
+}
+
+.overview-grid .filter {
+	background-color:var(--column_bright);
+	border: 2pt solid var(--border);
+	padding: 1em;
+}
+
+.filter h2 {
+	text-align: center;
+}
+
+.filter input, .filter select {
+	margin-bottom: 1em;
+}
+
+.overview-grid .prod .child {
+	background-color: var(--column_bright);
+	text-align: left;
+	border: 2pt solid var(--border);
+}
+
+.prod .container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.prod .fahrzeuginfo {
+	justify-content: space-between;
+	align-items: flex-end;
+	border: 2pt solid var(--border);
+	padding: 1em;
+}
+
+.prod .row {
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.prod .attributes {
+	display: flex;
+	flex-flow: column;
+}
+
+.attributes .carattribute {
+	align-items: start;
+	padding: 1em;
+}
+
+mark.tabellenueberschrift {
+	color: var(--accents);
+	background: none;
+}
+
+div.break {
+	flex-basis: 100%;
+	height: 0;
+}
+
+.prod a.button {
+	border: none;
+	color: var(--font);
+	background-color: var(--deep_red);
+	padding: 15px 32px;
+	text-align: center;
+	display: inline-block;
+	margin: 4px 2px;
+}
+
+.overview-grid .prod {
+	grid-column-start: span 9;
+}
+
+.overview-grid .filter {
+	grid-column-start: span 3;
+}
+
+@media screen and (max-width: 1200px) {
+	.overview-grid {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	.overview-grid {
+		grid-gap: 1em;
+	}
+}
+
+@media screen and (min-width: 1900px) {
+	.overview-grid {
+		grid-gap: 3em;
+	}
+}
+
 /*Impressum page*/
 .imprint-table {
 	width: 100%;
