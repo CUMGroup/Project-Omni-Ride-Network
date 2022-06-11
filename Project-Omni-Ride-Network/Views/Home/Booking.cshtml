@@ -34,7 +34,7 @@
 
 <div class="conatainer fahrzeuginfo">
 	<script src="~/js/preisberechnung.js"></script>
-	<form onchange="inputchange(@Model.Vehicle)" method="POST" action="">
+	<form onchange="inputchange(@Model.Vehicle.BasicPrice, @Model.Vehicle.PriceHD, @Model.Vehicle.PriceInsu)" method="POST" action="">
 		<lable class="booking lable">Basispreis:</lable>
 		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
 

@@ -1,9 +1,9 @@
 ﻿let gesamtpreis = 0;
 
 
-function inputchange(model) {
+function inputchange(basicprice, priceHD, priceIns) {
     console.log("change happened");
-    console.log(model);
+    
 
 }
 
