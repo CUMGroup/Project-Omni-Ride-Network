@@ -1,9 +1,5 @@
 ﻿$(() => {
 	getVehicleList();
-
-	$('#searchFilter').on('keyup', getVehicleList);
-	$('#minPriceFilter').on('keyup', getVehicleList);
-	$('#maxPriceFilter').on('keyup', getVehicleList);
 	$('#filterForm').change(getVehicleList);
 });
 
