@@ -1,28 +1,26 @@
-﻿const { param } = require("jquery");
-
-$(() => {
+﻿$(() => {
 	getVehicleList();
 
-	$('#filterForm').change(() => {
-		getVehicleList();
-	});
+	$('#searchFilter').on('keyup', getVehicleList);
+	$('#minPriceFilter').on('keyup', getVehicleList);
+	$('#maxPriceFilter').on('keyup', getVehicleList);
+	$('#filterForm').change(getVehicleList);
 });
 
 function getVehicleList() {
 	$.ajax({
-		url: '@Url.Action("GetVehicleListView", "Api")',
+		url: apiUrl,
 		dataType: 'html',
 		method: 'GET',
 		data: {
-			// TODO add parameters
 			page: findGetParameter("page"),
-			searchTxt: null,
-			categoryFilter: null,
-			brandFilter: null,
-			modelFilter: null,
-			typeFilter: null,
-			minPrice: null,
-			maxPrice: null
+			searchTxt: $('#searchFilter').val(),
+			categoryFilter: $('#categoryFilter').val(),
+			brandFilter: $('#brandFilter').val(),
+			modelFilter: $('#modelFilter').val(),
+			typeFilter: $('#typeFilter').val(),
+			minPrice: $('#minPriceFilter').val(),
+			maxPrice: $('#maxPriceFilter').val()
 
 		},
 		success: (res) => {

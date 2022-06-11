@@ -168,6 +168,8 @@ namespace Project_Omni_Ride_Network {
         }
 
 
+        [HttpGet]
+        [Route(Routes.FILTERED_VEHICLES)]
         public async Task<PartialViewResult> GetVehicleListView(int? page, string searchTxt, int? categoryFilter, string brandFilter, string modelFilter, int? typeFilter, float? minPrice, float? maxPrice) {
 
             IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();
