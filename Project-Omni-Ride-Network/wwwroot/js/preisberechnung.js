@@ -1,4 +1,17 @@
-﻿
+﻿$(document).ready(
+    function () {
+        date = new Date();
+        today = date.toISOString().substring(0, 10);
+
+        console.log(today);
+
+        $("#pickupdate")[0].value = today;
+        $("#returndate")[0].value = today;
+
+        $("#pickupdate")[0].min = today;
+        $("#returndate")[0].min = today;
+    }
+);
 
 
 function inputchange(basicprice, priceHD, priceIns) {
