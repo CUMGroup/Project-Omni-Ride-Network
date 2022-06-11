@@ -220,9 +220,9 @@ a:hover.intext{
 }
 /*booking----------------------------------------------*/
 
-.container.fahrzeuginfo {
+.fahrzeuginfo{
 	justify-content: space-around;
-	align-items: flex-end;
+	align-items:flex-end;
 	flex-wrap: wrap-reverse;
 	border: 2pt solid var(--border);
 	padding: 1em;
@@ -231,7 +231,8 @@ a:hover.intext{
 }
 
 .row{
-	align-items: center;
+	display: flex;
+	align-items:flex-start;
 	justify-content: space-between;
 }
 
@@ -248,4 +249,23 @@ a:hover.intext{
 .tabellenueberschrift{
 	color: var(--accents);
 	background: none;
+}
+
+.booking,.lable{
+	color: var(--accents);
+}
+
+.hinweis{
+	color: var(--column_bright);
+}
+
+input[type="date"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
+.flex{
+	display: flex;
+	flex-wrap: wrap;
 }

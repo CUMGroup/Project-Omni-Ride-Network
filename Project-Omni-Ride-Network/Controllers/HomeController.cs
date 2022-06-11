@@ -49,7 +49,7 @@ namespace Project_Omni_Ride_Network {
                 Plate = "SUB-UWU",
                 PriceHD = 2.71828f,
                 PriceInsu = 3.1415f,
-                PathToImg = "~/images/icon.png"
+                PathToImg = "/images/icon.png"
                 
             }) ;
             return View(test);
