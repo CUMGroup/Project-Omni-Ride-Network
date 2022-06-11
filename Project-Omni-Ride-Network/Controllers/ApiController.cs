@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Project_Omni_Ride_Network {
     [Route("api")]
     [ApiController]
-    public class ApiController : ControllerBase {
+    public class ApiController : Controller {
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -190,8 +190,18 @@ namespace Project_Omni_Ride_Network {
             if (maxPrice != null)
                 veh = veh.Where(e => e.BasicPrice <= maxPrice);
 
+            int itemsPerPage = 20;
+            int currentPage = page ?? 1;
+            if (currentPage <= 0) currentPage = 1;
+            int totalItems = veh == null ? 0 : veh.Count();
 
+            int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
+            if (currentPage > pageCount) currentPage = pageCount;
 
+            if(veh != null & totalItems > 0)
+                veh = veh.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+
+            return PartialView("_overviewList", veh.ToList());
         }
         #endregion
 
