@@ -34,7 +34,7 @@
 
 <div class="conatainer fahrzeuginfo">
 	<script src="~/js/preisberechnung.js"></script>
-	<form onchange="inputchange()" method="POST" action="">
+	<form onchange="inputchange(@Model.Vehicle)" method="POST" action="">
 		<lable class="booking lable">Basispreis:</lable>
 		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
 
@@ -48,16 +48,16 @@
 			<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;
 		
 			<div>
-				<input name="versicherung" id="vollkasko" class="" type="checkbox" />
+				<input name="versicherung" id="vollkasko" onchange="checkinsurance($('#teilkasko'))" class="" type="checkbox" />
 				Vollkasko
-				<input name="versicherung" id="teilkasko" class="" type="checkbox" />
+				<input name="versicherung" id="teilkasko" onchange="checkinsurance($('#vollkasko'))" class="" type="checkbox" />
 				Teilkasko<br />
 				<lable class="booking hinweis">(Teilkasko mit 500&euro; Selbstbeteiligung)</lable><br /><br />
 		
 				<input name="refuel" id="refuel" class="" type="checkbox" /> 
 				Refuel-Option<br />
 			</div>
-		</div> <br /><br />
+		</div> <br />
 
 		<lable class="booking lable">Gesamtpreis:</lable>
 		&nbsp; <div id="geamtpreis"></div> &euro;<br /><br />
