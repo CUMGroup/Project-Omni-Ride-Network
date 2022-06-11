@@ -34,12 +34,13 @@
 
 <div class="conatainer fahrzeuginfo">
 	<script src="~/js/preisberechnung.js"></script>
-	<form onchange="inputchange(@Model.Vehicle.BasicPrice, @Model.Vehicle.PriceHD, @Model.Vehicle.PriceInsu)" method="POST" action="">
+	<form onchange="inputchange('@Model.Vehicle.BasicPrice', '@Model.Vehicle.PriceHD', '@Model.Vehicle.PriceInsu')" method="POST" action="">
 		<lable class="booking lable">Basispreis:</lable>
 		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
 
 		<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
-		<input id="pickupdate" class="dateinput" type="date" /> <br /><br />
+		<input id="pickupdate" class="dateinput" type="date" min="2022-06-23"/> <br /><br />
+
 
 		<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
 		<input id="returndate" class="dateinput" type="date" /> <br /><br />
@@ -59,8 +60,11 @@
 			</div>
 		</div> <br />
 
-		<lable class="booking lable">Gesamtpreis:</lable>
-		&nbsp; <div id="gesamtpreis"></div> &euro;<br /><br />
+		<div class="flex">
+			<lable class="booking lable">Gesamtpreis:</lable> &nbsp;
+		
+			<div id="gesamtpreis">@Model.Vehicle.BasicPrice</div> &euro;
+		</div> <br />
 
 	</form>
 </div>
