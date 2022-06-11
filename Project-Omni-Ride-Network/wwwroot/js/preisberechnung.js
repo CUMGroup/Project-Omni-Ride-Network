@@ -1,7 +1,13 @@
 ﻿$(document).ready(
     function () {
         date = new Date();
-        today = date.toISOString().substring(0, 10);
+
+        if ($('#category')[0].innerText.includes("Sharing")) {
+            today = date.toISOString().substring(0, 16);
+        } else {
+            today = date.toISOString().substring(0, 10);
+        }
+        
 
         console.log(today);
 
@@ -56,6 +62,14 @@ function calculateDate(pickupdate, returndate) {
         pickupdate = new Date(pickupdate);
         returndate = new Date(returndate);
 
-        return Math.round((returndate - pickupdate) / 1000 / 60 / 60 / 24);
+        let time = Math.round((returndate - pickupdate) / 1000 / 60 / 60);
+        console.log(time);
+
+        if ($('#category')[0].innerText.includes("Sharing")) {
+            return time;
+        } else {
+            console.log(time / 24);
+            return (time / 24);
+        }
     }
 }

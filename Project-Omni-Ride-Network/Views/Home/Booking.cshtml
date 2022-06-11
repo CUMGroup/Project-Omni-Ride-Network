@@ -7,7 +7,7 @@
 			<div class="carattribute">
 				<mark class="tabellenueberschrift">Anbieter</mark> <br> @Model.Vehicle.Firm
 			</div>
-			<div class="carattribute">
+			<div id="category" class="carattribute">
 				<mark class="tabellenueberschrift">Kategorie</mark> <br> @(Model.Vehicle.Category == 1 ? "Leih" : "Sharing") - Fahrzeug
 			</div>
 		</div>
@@ -39,11 +39,24 @@
 		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
 
 		<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
-		<input id="pickupdate" class="dateinput" type="date" min="2022-06-23"/> <br /><br />
+
+		@if(Model.Vehicle.Category == 1){
+			<input id="pickupdate" class="dateinput" type="date"/> <br /><br />
+		} else {
+			<input id="pickupdate" class="dateinput" type="datetime-local"/> <br /><br />
+		}
 
 
 		<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
-		<input id="returndate" class="dateinput" type="date" /> <br /><br />
+		
+		@if(Model.Vehicle.Category == 1){
+			<input id="returndate" class="dateinput" type="date" /> <br /><br />
+		} else {
+			<input id="returndate" class="dateinput" type="datetime-local"/> <br /><br />
+		}
+		
+
+		
 
 		<div class="flex">
 			<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;

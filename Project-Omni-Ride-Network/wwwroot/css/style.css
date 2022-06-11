@@ -265,6 +265,12 @@ input[type="date"] {
 	border: 1pt solid var(--accents);
 }
 
+input[type="datetime-local"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
 .flex{
 	display: flex;
 	flex-wrap: wrap;
