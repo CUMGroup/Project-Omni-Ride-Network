@@ -4,8 +4,6 @@
 function inputchange(basicprice, priceHD, priceIns) {
     console.log("change happened");
 
-    console.log($("#pickupdate")[0].value);
-
     let gesamtpreis;
     gesamtpreis = fixNumber(basicprice);
 
@@ -40,24 +38,11 @@ function fixNumber(number) {
 
 function calculateDate(pickupdate, returndate) {
     if (pickupdate == "" || returndate == "") {
-        console.log("no date");
         return 1;
     } else {
-        /*pickMonth = pickupdate.substring(5, 7);
-        returnMonth = returndate.substring(5, 7);
-
-        pickDay = pickupdate.substring(8);
-        returnDay = returndate.substring(8);
-
-        if (pickMonth == returnMonth) {
-            return (returnDay - pickDay) + 1;
-        }*/
-
         pickupdate = new Date(pickupdate);
         returndate = new Date(returndate);
 
         return Math.round((returndate - pickupdate) / 1000 / 60 / 60 / 24);
-
-        console.log(Math.round((returndate - pickupdate) / 1000 / 60 / 60 / 24));
     }
 }
