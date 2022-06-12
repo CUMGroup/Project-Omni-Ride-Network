@@ -118,6 +118,12 @@ namespace Project_Omni_Ride_Network {
             return Unauthorized(await PrepareBaseViewModel ());
          }
 
+        [Route(Routes.LOGOUT + Routes.ACTION_SUFFIX)]
+        public async Task<IActionResult> LogoutAction() {
+            await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+
         [Route(Routes.REGISTER)]
         public async Task<IActionResult> Register() {
             return View(await PrepareBaseViewModel ());

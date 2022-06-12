@@ -17,6 +17,7 @@ namespace Project_Omni_Ride_Network {
         public const string BOOKING = "booking/{id}";
 
         public const string LOGIN = "login";
+        public const string LOGOUT = "logout";
         public const string REGISTER = "register";
         public const string PROFILE = "profile";
         public const string RATING = "rating";
