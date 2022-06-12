@@ -97,7 +97,7 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            }catch(DatabaseAPIException e) {
+            }catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
@@ -143,7 +143,7 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
@@ -160,7 +160,7 @@ namespace Project_Omni_Ride_Network {
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
             try {
                 await dbStore.AddVehicleAsync(v);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
             }
 
@@ -168,6 +168,8 @@ namespace Project_Omni_Ride_Network {
         }
 
 
+        [HttpGet]
+        [Route(Routes.FILTERED_VEHICLES)]
         public async Task<PartialViewResult> GetVehicleListView(int? page, string searchTxt, int? categoryFilter, string brandFilter, string modelFilter, int? typeFilter, float? minPrice, float? maxPrice) {
 
             IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();

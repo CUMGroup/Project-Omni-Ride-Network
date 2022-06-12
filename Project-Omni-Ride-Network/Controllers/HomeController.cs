@@ -40,7 +40,13 @@ namespace Project_Omni_Ride_Network {
         [Route(Routes.OVERVIEW)]
         public async Task<IActionResult> Overview() {
             List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
-            return View(new OverviewViewModel() { Vehicles = vehicles });
+            var modelList = vehicles.Select(m => m.Model).Distinct().OrderBy(e => e).ToList();
+            var brandList = vehicles.Select(b => b.Brand).Distinct().OrderBy(e => e).ToList();
+            return View(new OverviewViewModel() { 
+                Vehicles = vehicles,
+                ModelFilterList = modelList,
+                BrandFilterList = brandList
+            });
         }
 
         [Route(Routes.BOOKING)]
