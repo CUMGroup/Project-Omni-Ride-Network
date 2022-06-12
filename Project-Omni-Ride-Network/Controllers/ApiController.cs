@@ -207,59 +207,5 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-        #region Contact
-
-        [Route("contact")]
-        [HttpPost]
-        public IActionResult Contact(ContactModel contact) {
-            if (ModelState.IsValid) {
-                var ourMail = "service@c-u-management.de";
-                var senderMail = contact.SenderEmail.ToString();
-                var subject = contact.Subject;
-                var mailText = new StringBuilder();
-                mailText.Append("Name: " + contact.SenderName + "\n");
-                mailText.Append("eMail: " + contact.SenderEmail + "\n");
-                mailText.Append(contact.Message);
-
-                try {
-                    MailerAsync(ourMail, senderMail, subject, mailText.ToString());
-                } catch (Exception ex) {
-                    return View();
-                }
-            }
-            return View();
-
-        }
-
-        #region HelperMethods
-
-        private readonly IConfiguration configuration;
-
-        public async Task MailerAsync(string ourMail, string senderMail, string subject, string message) {
-            try {
-                using (var mail = new MailMessage()) {
-
-                    mail.From = new MailAddress(senderMail);
-                    mail.Subject = subject;
-                    mail.To.Add(new MailAddress(ourMail));
-                    mail.Body = message;
-                    mail.IsBodyHtml = true;
-
-                    using (var smtpClient = new SmtpClient(configuration.GetValue<string>("MailCredentials:Hostname"), configuration.GetValue<int>("MailCredentials:Port"))) {
-                        smtpClient.EnableSsl = true;
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.Credentials = new NetworkCredential(configuration.GetValue<string>("MailCredentials:Email"), configuration.GetValue<string>("MailCredentials:Passwort"));
-                        await smtpClient.SendMailAsync(mail);
-                    }
-                }
-            } catch (Exception ex) {
-                throw ex;
-            }
-        }
-
-        #endregion
-
-        #endregion
-
     }
 }
