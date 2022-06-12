@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 namespace Project_Omni_Ride_Network {
     public static class Routes {
 
+        public const string ACTION_SUFFIX = "action";
+
         public const string DEBUG_TESTDATA = "addtestdata";
 
         public const string ERROR_404 = "error/404";

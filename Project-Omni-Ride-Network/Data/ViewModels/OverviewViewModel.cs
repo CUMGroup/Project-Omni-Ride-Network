@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 namespace Project_Omni_Ride_Network {
-    public class OverviewViewModel {
+    public class OverviewViewModel : BaseViewModel {
 
         public List<Vehicle> Vehicles { get; set; }
 
@@ -10,10 +10,20 @@ namespace Project_Omni_Ride_Network {
 
 
         public OverviewViewModel() {
+            init();
+        }
+
+        public OverviewViewModel(BaseViewModel b) {
+            Authorized = b.Authorized;
+            UserName = b.UserName;
+
+            init();
+        }
+
+        private void init() {
             Vehicles = new List<Vehicle>();
             BrandFilterList = new List<string>();
             ModelFilterList = new List<string>();
         }
-
     }
 }

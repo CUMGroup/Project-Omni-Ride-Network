@@ -2,3 +2,10 @@
     ViewData["Title"] = "Login";
 }
 <h1>Hello World</h1>
+
+<form method="POST" action="@Url.Action("LoginAction", "Home")">
+    <input id="ReturnUrl" name="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
+    <input id="Email" name="Email"/>
+    <input id="Password" name="Password"/>
+    <input type="submit" />
+</form>
