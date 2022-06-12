@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +36,7 @@ namespace Project_Omni_Ride_Network {
 
         [HttpPost]
         [Route(Routes.LOGIN)]
-        public async Task<IActionResult> Login([FromBody]LoginApiModel model) {
+        public async Task<IActionResult> Login([FromBody] LoginApiModel model) {
             var user = await userManager.FindByEmailAsync(model.Email);
 
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password)) {
@@ -45,7 +47,7 @@ namespace Project_Omni_Ride_Network {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                foreach(var userRole in userRoles) {
+                foreach (var userRole in userRoles) {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
 
@@ -63,7 +65,7 @@ namespace Project_Omni_Ride_Network {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo,
                     role = userRoles.First()
-                }) ;
+                });
             }
 
             return Unauthorized();
@@ -97,7 +99,7 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            }catch(DatabaseAPIException e) {
+            } catch (DatabaseAPIException e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
@@ -172,7 +174,7 @@ namespace Project_Omni_Ride_Network {
 
             IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();
 
-            if(!String.IsNullOrWhiteSpace(searchTxt))
+            if (!String.IsNullOrWhiteSpace(searchTxt))
                 veh = veh.Where(e => e.Brand.ToLower().Contains(searchTxt)
                 || e.Model.ToLower().Contains(searchTxt)
                 || e.Firm.ToLower().Contains(searchTxt));
@@ -198,11 +200,65 @@ namespace Project_Omni_Ride_Network {
             int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
             if (currentPage > pageCount) currentPage = pageCount;
 
-            if(veh != null & totalItems > 0)
+            if (veh != null & totalItems > 0)
                 veh = veh.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
             return PartialView("_overviewList", veh.ToList());
         }
+        #endregion
+
+        #region Contact
+
+        [Route("contact")]
+        [HttpPost]
+        public IActionResult Contact(ContactModel contact) {
+            if (ModelState.IsValid) {
+                var ourMail = "service@c-u-management.de";
+                var senderMail = contact.SenderEmail.ToString();
+                var subject = contact.Subject;
+                var mailText = new StringBuilder();
+                mailText.Append("Name: " + contact.SenderName + "\n");
+                mailText.Append("eMail: " + contact.SenderEmail + "\n");
+                mailText.Append(contact.Message);
+
+                try {
+                    MailerAsync(ourMail, senderMail, subject, mailText.ToString());
+                } catch (Exception ex) {
+                    return View();
+                }
+            }
+            return View();
+
+        }
+
+        #region HelperMethods
+
+        private readonly IConfiguration configuration;
+
+        public async Task MailerAsync(string ourMail, string senderMail, string subject, string message) {
+            try {
+                using (var mail = new MailMessage()) {
+
+                    mail.From = new MailAddress(senderMail);
+                    mail.Subject = subject;
+                    mail.To.Add(new MailAddress(ourMail));
+                    mail.Body = message;
+                    mail.IsBodyHtml = true;
+
+                    using (var smtpClient = new SmtpClient(configuration.GetValue<string>("MailCredentials:Hostname"), configuration.GetValue<int>("MailCredentials:Port"))) {
+                        smtpClient.EnableSsl = true;
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = new NetworkCredential(configuration.GetValue<string>("MailCredentials:Email"), configuration.GetValue<string>("MailCredentials:Passwort"));
+                        await smtpClient.SendMailAsync(mail);
+                    }
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        #endregion
+
         #endregion
 
     }
