@@ -77,7 +77,7 @@ a{
 	color: var(--font);
 }
 
-nav .nav-left ul li:hover {
+nav .nav_left ul li:hover {
 	background: var(--column_dark);
 	border-bottom: 2pt solid var(--deep_red);
 }
