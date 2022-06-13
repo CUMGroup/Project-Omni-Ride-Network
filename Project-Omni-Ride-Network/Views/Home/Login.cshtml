@@ -1,8 +1,9 @@
 @{
     ViewData["Title"] = "Login";
 }
-<h1 class="home">Anmelden</h1>
 
+<script src="~/js/login.js" ></script>
+<h1 class="home">Anmelden</h1>
 
 <form class="loginpage" method="POST" action="@Url.Action("LoginAction", "Home")">
     <input class="loginpage" id="ReturnUrl" name="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
@@ -13,8 +14,15 @@
     <lable class="loginpage" for="Password">Passwort</lable>
     <input class="loginpage user" id="Password" name="Password" type="password" required="required"/>
     
+    @if (ViewData["ApiMessage"].ToString() == "User information incorrect")
+    {
+        <p class="loginError">Benutzername oder Passwort inkorrekt.</p>
+    }
+
     <input class="loginpage submit" type="submit" value="Anmelden" />
 </form>
+
+
 
 <hr class="loginpage"/>
 Noch kein Konto? <a class="intext" href="/register">Registere dich!</a>

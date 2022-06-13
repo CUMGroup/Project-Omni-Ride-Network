@@ -515,7 +515,6 @@ form.loginpage {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	/*border: 2pt solid var(--border);*/
 	padding: 10pt;
 }
 
@@ -565,4 +564,9 @@ select:-webkit-autofill:focus {
 	-webkit-text-fill-color: var(--font);
 	-webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
 	transition: background-color 5000s ease-in-out 0s;
+}
+
+.loginError{
+	color: var(--deep_red);
+	text-align: center;
 }
