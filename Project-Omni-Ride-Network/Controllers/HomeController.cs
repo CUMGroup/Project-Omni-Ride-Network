@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -126,6 +127,10 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.REGISTER)]
         public async Task<IActionResult> Register(ApiResponse response) {
+            if(response == null || response.Status == null || response.Message == null)
+                response = new ApiResponse { Status = "100", Message = "" };
+            ViewData["ApiStatus"] = response.Status;
+            ViewData["ApiMessage"] = response.Message;
             return View(await PrepareBaseViewModel ());
         }
 
@@ -144,7 +149,7 @@ namespace Project_Omni_Ride_Network {
             {
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
-                    return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                    return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             }
             Customer customer = new Customer {
                 KdBirth = model.KdBirth,
@@ -158,10 +163,10 @@ namespace Project_Omni_Ride_Network {
             try {
                 await dbStore.AddCustomerAsync(customer);
             } catch (DatabaseAPIException) {
-                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
+                return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
+            return await LoginAction(new LoginApiModel { Email = model.Email, Password = model.Password }, null);
         }
 
         [Route(Routes.PROFILE)]

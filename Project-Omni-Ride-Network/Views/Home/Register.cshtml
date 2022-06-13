@@ -1,4 +1,21 @@
 @{
-    ViewData["Title"] = "Karriere";
+    ViewData["Title"] = "Registrieren";
 }
 <h1>Hello World</h1>
+
+<form method="post" action="@Url.Action("RegisterAction", "Home")">
+    <input name="Email" />
+    <input name="Password" />
+    <input name="KdTitle" />
+    <input name="KdSurname" />
+    <input name="KdName" />
+    <input name="KdBirth" type="date" />
+    <input name="Paymnt" />
+    <input type="submit" />
+</form>
+<hr />
+<a href="/login">Go to Login</a>
+
+<script>
+    alert("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
+</script>
