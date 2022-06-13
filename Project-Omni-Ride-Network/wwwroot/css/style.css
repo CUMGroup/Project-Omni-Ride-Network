@@ -529,8 +529,10 @@ hr.loginpage {
 
 input.loginpage {
 	color: var(--font);
-	margin: 15pt;
+	margin-top: 15pt;
+	margin-bottom: 15pt;
 	font-size: 14pt;
+	width: auto;
 }
 
 input.loginpage.user {
@@ -574,4 +576,17 @@ select:-webkit-autofill:focus {
 /*Register - Register also uses styling from the login but here are spicific ones that
 	are only for the register page (so far)
 */
+form.register {
+	justify-content: space-around;
+	align-items: flex-start;
+	padding: 10pt;
+}
 
+.registerbox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10pt;
+	border: 2pt solid var(--border);
+	align-items: flex-start;
+}
