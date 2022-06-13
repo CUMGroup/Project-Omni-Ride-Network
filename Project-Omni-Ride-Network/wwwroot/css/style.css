@@ -534,24 +534,22 @@ input.loginpage {
 	font-size: 14pt;
 }
 
-input.loginpage.user {
-	background: var(--background);
+/*input.loginpage.user {
+	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
-}
+}*/
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-	background: var(--background);
-	border: none;
-	border-bottom: 2pt solid var(--column_bright);
+input[type="text"] {
+	background-color: transparent;
+	border: 0px;
+	outline: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	
+	color: transparent;
+	cursor: default;
 }
 
 

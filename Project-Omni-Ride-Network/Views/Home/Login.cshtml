@@ -1,17 +1,25 @@
 @{
     ViewData["Title"] = "Login";
 }
-<h1>Hello World</h1>
+<h1 class="home">Anmelden</h1>
 
-<form method="POST" action="@Url.Action("LoginAction", "Home")">
-    <input id="ReturnUrl" name="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
-    <input id="Email" name="Email"/>
-    <input id="Password" name="Password"/>
-    <input type="submit" />
+
+<form class="loginpage" method="POST" action="@Url.Action("LoginAction", "Home")">
+    <input class="loginpage" id="ReturnUrl" name="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
+    
+    <lable class="loginpage" for="Email">E-Mail Adresse</lable>
+    <input class="loginpage user" id="Email" name="Email" type="text" required="required"/>
+    
+    <lable class="loginpage" for="Password">Passwort</lable>
+    <input class="loginpage user" id="Password" name="Password" type="password" required="required"/>
+    
+    <input class="loginpage submit" type="submit" value="Anmelden" />
 </form>
-<hr />
-<a href="/register">Go to Register</a>
+
+<hr class="loginpage"/>
+Noch kein Konto? <a class="intext" href="/register">Registere dich!</a>
+
 
 <script>
-    alert("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
+    console.log("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
 </script>
