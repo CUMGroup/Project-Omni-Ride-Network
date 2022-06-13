@@ -534,13 +534,13 @@ input.loginpage {
 	font-size: 14pt;
 }
 
-/*input.loginpage.user {
+input.loginpage.user {
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
-}*/
+}
 
-input[type="text"] {
+/*input[type="text"] {
 	background-color: transparent;
 	border: 0px;
 	outline: none;
@@ -550,7 +550,7 @@ input[type="text"] {
 	
 	color: transparent;
 	cursor: default;
-}
+}*/
 
 
 input.loginpage.submit {
@@ -563,4 +563,18 @@ input.loginpage.submit:hover {
 	background: var(--bright_red);
 	padding: 5pt;
 	font-size: 14pt;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	border-bottom: 2pt solid var(--column_bright);
+	-webkit-text-fill-color: var(--font);
+	-webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
+	transition: background-color 5000s ease-in-out 0s;
 }
