@@ -314,6 +314,22 @@ a:hover.intext{
   box-shadow: inset 200pt 0 0 0 var(--column_bright);
   color: var(--font);
 }
+/*booking----------------------------------------------*/
+
+.booki .fahrzeuginfo{
+	justify-content: space-around;
+	align-items:flex-end;
+	flex-wrap: wrap-reverse;
+	border: 2pt solid var(--border);
+	padding: 1em;
+	align-self: center;
+}
+
+.booki .row{
+	display: flex;
+	align-items:flex-start;
+	justify-content: space-between;
+}
 
 
 /* Overview */
@@ -365,21 +381,58 @@ a:hover.intext{
 	justify-content: space-between;
 }
 
-.prod .attributes {
+.attributes {
 	display: flex;
 	flex-flow: column;
 }
 
-.attributes .carattribute {
+.carattribute{
 	align-items: start;
 	padding: 1em;
 }
 
-mark.tabellenueberschrift {
+.tabellenueberschrift{
 	color: var(--accents);
 	background: none;
 }
 
+.booking,.lable{
+	color: var(--accents);
+}
+
+.hinweis{
+	color: var(--column_bright);
+}
+
+input[type="date"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
+input[type="datetime-local"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
+.flex{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.sendbutton {
+	padding: 10pt 30pt;
+	background: var(--deep_red);
+	border: 1pt solid var(--font);
+	text-align: center;
+	color: var(--font);
+	font-size: 14pt;
+}
+
+.sendbutton:hover {
+	background: var(--bright_red);
+}
 div.break {
 	flex-basis: 100%;
 	height: 0;
