@@ -11,25 +11,25 @@
 <form method="post" class="loginpage" action="@Url.Action("RegisterAction", "Home")">
     
     <lable class="loginpage" for="Email">Gib deine E-Mail Adresse an</lable>
-    <input class="loginpage user" name="Email" />
+    <input class="loginpage user" name="Email"  required="required"/>
 
     <lable class="loginpage" for="Password">Lege ein Passwort f&uuml;r dein Account fest!</lable>
-    <input class="loginpage user" name="Password" />
+    <input class="loginpage user" name="Password"  required="required"/>
 
     <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden? (Herr, Frau)</lable>
-    <input class="loginpage user" name="KdTitle" />
+    <input class="loginpage user" name="KdTitle"  required="required"/>
 
     <lable class="loginpage" for="KdSurname">Nachname</lable>
-    <input class="loginpage user" name="KdSurname" />
+    <input class="loginpage user" name="KdSurname"  required="required"/>
 
     <lable class="loginpage" for="KdName">Vorname</lable>
-    <input class="loginpage user" name="KdName" />
+    <input class="loginpage user" name="KdName"  required="required"/>
 
     <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
-    <input class="loginpage user" name="KdBirth" type="date" />
+    <input class="loginpage user" name="KdBirth" type="date"  required="required"/>
 
     <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
-    <input class="loginpage user" name="Paymnt" />
+    <input class="loginpage user" name="Paymnt"  required="required"/>
 
     @if (ViewData["ApiStatus"].ToString() == "Error")
     {
@@ -42,8 +42,8 @@
 
     <input class="loginpage submit" type="submit" value="Registrieren"/>
 </form>
-<hr />
-Hast du schon ein Konto bei uns? Dann <a href="/login">melde dich hier an.</a>
+<hr class="loginpage"/>
+Hast du schon ein Konto bei uns? Dann <a class="intext" href="/login">melde dich hier an.</a>
 
 <script>
     console.log("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
