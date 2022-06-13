@@ -35,28 +35,27 @@
 <div class="conatainer fahrzeuginfo">
 	<script src="~/js/preisberechnung.js"></script>
 	<form onchange="inputchange('@Model.Vehicle.BasicPrice', '@Model.Vehicle.PriceHD', '@Model.Vehicle.PriceInsu')" method="POST" action="">
-		<lable class="booking lable">Basispreis:</lable>
-		&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
+		<div>
+			<lable class="booking lable">Basispreis:</lable>
+			&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
 
-		<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
+			<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
 
-		@if(Model.Vehicle.Category == 1){
-			<input id="pickupdate" class="dateinput" type="date"/> <br /><br />
-		} else {
-			<input id="pickupdate" class="dateinput" type="datetime-local"/> <br /><br />
-		}
+			@if(Model.Vehicle.Category == 1){
+				<input id="pickupdate" class="dateinput" type="date"/> <br /><br />
+			} else {
+				<input id="pickupdate" class="dateinput" type="datetime-local"/> <br /><br />
+			}
 
 
-		<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
+			<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
 		
-		@if(Model.Vehicle.Category == 1){
-			<input id="returndate" class="dateinput" type="date" /> <br /><br />
-		} else {
-			<input id="returndate" class="dateinput" type="datetime-local"/> <br /><br />
-		}
-		
-
-		
+			@if(Model.Vehicle.Category == 1){
+				<input id="returndate" class="dateinput" type="date" /> <br /><br />
+			} else {
+				<input id="returndate" class="dateinput" type="datetime-local"/> <br /><br />
+			}
+		</div>
 
 		<div class="flex">
 			<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;
@@ -71,7 +70,7 @@
 				<input name="refuel" id="refuel" class="" type="checkbox" /> 
 				Refuel-Option<br />
 			</div>
-		</div> <br />
+		</div>
 
 		<div class="flex">
 			<lable class="booking lable">Gesamtpreis:</lable> &nbsp;
@@ -79,5 +78,6 @@
 			<div id="gesamtpreis">@Model.Vehicle.BasicPrice</div> &euro;
 		</div> <br />
 
+		<div class="sendbutton">Buchen</div>
 	</form>
 </div>

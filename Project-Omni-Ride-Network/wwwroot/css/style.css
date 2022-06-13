@@ -226,8 +226,7 @@ a:hover.intext{
 	flex-wrap: wrap-reverse;
 	border: 2pt solid var(--border);
 	padding: 1em;
-	width: 60%;
-	justify-self: center;
+	align-self: center;
 }
 
 .row{
@@ -274,4 +273,19 @@ input[type="datetime-local"] {
 .flex{
 	display: flex;
 	flex-wrap: wrap;
+}
+
+.sendbutton {
+	padding: 10pt;
+	background: var(--deep_red);
+	border: 1pt solid var(--font);
+	text-align: center;
+	user-select: none;
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-top: 5%;
+}
+
+.sendbutton:hover {
+	background: var(--bright_red);
 }

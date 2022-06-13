@@ -7,7 +7,6 @@
         } else {
             today = date.toISOString().substring(0, 10);
         }
-        
 
         console.log(today);
 
