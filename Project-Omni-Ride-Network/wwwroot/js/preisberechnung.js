@@ -8,8 +8,6 @@
             today = date.toISOString().substring(0, 10);
         }
 
-        console.log(today);
-
         $("#pickupdate")[0].value = today;
         $("#returndate")[0].value = today;
 
