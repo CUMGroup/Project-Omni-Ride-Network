@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Project_Omni_Ride_Network.Data {
+namespace Project_Omni_Ride_Network {
     public class DataStore {
 
         #region Protected Members
@@ -29,22 +29,22 @@ namespace Project_Omni_Ride_Network.Data {
             await dbContext.Database.EnsureCreatedAsync();
         }
 
-        #region Login
-
-        public async Task CheckLoginAsync() {
-            // TODO
+        public void EnsureDataStore() {
+            dbContext.Database.EnsureCreated();
         }
 
-        public async Task AddNewUserAsync() {
-            // TODO
+        #region Customer
+
+        public async Task AddCustomerAsync(Customer c) {
+            if (c == null || c.User == null)
+                throw new DatabaseAPIException("Cannot add undefinded Customer to Database");
+
+            dbContext.Customers.Add(c);
+            await dbContext.SaveChangesAsync();
         }
 
-        public async Task GetCustomersAsync() {
-            // TODO
-        }
-
-        public async Task RemoveUserAsync() {
-            //TODO
+        public async Task<List<Customer>> GetCustomersAsync() {
+            return dbContext.Customers.ToList();
         }
 
         #endregion
@@ -123,7 +123,7 @@ namespace Project_Omni_Ride_Network.Data {
         #region Ratings
 
         public async Task<Rating> AddRatingAsync(Rating r) {
-            if (r.User == null)
+            if (r == null || r.User == null)
                 throw new DatabaseAPIException("User can't be null");
 
             r.UserId = r.User.UserId;

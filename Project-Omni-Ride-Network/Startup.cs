@@ -1,5 +1,6 @@
 using Dna;
 using Dna.AspNet;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Text;
 
 namespace Project_Omni_Ride_Network {
     public class Startup {
@@ -21,6 +24,7 @@ namespace Project_Omni_Ride_Network {
         #region Constructor
 
         public Startup(IConfiguration configuration) {
+            Configuration = configuration;
         }
 
         #endregion
@@ -31,6 +35,7 @@ namespace Project_Omni_Ride_Network {
         public void ConfigureServices(IServiceCollection services) {
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Framework.Construction.Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<DataStore>(provider => new DataStore(provider.GetService<ApplicationDbContext>()));
 
             // AddIdentity adds cookie based authentication
             // Adds scoped classes for things like UserManager, SignInManager, PasswordHashers...
@@ -44,6 +49,26 @@ namespace Project_Omni_Ride_Network {
 
                 //Adds a provider for random keys and hashes
                 .AddDefaultTokenProviders();
+
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            .AddJwtBearer(options => {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters() {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:Audience"],
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
+
+            services.ConfigureApplicationCookie(options => options.LoginPath = $"/{Routes.LOGIN}");
 
             services.AddControllersWithViews();
             services.AddMvc();

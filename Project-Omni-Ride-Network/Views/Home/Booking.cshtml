@@ -1,83 +1,85 @@
 @{
     ViewData["Title"] = "Booking";
 }
-<div class="container fahrzeuginfo">
-	<div class="attributes">
-		<div class="container row">
-			<div class="carattribute">
-				<mark class="tabellenueberschrift">Anbieter</mark> <br> @Model.Vehicle.Firm
+<div class="booki">
+	<div class="container fahrzeuginfo">
+		<div class="attributes">
+			<div class="container row">
+				<div class="carattribute">
+					<mark class="tabellenueberschrift">Anbieter</mark> <br> @Model.Vehicle.Firm
+				</div>
+				<div id="category" class="carattribute">
+					<mark class="tabellenueberschrift">Kategorie</mark> <br> @(Model.Vehicle.Category == 1 ? "Leih" : "Sharing") - Fahrzeug
+				</div>
 			</div>
-			<div id="category" class="carattribute">
-				<mark class="tabellenueberschrift">Kategorie</mark> <br> @(Model.Vehicle.Category == 1 ? "Leih" : "Sharing") - Fahrzeug
+			<div class="container row">
+				<div class="carattribute">
+					<mark class="tabellenueberschrift">Automarke</mark> <br> @Model.Vehicle.Brand
+				</div>
+				<div class="carattribute">
+					<mark class="tabellenueberschrift">Modell</mark> <br> @Model.Vehicle.Model
+				</div>
+				<div class="carattribute">
+					<mark class="tabellenueberschrift">Farbe</mark> <br> @Model.Vehicle.Color
+				</div>
 			</div>
 		</div>
-		<div class="container row">
-			<div class="carattribute">
-				<mark class="tabellenueberschrift">Automarke</mark> <br> @Model.Vehicle.Brand
-			</div>
-			<div class="carattribute">
-				<mark class="tabellenueberschrift">Modell</mark> <br> @Model.Vehicle.Model
-			</div>
-			<div class="carattribute">
-				<mark class="tabellenueberschrift">Farbe</mark> <br> @Model.Vehicle.Color
-			</div>
-		</div>
-	</div>
-					
-	<div>
-		<img src="@Model.Vehicle.PathToImg" width="120em" height="120em"/>
-		<p><mark class="tabellenueberschrift">Kennzeichen:</mark> <br> @Model.Vehicle.Plate</p>
-	</div>
-</div>
-
-<br />
-
-<div class="conatainer fahrzeuginfo">
-	<script src="~/js/preisberechnung.js"></script>
-	<form onchange="inputchange('@Model.Vehicle.BasicPrice', '@Model.Vehicle.PriceHD', '@Model.Vehicle.PriceInsu')" method="POST" action="">
+						
 		<div>
-			<lable class="booking lable">Basispreis:</lable>
-			&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
-
-			<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
-
-			@if(Model.Vehicle.Category == 1){
-				<input id="pickupdate" class="dateinput" type="date"/> <br /><br />
-			} else {
-				<input id="pickupdate" class="dateinput" type="datetime-local"/> <br /><br />
-			}
-
-
-			<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
-		
-			@if(Model.Vehicle.Category == 1){
-				<input id="returndate" class="dateinput" type="date" /> <br /><br />
-			} else {
-				<input id="returndate" class="dateinput" type="datetime-local"/> <br /><br />
-			}
+			<img src="@Model.Vehicle.PathToImg" width="120em" height="120em"/>
+			<p><mark class="tabellenueberschrift">Kennzeichen:</mark> <br> @Model.Vehicle.Plate</p>
 		</div>
+	</div>
 
-		<div class="flex">
-			<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;
-		
+	<br />
+
+	<div class="conatainer fahrzeuginfo">
+		<script src="~/js/preisberechnung.js"></script>
+		<form onchange="inputchange('@Model.Vehicle.BasicPrice', '@Model.Vehicle.PriceHD', '@Model.Vehicle.PriceInsu')" method="POST" action="">
 			<div>
-				<input name="versicherung" id="vollkasko" onchange="checkinsurance($('#teilkasko'))" class="" type="checkbox" />
-				Vollkasko
-				<input name="versicherung" id="teilkasko" onchange="checkinsurance($('#vollkasko'))" class="" type="checkbox" />
-				Teilkasko<br />
-				<lable class="booking hinweis">(Teilkasko mit 500&euro; Selbstbeteiligung)</lable><br /><br />
-		
-				<input name="refuel" id="refuel" class="" type="checkbox" /> 
-				Refuel-Option<br />
+				<lable class="booking lable">Basispreis:</lable>
+				&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
+
+				<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
+
+				@if(Model.Vehicle.Category == 1){
+					<input id="pickupdate" class="dateinput" type="date"/> <br /><br />
+				} else {
+					<input id="pickupdate" class="dateinput" type="datetime-local"/> <br /><br />
+				}
+
+
+				<lable class="booking lable">R&uuml;ckgabedatum: </lable> &nbsp;
+			
+				@if(Model.Vehicle.Category == 1){
+					<input id="returndate" class="dateinput" type="date" /> <br /><br />
+				} else {
+					<input id="returndate" class="dateinput" type="datetime-local"/> <br /><br />
+				}
 			</div>
-		</div>
 
-		<div class="flex">
-			<lable class="booking lable">Gesamtpreis:</lable> &nbsp;
-		
-			<div id="gesamtpreis">@Model.Vehicle.BasicPrice</div> &euro;
-		</div> <br />
+			<div class="flex">
+				<lable class="booking lable">Zusatzbuchungen: </lable> &nbsp;
+			
+				<div>
+					<input name="versicherung" id="vollkasko" onchange="checkinsurance($('#teilkasko'))" class="" type="checkbox" />
+					Vollkasko
+					<input name="versicherung" id="teilkasko" onchange="checkinsurance($('#vollkasko'))" class="" type="checkbox" />
+					Teilkasko<br />
+					<lable class="booking hinweis">(Teilkasko mit 500&euro; Selbstbeteiligung)</lable><br /><br />
+			
+					<input name="refuel" id="refuel" class="" type="checkbox" /> 
+					Refuel-Option<br />
+				</div>
+			</div>
 
-		<input type="submit" class="sendbutton" value="Buchen"/>
-	</form>
+			<div class="flex">
+				<lable class="booking lable">Gesamtpreis:</lable> &nbsp;
+			
+				<div id="gesamtpreis">@Model.Vehicle.BasicPrice</div> &euro;
+			</div> <br />
+
+			<input type="submit" class="sendbutton" value="Buchen"/>
+		</form>
+	</div>
 </div>

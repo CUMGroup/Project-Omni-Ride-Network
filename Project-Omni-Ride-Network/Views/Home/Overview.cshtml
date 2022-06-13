@@ -1,4 +1,67 @@
 @{
     ViewData["Title"] = "Fahrzeuge";
 }
-<h1>Hello World</h1>
+<h1 class="home">Diese Fahrzeuge stehen zur Auswahl</h1>
+<div class="overview-grid">
+
+    <div class="filter" id="filterForm">
+        <h2>Filter</h2>
+        <label for="searchFilter">Suche</label>
+        <br />
+        <input id="searchFilter" type="text" />
+        <br />
+
+        <select id="categoryFilter">
+            <option value="">-</option>
+            <option value="1">Leihe</option>
+            <option value="2">Sharing</option>
+        </select>
+        <label for="categoryFilter">Kategorie</label>
+        <br>
+        <select id="brandFilter">
+            <option value="">-</option>
+            @foreach (var brand in Model.BrandFilterList) {
+                <option value="@brand">@brand</option>
+            }
+        </select>
+        <label for="brandFilter">Marke</label>
+        <br>
+
+        <select id="modelFilter">
+            <option value="">-</option>
+            @foreach (var m in Model.ModelFilterList) {
+                <option value="@m">@m</option>
+            }
+        </select>
+        <label for="modelFilter">Modell</label>
+        <br>
+
+        <select id="typeFilter">
+            <option value="">-</option>
+            <option value="1">Auto</option>
+            <option value="2">Fahrrad</option>
+            <option value="3">Scooter</option>
+            <option value="4">LWK</option>
+            <option value="5">Bus</option>
+        </select>
+        <label for="typeFilter">Typ</label>
+        <br>
+        <label for="minPriceFilter">Min. Preis</label>
+        <br />
+        <input id="minPriceFilter" type="number" step="0.01" />
+        <br>
+        <label for="maxPriceFilter">Max. Preis</label>
+        <br />
+        <input id="maxPriceFilter" type="number" step="0.01" />
+    </div>
+
+    <div class="prod">
+        <div id="listVehicles">
+            <!-- Gets generated via API Controller and Partial view : Views/Api/_overviewList.cshtml -->
+        </div>
+    </div>
+    <script>
+        let apiUrl = '@Url.Action("GetVehicleListView", "Api")';
+    </script>
+    <script src="~/js/overviewList.js"></script>
+</div>

@@ -1,27 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
 
     public class HomeController : Controller {
 
-        public HomeController() {
+        private readonly DataStore dbStore;
 
+        public HomeController(DataStore dbStore) {
+            this.dbStore = dbStore;
+            dbStore.EnsureDataStore();
         }
 
         public IActionResult Index() {
             return View();
         }
 
+
         #region Error Routes
 
-        [Route("error/404")]
+        [Route(Routes.ERROR_404)]
         public IActionResult Error404() {
             return View();
         }
 
-        [Route("error/{code:int}")]
+        [Route(Routes.ERROR_GENERIC)]
         public IActionResult Error(int code) {
-            // TODO maybe handle different error codes
+            TempData["ErrorCode"] = code;
             return View();
         }
 
@@ -29,86 +37,97 @@ namespace Project_Omni_Ride_Network {
 
         #region Vehicle Information Routes
 
-        [Route("overview")]
-        public IActionResult Overview() {
-            return View();
+        [Route(Routes.OVERVIEW)]
+        public async Task<IActionResult> Overview() {
+            List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
+            var modelList = vehicles.Select(m => m.Model).Distinct().OrderBy(e => e).ToList();
+            var brandList = vehicles.Select(b => b.Brand).Distinct().OrderBy(e => e).ToList();
+            return View(new OverviewViewModel() { 
+                Vehicles = vehicles,
+                ModelFilterList = modelList,
+                BrandFilterList = brandList
+            });
         }
 
-        [Route("booking/{id}")]
-        public IActionResult Booking(string id) {
-            //TODO Handle id -> Give to View Model
-            BookingViewModel test = new BookingViewModel(new Vehicle() {
-                VehicleId = id,
-                Type = 1,
-                BasicPrice = 50,
-                Brand = "Subuwu",
-                Model = "WRX STI",
-                Category = 1,
-                Color = "Korallblau 2",
-                Firm = "Bubatz SE",
-                Plate = "SUB-UWU",
-                PriceHD = 2.71828f,
-                PriceInsu = 3.1415f,
-                PathToImg = "/images/icon.png"
-                
-            }) ;
-            return View(test);
+        [Route(Routes.BOOKING)]
+        public async Task<IActionResult> Booking(string id) {
+            List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
+            var veh = vehicles.Where(e => id.Equals(e.VehicleId));
+            if (veh.Any())
+                return View(new BookingViewModel(veh.First()));
+            else
+                return NotFound();
+        }
+
+        [Route(Routes.BOOKING)]
+        [HttpPost]
+        public IActionResult PlaceOrder(string id) {
+            // TODO check form and place order in db
+            return Ok();
         }
 
         #endregion
 
         #region User Specific Routes
 
-        [Route("login")]
+        [Route(Routes.LOGIN)]
         public IActionResult Login() {
             return View();
         }
 
-        [Route("register")]
+        [Route(Routes.REGISTER)]
         public IActionResult Register() {
             return View();
         }
 
-        [Route("profile")]
+        [Route(Routes.PROFILE)]
         public IActionResult Profile() {
             return View();
         }
 
-        [Route("rating")]
-        public IActionResult Rating() {
-            return View();
+        [Route(Routes.RATING)]
+        public async Task<IActionResult> Rating() {
+            List<Rating> ratings = await dbStore.GetRatingsAsync();
+            return View(new RatingViewModel() { Ratings = ratings });
+        }
+
+        [Route(Routes.RATING)]
+        [HttpPost]
+        public IActionResult AddRating() {
+            // TODO check form and add rating to db
+            return Ok();
         }
 
         #endregion
 
         #region Page Information Routes
 
-        [Route("contact")]
+        [Route(Routes.CONTACT)]
         public IActionResult Contact() {
             return View();
         }
 
-        [Route("karriere")]
+        [Route(Routes.KARRIERE)]
         public IActionResult Karriere() {
             return View();
         }
 
-        [Route("datenschutz")]
+        [Route(Routes.DATENSCHUTZ)]
         public IActionResult Datenschutz() {
             return View();
         }
 
-        [Route("partner")]
+        [Route(Routes.PARTNER)]
         public IActionResult Partner() {
             return View();
         }
 
-        [Route("impressum")]
+        [Route(Routes.IMPRESSUM)]
         public IActionResult Impressum() {
             return View();
         }
 
-        [Route("agb")]
+        [Route(Routes.AGB)]
         public IActionResult AGB() {
             return View();
         }

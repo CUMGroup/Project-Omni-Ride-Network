@@ -1,0 +1,31 @@
+﻿@model List<Vehicle>
+@foreach (var veh in Model) {
+    <div class="child">
+        <div class="container fahrzeuginfo">
+            <div class="attributes">
+                <div class="container row">
+                    <div class="carattribute">
+                        <mark class="tabellenueberschrift">Anbieter</mark> <br> @veh.Firm
+                    </div>
+                    <div class="carattribute">
+                        <mark class="tabellenueberschrift">Kategorie</mark> <br> @veh.GetCategoryAsString()
+                    </div>
+                </div>
+                <div class="container row">
+                    <div class="carattribute">
+                        <mark class="tabellenueberschrift">Marke</mark> <br> @veh.Brand
+                    </div>
+                    <div class="carattribute">
+                        <mark class="tabellenueberschrift">Modell</mark> <br> @veh.Model
+                    </div>
+                    <div class="carattribute">
+                        <mark class="tabellenueberschrift">Grundpreis</mark> <br> @veh.BasicPrice
+                    </div>
+                </div>
+            </div>
+            <img src="@veh.PathToImg" width="120em" height="120em" />
+            <div class="break"></div>
+            <a class="button" href="/booking/@veh.VehicleId">Zur Buchung</a>
+        </div>
+    </div>
+}
