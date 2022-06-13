@@ -508,3 +508,61 @@ div.break {
 .error h1 {
 	color: var(--deep_red);
 }
+
+/*Login*/
+form.loginpage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/*border: 2pt solid var(--border);*/
+	padding: 10pt;
+}
+
+lable.loginpage {
+	color: var(--documents);
+	margin-top: 15pt;
+}
+
+hr.loginpage {
+	color: var(--column_bright);
+}
+
+input.loginpage {
+	color: var(--font);
+	margin: 15pt;
+	font-size: 14pt;
+}
+
+input.loginpage.user {
+	background: var(--background);
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	background: var(--background);
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
+}
+
+
+input.loginpage.submit {
+	background: var(--deep_red);
+	padding: 5pt;
+	font-size: 14pt;
+}
+
+input.loginpage.submit:hover {
+	background: var(--bright_red);
+	padding: 5pt;
+	font-size: 14pt;
+}
