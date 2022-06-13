@@ -59,9 +59,9 @@ namespace Project_Omni_Ride_Network {
                 return NotFound();
         }
 
-        [Route(Routes.BOOKING)]
+        [Route(Routes.BOOKING + "/bookingaction")]
         [HttpPost]
-        public IActionResult PlaceOrder(string id) {
+        public IActionResult PlaceOrder(string id, [FromForm]Order orderModel) {
             // TODO check form and place order in db
             return Ok();
         }
