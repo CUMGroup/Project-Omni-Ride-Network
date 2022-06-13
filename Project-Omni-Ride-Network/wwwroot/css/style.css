@@ -590,3 +590,16 @@ form.register {
 	border: 2pt solid var(--border);
 	align-items: flex-start;
 }
+
+.registerpage.passwordRQMTS{
+	color: var(--column_bright);
+	font-size: 10pt;
+}
+
+input.loginpage.user.RPTincorrect {
+	border-bottom: 2pt solid var(--deep_red);
+}
+
+div.RPTincorrect {
+	color: var(--deep_red);
+}

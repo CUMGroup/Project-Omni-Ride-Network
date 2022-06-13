@@ -7,7 +7,7 @@
     Erstell ein Account um grenzenlose Reisefreiheit zu genie&szlig;en.
 </p>
 
-<script src="~/js/register.js" ></script>
+<script type="text/javascript" src="~/js/register.js" ></script>
 <form method="post" class="register" action="@Url.Action("RegisterAction", "Home")">
     <div class="registerbox">
         <p>
@@ -18,10 +18,14 @@
         <input type="email" class="loginpage user" name="Email" id="Email" autofocus="autofocus" required="required"/>
 
         <lable class="loginpage" for="Password">&Uuml;berlege dir ein Passwort</lable>
-        <input type="password" class="loginpage user" name="Password" id="Password" required="required"/>
+        <p class="registerpage passwordRQMTS">
+            (Passwort Vorgaben: max 6 Zeichen, 1 Zahl, 1 Gro&szlig;buchstabe, 1 nicht-alphanumerisches Zeichen)
+        </p>
+        <input type="password" onblur="checkPW_norm($('#Password')[0].value)" class="loginpage user" name="Password" id="Password" required="required"/>
 
-        <lable class="loginpage" for="PasswordRPT">Bitte wiederhole dein Passwort</lable>
-        <input type="password" class="loginpage user" name="PasswordRPT" id="PasswordRPT" required="required"/>
+        <lable class="loginpage" for="PasswordRPT">Bitte wiederhole dein Passwort:</lable>
+        <input type="password" onblur="checkPW_RPT($('#Password')[0].value, $('#PasswordRPT')[0].value)" class="loginpage user" name="PasswordRPT" id="PasswordRPT" required="required"/>
+        <div id="RPTincorrect" class="RPTincorrect"></div>
     </div>
 
     <br />
