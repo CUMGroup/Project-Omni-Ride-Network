@@ -525,7 +525,7 @@ lable.loginpage {
 }
 
 hr.loginpage {
-	color: var(--column_bright);
+	border: 1pt solid var(--column_bright);
 }
 
 input.loginpage {
@@ -540,19 +540,6 @@ input.loginpage.user {
 	border-bottom: 2pt solid var(--column_bright);
 }
 
-/*input[type="text"] {
-	background-color: transparent;
-	border: 0px;
-	outline: none;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
-	
-	color: transparent;
-	cursor: default;
-}*/
-
-
 input.loginpage.submit {
 	background: var(--deep_red);
 	padding: 5pt;
@@ -564,6 +551,7 @@ input.loginpage.submit:hover {
 	padding: 5pt;
 	font-size: 14pt;
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
