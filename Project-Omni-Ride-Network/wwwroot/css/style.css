@@ -276,14 +276,12 @@ input[type="datetime-local"] {
 }
 
 .sendbutton {
-	padding: 10pt;
+	padding: 10pt 30pt;
 	background: var(--deep_red);
 	border: 1pt solid var(--font);
 	text-align: center;
-	user-select: none;
-	margin-left: 10%;
-	margin-right: 10%;
-	margin-top: 5%;
+	color: var(--font);
+	font-size: 14pt;
 }
 
 .sendbutton:hover {
