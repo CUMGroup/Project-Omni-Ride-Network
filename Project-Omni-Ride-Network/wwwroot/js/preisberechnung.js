@@ -20,13 +20,10 @@
 
 
 function inputchange(basicprice, priceHD, priceIns) {
-    console.log("change happened");
-
     let gesamtpreis;
     gesamtpreis = fixNumber(basicprice);
 
     if ($('#vollkasko')[0].checked) {
-        console.log(fixNumber(priceIns));
         gesamtpreis += fixNumber(priceIns);
     } else if ($('#teilkasko')[0].checked){
         gesamtpreis += 50;
@@ -62,12 +59,10 @@ function calculateDate(pickupdate, returndate) {
         returndate = new Date(returndate);
 
         let time = Math.round((returndate - pickupdate) / 1000 / 60 / 60);
-        console.log(time);
 
         if ($('#category')[0].innerText.includes("Sharing")) {
             return time;
         } else {
-            console.log(time / 24);
             return (time / 24);
         }
     }
