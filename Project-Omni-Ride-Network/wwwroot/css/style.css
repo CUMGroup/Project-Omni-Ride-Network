@@ -570,3 +570,8 @@ select:-webkit-autofill:focus {
 	color: var(--deep_red);
 	text-align: center;
 }
+
+/*Register - Register also uses styling from the login but here are spicific ones that
+	are only for the register page (so far)
+*/
+

@@ -1,22 +1,50 @@
 @{
     ViewData["Title"] = "Registrieren";
 }
-<h1>Hello World</h1>
+<h1 class="home">Registrierung</h1>
+<p class="home">
+    Einfach, schnell und kostenlos! <br /> 
+    Erstell ein Account um grenzenlose Reisefreiheit zu genie&szlig;en.
+</p>
 
 <script src="~/js/register.js" ></script>
-<form method="post" action="@Url.Action("RegisterAction", "Home")">
-    <input name="Email" />
-    <input name="Password" />
-    <input name="KdTitle" />
-    <input name="KdSurname" />
-    <input name="KdName" />
-    <input name="KdBirth" type="date" />
-    <input name="Paymnt" />
-    <input type="submit" />
+<form method="post" class="loginpage" action="@Url.Action("RegisterAction", "Home")">
+    
+    <lable class="loginpage" for="Email">Gib deine E-Mail Adresse an</lable>
+    <input class="loginpage user" name="Email" />
+
+    <lable class="loginpage" for="Password">Lege ein Passwort f&uuml;r dein Account fest!</lable>
+    <input class="loginpage user" name="Password" />
+
+    <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden? (Herr, Frau)</lable>
+    <input class="loginpage user" name="KdTitle" />
+
+    <lable class="loginpage" for="KdSurname">Nachname</lable>
+    <input class="loginpage user" name="KdSurname" />
+
+    <lable class="loginpage" for="KdName">Vorname</lable>
+    <input class="loginpage user" name="KdName" />
+
+    <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
+    <input class="loginpage user" name="KdBirth" type="date" />
+
+    <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
+    <input class="loginpage user" name="Paymnt" />
+
+    @if (ViewData["ApiStatus"].ToString() == "Error")
+    {
+        <p class="loginError">
+            Oops, etwas scheint wohl schiefgelaufen zu sein :/ <br>
+            Entweder existiert der Benutzer bereits oder etwas Stimmt bei den Daten nicht.
+            Bitte &uuml;berbr&uuml;fe, ob du alles richtig eingetragen hast.
+        </p>
+    }
+
+    <input class="loginpage submit" type="submit" value="Registrieren"/>
 </form>
 <hr />
-<a href="/login">Go to Login</a>
+Hast du schon ein Konto bei uns? Dann <a href="/login">melde dich hier an.</a>
 
 <script>
-    alert("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
+    console.log("@(ViewData["ApiStatus"])\n@(ViewData["ApiMessage"])")
 </script>
