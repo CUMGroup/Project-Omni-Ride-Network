@@ -125,8 +125,43 @@ namespace Project_Omni_Ride_Network {
         }
 
         [Route(Routes.REGISTER)]
-        public async Task<IActionResult> Register() {
+        public async Task<IActionResult> Register(ApiResponse response) {
             return View(await PrepareBaseViewModel ());
+        }
+
+        [HttpPost]
+        [Route(Routes.REGISTER + Routes.ACTION_SUFFIX)]
+        public async Task<IActionResult> RegisterAction([FromForm] RegisterApiModel model) {
+            var userExists = await userManager.FindByEmailAsync(model.Email);
+            if (userExists != null)
+                return RedirectToAction("Register","Home", new ApiResponse { Status = "Error", Message = "User already exists!" });
+
+            ApplicationUser user = new ApplicationUser() {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Email
+            };
+            {
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            }
+            Customer customer = new Customer {
+                KdBirth = model.KdBirth,
+                KdName = model.KdName,
+                KdSurname = model.KdSurname,
+                KdTitle = model.KdTitle,
+                Paymnt = model.Paymnt,
+                User = user,
+                UserId = await userManager.GetUserIdAsync(user)
+            };
+            try {
+                await dbStore.AddCustomerAsync(customer);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
         [Route(Routes.PROFILE)]
