@@ -93,8 +93,12 @@ namespace Project_Omni_Ride_Network {
         #region User Specific Routes
 
         [Route(Routes.LOGIN)]
-        public async Task<IActionResult> Login(string ReturnUrl) {
+        public async Task<IActionResult> Login(ApiResponse response, string ReturnUrl) {
             ViewData["ReturnUrl"] = ReturnUrl ?? "";
+            if (response == null || response.Status == null || response.Message == null)
+                response = new ApiResponse { Status = "100", Message = "" };
+            ViewData["ApiStatus"] = response.Status;
+            ViewData["ApiMessage"] = response.Message;
             return View(await PrepareBaseViewModel ());
         }
 
@@ -116,7 +120,7 @@ namespace Project_Omni_Ride_Network {
                 else
                     return RedirectToAction("Index", "Home");
             }
-            return Unauthorized(await PrepareBaseViewModel ());
+            return RedirectToAction("Login", "Home", new ApiResponse { Status = "Error", Message = "User information incorrect" });
          }
 
         [Route(Routes.LOGOUT + Routes.ACTION_SUFFIX)]
