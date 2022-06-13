@@ -175,7 +175,17 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.PROFILE)]
         public async Task<IActionResult> Profile() {
-            return View(await PrepareBaseViewModel ());
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+            var user = await userManager.FindByEmailAsync(User.Identity.Name);
+            if(user == null) {
+                return RedirectToAction("Index", "Home");
+            }
+            var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
+            if(customer == null || customer.Count() == 0) {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(new ProfileViewModel(await PrepareBaseViewModel (), customer.First()));
         }
 
         [Route(Routes.RATING)]
