@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,10 +11,12 @@ namespace Project_Omni_Ride_Network {
     public class HomeController : Controller {
 
         private readonly DataStore dbStore;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(DataStore dbStore) {
+        public HomeController(DataStore dbStore, UserManager<ApplicationUser> userManager) {
             this.dbStore = dbStore;
             dbStore.EnsureDataStore();
+            this.userManager = userManager;
         }
 
         public IActionResult Index() {
@@ -61,9 +65,30 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.BOOKING + "/bookingaction")]
         [HttpPost]
-        public IActionResult PlaceOrder(string id, [FromForm]Order orderModel) {
-            // TODO check form and place order in db
-            return Ok();
+        [Authorize]
+        public async Task<IActionResult> PlaceOrder(string id, [FromForm]Order orderModel) {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToRoute("Login", "Home");
+            var user = await userManager.FindByEmailAsync(User.Identity.Name);
+            if(user == null)
+                return RedirectToRoute("Login", "Home");
+            var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
+            if (customer == null || customer.Count() == 0)
+                return RedirectToRoute("Login", "Home");
+            orderModel.User = customer.First();
+
+            var vehicle = (await dbStore.GetAllVehiclesAsync()).Where(e => e.VehicleId.Equals(id));
+            if (vehicle == null || vehicle.Count() == 0)
+                return NotFound();
+            orderModel.Vehicle = vehicle.First();
+
+            try {
+                await dbStore.AddOrderAsync(orderModel);
+            } catch(DatabaseAPIException e) {
+                return Error(418);
+            }
+
+            return RedirectToRoute("Index", "Home");
         }
 
         #endregion
@@ -81,6 +106,7 @@ namespace Project_Omni_Ride_Network {
         }
 
         [Route(Routes.PROFILE)]
+        [Authorize]
         public IActionResult Profile() {
             return View();
         }
@@ -93,6 +119,7 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.RATING)]
         [HttpPost]
+        [Authorize]
         public IActionResult AddRating() {
             // TODO check form and add rating to db
             return Ok();

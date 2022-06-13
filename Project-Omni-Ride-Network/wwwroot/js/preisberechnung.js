@@ -36,6 +36,32 @@ function inputchange(basicprice, priceHD, priceIns) {
     gesamtpreis += dates * fixNumber(priceHD);
 
     $('#gesamtpreis')[0].innerText = gesamtpreis.toFixed(2);
+
+    calcOptNumber();
+}
+
+function calcOptNumber() {
+    let v = $('#vollkasko')[0].checked;
+    let t = $('#teilkasko')[0].checked;
+    let r = $('#refuel')[0].checked;
+    let opt = 0
+
+    if (!v && !t && !r)
+        opt = 0;
+    else if (v && !t && !r)
+        opt = 1;
+    else if (!v && t && !r)
+        opt = 2;
+    else if (!v && !t && r)
+        opt = 3;
+    else if (v && !t && r)
+        opt = 4;
+    else if (!v && t && r)
+        opt = 5;
+    else
+        opt = -1;
+
+    $('#optAdd').val(opt)
 }
 
 function checkinsurance(uncheck) {
