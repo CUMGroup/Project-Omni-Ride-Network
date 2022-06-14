@@ -603,3 +603,17 @@ input.loginpage.user.RPTincorrect {
 .RPTincorrect {
 	color: var(--deep_red);
 }
+
+select.loginpage {
+	color: var(--font);
+	margin-top: 15pt;
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+}
+
+select {
+	background: transparent;
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
+}

@@ -35,8 +35,11 @@
             2. Jetzt nur noch ein paar Details, damit wir wissen, wer du bist:
         </p>
 
-        <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden? (Herr, Frau)</lable>
-        <input class="loginpage user" name="KdTitle" id="KdTitle" required="required"/>
+        <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden?</lable>
+        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required"/>
+        <option>Frau</option>
+        <option>Herr</option>
+        <option>AAAAAAAAAAA</option>
 
         <lable class="loginpage" for="KdSurname">Nachname</lable>
         <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required"/>
@@ -50,7 +53,11 @@
         <div id="underage" class="RPTincorrect"></div>
 
         <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
-        <input class="loginpage user" name="Paymnt" id="Paymnt" required="required"/>
+        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required"/>
+        <option value="1">PayPal</option>
+        <option value="2">Kredietkarte</option>
+        <option value="3">Sofortueberweisung</option>
+    
     </div>
 
     @if (ViewData["ApiStatus"].ToString() == "Error")
@@ -62,7 +69,7 @@
         </p>
     }
 
-    <input class="loginpage submit" type="submit" value="Registrieren"/>
+    <input class="loginpage submit" type="submit" onclick="check_all()" value="Registrieren"/>
 </form>
 <hr class="loginpage"/>
 Hast du schon ein Konto bei uns? Dann <a class="intext" href="/login">melde dich hier an.</a>
