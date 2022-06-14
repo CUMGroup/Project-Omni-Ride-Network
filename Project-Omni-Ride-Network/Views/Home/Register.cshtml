@@ -43,10 +43,10 @@
         </select>
 
         <lable class="loginpage" for="KdSurname">Nachname</lable>
-        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" pattern="[a-zA-Z]+"/>
+        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" pattern="^(?:[a-zA-Z]+[\s-]?[a-zA-Z]+)+$"/>
 
         <lable class="loginpage" for="KdName">Vorname</lable>
-        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" pattern="[a-zA-Z]+"/>
+        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" pattern="^(?:[a-zA-Z]+[\s-]?[a-zA-Z]+)+$"/>
 
         <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
         <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
