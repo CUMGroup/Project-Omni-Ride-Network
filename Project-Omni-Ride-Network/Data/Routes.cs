@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 namespace Project_Omni_Ride_Network {
     public static class Routes {
 
+        public const string ACTION_SUFFIX = "action";
+
         public const string DEBUG_TESTDATA = "addtestdata";
 
         public const string ERROR_404 = "error/404";
@@ -15,6 +17,7 @@ namespace Project_Omni_Ride_Network {
         public const string BOOKING = "booking/{id}";
 
         public const string LOGIN = "login";
+        public const string LOGOUT = "logout";
         public const string REGISTER = "register";
         public const string PROFILE = "profile";
         public const string RATING = "rating";

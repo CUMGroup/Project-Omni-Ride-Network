@@ -50,12 +50,7 @@ namespace Project_Omni_Ride_Network {
                 //Adds a provider for random keys and hashes
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication(options => {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-
+            services.AddAuthentication()
             .AddJwtBearer(options => {
                 options.SaveToken = true;
                 options.RequireHttpsMetadata = false;
@@ -68,7 +63,10 @@ namespace Project_Omni_Ride_Network {
                 };
             });
 
-            services.ConfigureApplicationCookie(options => options.LoginPath = $"/{Routes.LOGIN}");
+            services.ConfigureApplicationCookie(options => {
+                options.LoginPath = $"/{Routes.LOGIN}"; 
+                options.ExpireTimeSpan = TimeSpan.FromHours(3); 
+            });
 
             services.AddControllersWithViews();
             services.AddMvc();
@@ -80,9 +78,9 @@ namespace Project_Omni_Ride_Network {
 
             app.UseDnaFramework();
 
-            app.UseStatusCodePagesWithReExecute("/error/{0}");
-
             app.UseAuthentication();
+
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
