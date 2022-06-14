@@ -600,6 +600,6 @@ input.loginpage.user.RPTincorrect {
 	border-bottom: 2pt solid var(--deep_red);
 }
 
-div.RPTincorrect {
+.RPTincorrect {
 	color: var(--deep_red);
 }

@@ -12,7 +12,15 @@
 }
 
 function checkPW_norm(pw) {
-    if (pw.includes()) {
+    let password = "" + pw;
+    let criteria = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
 
+    if (password.length < 6 || !(password.match(criteria))) {
+        $('#Password')[0].classList = "loginpage user RPTincorrect";
+        $('#pwCriteria')[0].classList = "registerpage RPTincorrect";
+    }
+    else {
+        $('#Password')[0].classList = "loginpage user";
+        $('#pwCriteria')[0].classList = "registerpage passwordRQMTS";
     }
 }
