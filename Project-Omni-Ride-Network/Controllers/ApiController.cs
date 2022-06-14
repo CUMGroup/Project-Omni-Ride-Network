@@ -24,7 +24,6 @@ namespace Project_Omni_Ride_Network {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
-        private ApplicationDbContext ctx;
 
         public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
             this.userManager = userManager;
@@ -103,7 +102,7 @@ namespace Project_Omni_Ride_Network {
             } catch (DatabaseAPIException e) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
-            Task responseMail = MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -223,8 +222,8 @@ namespace Project_Omni_Ride_Network {
                 var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
 
                 try {
-                    Task getCustomerMail = MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    Task sendResponseMail = MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
                 } catch (Exception ex) {
                     return View();
                 }
