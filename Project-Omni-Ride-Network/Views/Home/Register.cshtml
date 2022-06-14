@@ -1,4 +1,82 @@
 @{
-    ViewData["Title"] = "Karriere";
+    ViewData["Title"] = "Registrieren";
 }
-<h1>Hello World</h1>
+<h1 class="home">Registrierung</h1>
+<p>
+    Einfach, schnell und kostenlos! <br /> 
+    Erstell ein Account um grenzenlose Reisefreiheit zu genie&szlig;en.
+</p>
+
+<script type="text/javascript" src="~/js/register.js" ></script>
+<form method="post" class="register" onsubmit="return check_all()"  action="@Url.Action("RegisterAction", "Home")">
+    <div class="registerbox">
+        <p>
+            1. Leg deine Anmeldedaten fest:
+        </p>
+
+        <lable class="loginpage" for="Email">Gib deine E-Mail Adresse an</lable>
+        <input type="email" class="loginpage user" name="Email" id="Email" autofocus="autofocus" required="required"/>
+
+        <lable class="loginpage" for="Password">&Uuml;berlege dir ein Passwort</lable>
+        <p id="pwCriteria" class="registerpage passwordRQMTS">
+            (Passwort Vorgaben: mind. 6 Zeichen, 1 Zahl, 1 Gro&szlig;buchstabe, 1 nicht-alphanumerisches Zeichen)
+        </p>
+        <input type="password" onblur="checkPW_norm($('#Password')[0].value)" class="loginpage user" name="Password" id="Password" required="required"/>
+
+        <lable class="loginpage" for="PasswordRPT">Bitte wiederhole dein Passwort:</lable>
+        <input type="password" onblur="checkPW_RPT($('#Password')[0].value, $('#PasswordRPT')[0].value)" class="loginpage user" name="PasswordRPT" id="PasswordRPT" required="required"/>
+        <div id="RPTincorrect" class="RPTincorrect"></div>
+    </div>
+
+    <br />
+
+    <div class="registerbox">
+        <p>
+            2. Jetzt nur noch ein paar Details, damit wir wissen, wer du bist:
+        </p>
+
+        <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden?</lable>
+        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required">
+            <option>Frau</option>
+            <option>Herr</option>
+            <option>AAAA</option>
+        </select>
+
+        <lable class="loginpage" for="KdSurname">Nachname</lable>
+        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" maxlength="20" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
+
+        <lable class="loginpage" for="KdName">Vorname</lable>
+        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" maxlength="15" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
+
+        <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
+        <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
+
+        <div id="underage" class="RPTincorrect"></div>
+
+        <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
+        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required">
+            <option value="1">PayPal</option>
+            <option value="2">Kreditkarte</option>
+            <option value="3">Sofort&uuml;berweisung</option>
+        </select>
+    </div>
+
+    @if (ViewData["ApiStatus"].ToString() == "Error")
+    {
+        <p class="loginError">
+            Oops, etwas scheint wohl schiefgelaufen zu sein :/ <br><br>
+            Entweder existiert der Benutzer bereits oder etwas Stimmt bei den Daten nicht.
+            Bitte &uuml;berbr&uuml;fe, ob du alles richtig eingetragen hast.
+        </p>
+    }
+
+    <input class="loginpage submit" type="submit" value="Registrieren"/>
+
+    <p id="disclaimer" class="registerpage passwordRQMTS">
+        Mit klicken auf "Registrieren" gibtst du dich mit unseren AGBs und Datenschutz einverstanden. <br />
+        Du bist dir bewusst, dass diese Seite nur ein Hochschulprojekt ist und dein Account, sowie deine Aktivit&auml;ten nicht die reale Welt beeinflussen. 
+        Deine angegeben Daten werden nicht auf Richtigkeit &uuml;berpr&umml;ft und liegen in unserer pers&ouml;nlichen Datenbank. Sie werden nicht weiter verarbeitet.
+    </p>
+</form>
+<hr class="loginpage"/>
+Hast du schon ein Konto bei uns? Dann <a class="intext" href="/login">melde dich hier an.</a>
