@@ -85,7 +85,7 @@ namespace Project_Omni_Ride_Network {
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> PlaceOrder(string id, [FromForm]Order orderModel) {
-            if (!User.Identity.IsAuthenticated)
+                if (!User.Identity.IsAuthenticated)
                 return RedirectToRoute("Login", "Home");
             var user = await userManager.FindByEmailAsync(User.Identity.Name);
             if(user == null)
@@ -103,10 +103,10 @@ namespace Project_Omni_Ride_Network {
             try {
                 await dbStore.AddOrderAsync(orderModel);
             } catch(DatabaseAPIException e) {
-                return Error(418);
+                return await Error(418);
             }
 
-            return RedirectToRoute("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         #endregion
@@ -136,9 +136,12 @@ namespace Project_Omni_Ride_Network {
                 decodedUrl = HttpUtility.UrlDecode(ReturnUrl);
 
             if (res.Succeeded) {
-                if (Url.IsLocalUrl(decodedUrl))
+                if (Url.IsLocalUrl(decodedUrl)) {
+                    var u = decodedUrl.Split('/');
+                    if (u != null && u.Length == 4 && u[1].ToLower().Equals("booking") && u[3].ToLower().Equals("bookingaction"))
+                        decodedUrl = "/" + u[1] + "/" + u[2];
                     return Redirect(decodedUrl);
-                else
+                } else
                     return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Login", "Home", new ApiResponse { Status = "Error", Message = "User information incorrect" });
