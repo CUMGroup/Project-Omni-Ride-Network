@@ -59,13 +59,13 @@ nav {
 	transition: all 500ms cubic-bezier(0.675, 0.170, 0.245, 0.795);
 }
 
-nav ul{
+nav ul {
+	list-style: none;
 	display: flex;
 	flex-wrap: wrap;
-	list-style: none;
 }
 
-nav ul li{
+nav .nav_left ul li, .login-field{
 	padding: 10pt;
 	margin: 5pt;
 	border-bottom: 2pt solid var(--border);
@@ -77,15 +77,15 @@ a{
 	color: var(--font);
 }
 
-nav ul li:hover{
+nav .nav_left ul li:hover {
 	background: var(--column_dark);
 	border-bottom: 2pt solid var(--deep_red);
 }
-nav ul li.active{
+nav .nav_left ul li.active {
 	background: var(--column_dark);
 	border-bottom: 2pt solid var(--bright_red);
 }
-nav ul li a {
+nav .nav_left ul li a,  .login .login-field a {
 	padding: 2em;
 	margin: -2em;
 }
@@ -94,11 +94,11 @@ nav ul li a {
 	float: left;
 }
 
-.login-field:hover{
+.login-field:hover {
 	background: var(--bright_red);
 	border-width: 0pt;
 }
-.login-field{
+.login-field, .prof-menu div:nth-of-type(1) {
 	background: var(--column_bright);
 	border-width: 0pt;
 }
@@ -108,11 +108,67 @@ nav ul li a {
 	float: right;
 }
 
+/* Profile Header Menu  */
+.user-menu-display {
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 10em;
+	font-size: 1em;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.prof-menu ul {
+	display: none;
+	margin: 0;
+	padding: 0;
+	background-color: var(--column_bright);
+	border: 1px solid var(--accents);
+	box-shadow: 0px 1px 10px rgb(0 0 0 / 20%);
+	border-radius: 5px;
+}
+
+.prof-menu:hover ul {
+	display: inline-block;
+	position:absolute;
+}
+
+.prof-menu ul li {
+	list-style: none;
+	padding: 0;
+	align-items: center;
+}
+
+.prof-menu ul li a {
+	width: 125px;
+	display: flex;
+	padding: 5px 10px;
+	cursor: pointer;
+	align-items: center;
+	color: var(--font);
+}
+
+.prof-menu ul li:hover {
+	background: var(--column_dark);
+	border-bottom: 2pt solid var(--deep_red);
+}
+
+.prof-menu ul li a {
+	height: 32px;
+}
+
+.user-menu-display {
+	margin: 5pt;
+	margin-bottom: 0;
+	padding: 10pt;
+}
 
 /*Scrollbar and main ------------------------------------------------------------*/
 body::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
-    background-color: var(--column_dark);
+	-webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
+	background-color: var(--column_dark);
 }
  
  body::-webkit-scrollbar {
@@ -176,11 +232,19 @@ img.img-menu-button {
 	body {
 		font-size: 90%;
 	}
+
+	.login {
+		margin-right: 0;
+	}
 }
 
 @media screen and (min-width:670px) {
 	nav.nav {
 		display: block !important;
+	}
+
+	.login ul {
+		padding-left: 0;
 	}
 }
 
@@ -204,16 +268,25 @@ img.img-menu-button {
 		display:block;
 		float:none;
 	}
-	nav ul{
+	nav .nav_left ul, nav ul.unauth {
 		display: block;
-		flex-wrap:unset;
+		flex-wrap: unset;
 		margin: 0;
-		padding:0;
+		padding: 0;
 	}
 	nav .login {
 		display:block;
 		margin: 0;
 		float:none;
+	}
+
+	nav .login ul {
+		padding:0;
+		margin:0;
+	}
+
+	.user-menu-display {
+		justify-content: left;
 	}
 
 }
@@ -314,7 +387,165 @@ a:hover.intext{
   box-shadow: inset 200pt 0 0 0 var(--column_bright);
   color: var(--font);
 }
+/*booking----------------------------------------------*/
 
+.booki .fahrzeuginfo{
+	justify-content: space-around;
+	align-items:flex-end;
+	flex-wrap: wrap-reverse;
+	border: 2pt solid var(--border);
+	padding: 1em;
+	align-self: center;
+}
+
+.booki .row{
+	display: flex;
+	align-items:flex-start;
+	justify-content: space-between;
+}
+
+
+/* Overview */
+
+.overview-grid {
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(12,1fr);
+	grid-template-rows: 1fr;
+}
+
+.overview-grid .filter {
+	background-color:var(--column_bright);
+	border: 2pt solid var(--border);
+	padding: 1em;
+}
+
+.filter h2 {
+	text-align: center;
+}
+
+.filter input, .filter select {
+	margin-bottom: 1em;
+}
+
+.overview-grid .prod .child {
+	background-color: var(--column_bright);
+	text-align: left;
+	border: 2pt solid var(--border);
+}
+
+.prod .container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.prod .fahrzeuginfo {
+	justify-content: space-between;
+	align-items: flex-end;
+	border: 2pt solid var(--border);
+	padding: 1em;
+}
+
+.prod .row {
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.attributes {
+	display: flex;
+	flex-flow: column;
+}
+
+.carattribute{
+	align-items: start;
+	padding: 1em;
+}
+
+.tabellenueberschrift{
+	color: var(--accents);
+	background: none;
+}
+
+.booking,.lable{
+	color: var(--accents);
+}
+
+.hinweis{
+	color: var(--column_bright);
+}
+
+input[type="date"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
+input[type="datetime-local"] {
+	background: var(--column_dark);
+	color: var(--font);
+	border: 1pt solid var(--accents);
+}
+
+.flex{
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.sendbutton {
+	padding: 10pt 30pt;
+	background: var(--deep_red);
+	border: 1pt solid var(--font);
+	text-align: center;
+	color: var(--font);
+	font-size: 14pt;
+}
+
+.sendbutton:hover {
+	background: var(--bright_red);
+}
+div.break {
+	flex-basis: 100%;
+	height: 0;
+}
+
+.prod a.button {
+	border: none;
+	color: var(--font);
+	background-color: var(--deep_red);
+	padding: 15px 32px;
+	text-align: center;
+	display: inline-block;
+	margin: 4px 2px;
+}
+
+.overview-grid .prod {
+	grid-column-start: span 9;
+}
+
+.overview-grid .filter {
+	grid-column-start: span 3;
+}
+
+@media screen and (max-width: 1200px) {
+	.overview-grid {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	.overview-grid {
+		grid-gap: 1em;
+	}
+}
+
+@media screen and (min-width: 1900px) {
+	.overview-grid {
+		grid-gap: 3em;
+	}
+}
 
 /*Impressum page*/
 .imprint-table {
@@ -329,4 +560,121 @@ a:hover.intext{
 
 .error h1 {
 	color: var(--deep_red);
+}
+
+/*Login*/
+form.loginpage {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10pt;
+}
+
+lable.loginpage {
+	color: var(--documents);
+	margin-top: 15pt;
+}
+
+hr.loginpage {
+	border: 1pt solid var(--column_bright);
+}
+
+input.loginpage {
+	color: var(--font);
+	margin-top: 15pt;
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+}
+
+input.loginpage.user {
+	background: transparent;
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
+}
+
+input.loginpage.submit {
+	background: var(--deep_red);
+	padding: 5pt;
+	font-size: 14pt;
+}
+
+input.loginpage.submit:hover {
+	background: var(--bright_red);
+	padding: 5pt;
+	font-size: 14pt;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	border-bottom: 2pt solid var(--column_bright);
+	-webkit-text-fill-color: var(--font);
+	-webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
+	transition: background-color 5000s ease-in-out 0s;
+}
+
+.loginError{
+	color: var(--deep_red);
+	text-align: center;
+}
+
+/*Register - Register also uses styling from the login but here are spicific ones that
+	are only for the register page (so far)
+*/
+form.register {
+	justify-content: space-around;
+	align-items: flex-start;
+	padding: 10pt;
+}
+
+.registerbox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10pt;
+	border: 2pt solid var(--border);
+	align-items: flex-start;
+}
+
+.registerpage.passwordRQMTS{
+	color: var(--column_bright);
+	font-size: 10pt;
+}
+
+input.loginpage.user.RPTincorrect {
+	border-bottom: 2pt solid var(--deep_red);
+}
+
+.RPTincorrect {
+	color: var(--deep_red);
+}
+
+select.loginpage {
+	color: var(--font);
+	margin-top: 15pt;
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+	background: transparent;
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
+}
+
+select.loginpage option {
+	color: var(--font);
+	margin-top: 15pt;
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+	background: var(--background);
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
 }

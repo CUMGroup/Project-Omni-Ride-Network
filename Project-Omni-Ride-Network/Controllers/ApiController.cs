@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -61,11 +63,7 @@ namespace Project_Omni_Ride_Network {
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
-                    role = userRoles == null ? "" : userRoles.FirstOrDefault()
-                }) ;
+                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
             }
 
             return Unauthorized();
@@ -99,7 +97,7 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
             MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
@@ -145,7 +143,7 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
@@ -163,7 +161,7 @@ namespace Project_Omni_Ride_Network {
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
             try {
                 await dbStore.AddVehicleAsync(v);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
             }
 
@@ -171,6 +169,8 @@ namespace Project_Omni_Ride_Network {
         }
 
 
+        [HttpGet]
+        [Route(Routes.FILTERED_VEHICLES)]
         public async Task<PartialViewResult> GetVehicleListView(int? page, string searchTxt, int? categoryFilter, string brandFilter, string modelFilter, int? typeFilter, float? minPrice, float? maxPrice) {
 
             IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();
@@ -223,7 +223,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
                 } catch (Exception ex) {
                     return View();
                 }
