@@ -81,11 +81,32 @@ namespace Project_Omni_Ride_Network {
                 return NotFound(await PrepareBaseViewModel ());
         }
 
-        [Route(Routes.BOOKING)]
+        [Route(Routes.BOOKING + "/bookingaction")]
         [HttpPost]
-        public async Task<IActionResult> PlaceOrder(string id) {
-            // TODO check form and place order in db
-            return Ok(await PrepareBaseViewModel ());
+        [Authorize]
+        public async Task<IActionResult> PlaceOrder(string id, [FromForm]Order orderModel) {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToRoute("Login", "Home");
+            var user = await userManager.FindByEmailAsync(User.Identity.Name);
+            if(user == null)
+                return RedirectToRoute("Login", "Home");
+            var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
+            if (customer == null || customer.Count() == 0)
+                return RedirectToRoute("Login", "Home");
+            orderModel.User = customer.First();
+
+            var vehicle = (await dbStore.GetAllVehiclesAsync()).Where(e => e.VehicleId.Equals(id));
+            if (vehicle == null || vehicle.Count() == 0)
+                return NotFound();
+            orderModel.Vehicle = vehicle.First();
+
+            try {
+                await dbStore.AddOrderAsync(orderModel);
+            } catch(DatabaseAPIException e) {
+                return Error(418);
+            }
+
+            return RedirectToRoute("Index", "Home");
         }
 
         #endregion
@@ -174,6 +195,7 @@ namespace Project_Omni_Ride_Network {
         }
 
         [Route(Routes.PROFILE)]
+        [Authorize]
         public async Task<IActionResult> Profile() {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
@@ -196,6 +218,7 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.RATING)]
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddRating() {
             // TODO check form and add rating to db
             return Ok(await PrepareBaseViewModel());
