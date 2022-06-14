@@ -19,6 +19,8 @@
 
   <ItemGroup>
     <Folder Include="Data\Exceptions\" />
+    <Folder Include="wwwroot\images\NewFolder1\" />
+    <Folder Include="wwwroot\images\NewFolder\" />
   </ItemGroup>
 
 </Project>

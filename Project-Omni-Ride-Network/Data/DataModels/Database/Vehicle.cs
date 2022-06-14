@@ -13,6 +13,8 @@ namespace Project_Omni_Ride_Network {
         // Sharing, Rental, ...
         [Required]
         public int Category { get; set; }
+        // Leihe = 1
+        // Sharing = 2
 
         [Required]
         [MaxLength(20)]
@@ -21,6 +23,11 @@ namespace Project_Omni_Ride_Network {
         // Type := Car, Bike, ...
         [Required]
         public int Type { get; set; }
+        // PKW = 1
+        // Fahrrad = 2
+        // E-Scooter = 3
+        // Busse/Transporter = 4
+        // LKW = 5
 
         [Required]
         [MaxLength(15)]
@@ -31,7 +38,7 @@ namespace Project_Omni_Ride_Network {
         public string Model { get; set; }
 
         [Required]
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string Color { get; set; }
 
         [MaxLength(10)]
