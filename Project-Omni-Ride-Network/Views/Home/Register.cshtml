@@ -39,14 +39,14 @@
         <select class="loginpage user" name="KdTitle" id="KdTitle" required="required">
             <option>Frau</option>
             <option>Herr</option>
-            <option>AAAAAAAAAAA</option>
+            <option>AAAA</option>
         </select>
 
         <lable class="loginpage" for="KdSurname">Nachname</lable>
-        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" pattern="^(?:[A-Za-zäüöß]+[\s-]?[A-Za-zäöüß])+$"/>
+        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" maxlength="20" pattern="^(?:[A-Za-zäüöß]+[\s-]?[A-Za-zäöüß])+$"/>
 
         <lable class="loginpage" for="KdName">Vorname</lable>
-        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" pattern="^(?:[A-Za-zäüöß]+[\s-]?[A-Za-zäöüß])+$"/>
+        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" maxlength="15" pattern="^(?:[A-Za-zäüöß]+[\s-]?[A-Za-zäöüß])+$"/>
 
         <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
         <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
