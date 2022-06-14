@@ -36,10 +36,11 @@
         </p>
 
         <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden?</lable>
-        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required"/>
-        <option>Frau</option>
-        <option>Herr</option>
-        <option>AAAAAAAAAAA</option>
+        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required">
+            <option>Frau</option>
+            <option>Herr</option>
+            <option>AAAAAAAAAAA</option>
+        </select>
 
         <lable class="loginpage" for="KdSurname">Nachname</lable>
         <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required"/>
@@ -53,11 +54,11 @@
         <div id="underage" class="RPTincorrect"></div>
 
         <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
-        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required"/>
-        <option value="1">PayPal</option>
-        <option value="2">Kredietkarte</option>
-        <option value="3">Sofortueberweisung</option>
-    
+        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required">
+            <option value="1">PayPal</option>
+            <option value="2">Kredietkarte</option>
+            <option value="3">Sofortueberweisung</option>
+        </select>
     </div>
 
     @if (ViewData["ApiStatus"].ToString() == "Error")

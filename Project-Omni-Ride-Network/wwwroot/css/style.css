@@ -610,10 +610,18 @@ select.loginpage {
 	margin-bottom: 15pt;
 	font-size: 14pt;
 	width: auto;
+	background: transparent;
+	border: none;
+	border-bottom: 2pt solid var(--column_bright);
 }
 
-select {
-	background: transparent;
+select.loginpage option {
+	color: var(--font);
+	margin-top: 15pt;
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+	background: var(--background);
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
 }
