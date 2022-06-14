@@ -24,6 +24,7 @@ namespace Project_Omni_Ride_Network {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
+        private ApplicationDbContext ctx;
 
         public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
             this.userManager = userManager;
@@ -152,6 +153,7 @@ namespace Project_Omni_Ride_Network {
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
+
         #endregion
 
         #region Vehicles
@@ -220,8 +222,6 @@ namespace Project_Omni_Ride_Network {
                 var subject = contact.Subject;
                 var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
 
-                Console.Write(mailText); // bitte noch entfernen; nur für Testzwecke
-
                 try {
                     Task getCustomerMail = MailerAsync(ourMail, ourMail, subject, mailText.ToString());
                     Task sendResponseMail = MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
@@ -241,7 +241,7 @@ namespace Project_Omni_Ride_Network {
             try {
                 using (var mail = new MailMessage()) {
 
-                    mail.From = new MailAddress(ourMail);   //muss unsere Mail sein
+                    mail.From = new MailAddress(ourMail);
                     mail.Subject = subject;
                     mail.To.Add(new MailAddress(senderMail));
                     mail.Body = message;
