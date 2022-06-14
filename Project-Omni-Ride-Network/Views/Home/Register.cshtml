@@ -19,7 +19,7 @@
 
         <lable class="loginpage" for="Password">&Uuml;berlege dir ein Passwort</lable>
         <p id="pwCriteria" class="registerpage passwordRQMTS">
-            (Passwort Vorgaben: mind 6 Zeichen, 1 Zahl, 1 Gro&szlig;buchstabe, 1 nicht-alphanumerisches Zeichen)
+            (Passwort Vorgaben: mind. 6 Zeichen, 1 Zahl, 1 Gro&szlig;buchstabe, 1 nicht-alphanumerisches Zeichen)
         </p>
         <input type="password" onblur="checkPW_norm($('#Password')[0].value)" class="loginpage user" name="Password" id="Password" required="required"/>
 
@@ -45,7 +45,9 @@
         <input type="text" class="loginpage user" name="KdName" id="KdName" required="required"/>
 
         <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
-        <input type="date" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
+        <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
+
+        <div id="underage" class="RPTincorrect"></div>
 
         <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
         <input class="loginpage user" name="Paymnt" id="Paymnt" required="required"/>

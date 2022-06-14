@@ -24,3 +24,19 @@ function checkPW_norm(pw) {
         $('#pwCriteria')[0].classList = "registerpage passwordRQMTS";
     }
 }
+
+function check_age() {
+    let bday = $('#KdBirth')[0].valueAsDate;
+    let today = new Date();
+
+    let age = (today - bday) / 1000 / 60 / 60 / 24 / 365;
+
+    if (age < 18) {
+        $('#KdBirth')[0].classList = "loginpage user RPTincorrect";
+        $('#underage')[0].innerText = "Du musst mindestens 18 sein um bei uns ein Account anzulegen."
+    }
+    else {
+        $('#KdBirth')[0].classList = "loginpage user";
+        $('#underage')[0].innerText = ""
+    }
+}
