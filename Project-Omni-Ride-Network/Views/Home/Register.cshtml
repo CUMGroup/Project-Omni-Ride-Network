@@ -8,7 +8,7 @@
 </p>
 
 <script type="text/javascript" src="~/js/register.js" ></script>
-<form method="post" class="register" action="@Url.Action("RegisterAction", "Home")">
+<form method="post" class="register" onsubmit="return check_all()"  action="@Url.Action("RegisterAction", "Home")">
     <div class="registerbox">
         <p>
             1. Leg deine Anmeldedaten fest:
@@ -43,10 +43,10 @@
         </select>
 
         <lable class="loginpage" for="KdSurname">Nachname</lable>
-        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required"/>
+        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" pattern="[a-zA-Z]+"/>
 
         <lable class="loginpage" for="KdName">Vorname</lable>
-        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required"/>
+        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" pattern="[a-zA-Z]+"/>
 
         <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
         <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
@@ -70,7 +70,7 @@
         </p>
     }
 
-    <input class="loginpage submit" type="submit" onclick="check_all()" value="Registrieren"/>
+    <input class="loginpage submit" type="submit" value="Registrieren"/>
 </form>
 <hr class="loginpage"/>
 Hast du schon ein Konto bei uns? Dann <a class="intext" href="/login">melde dich hier an.</a>
