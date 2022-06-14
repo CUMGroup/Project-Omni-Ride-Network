@@ -222,8 +222,11 @@ namespace Project_Omni_Ride_Network {
                 var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
 
                 try {
-                    MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    bool succ = MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    bool succ2 = MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    if (succ == false || succ2 == false) {
+                        return StatusCode(StatusCodes.Status400BadRequest);
+                    }
                 } catch (Exception ex) {
                     return View();
                 }
@@ -236,7 +239,7 @@ namespace Project_Omni_Ride_Network {
 
 
 
-        public async Task MailerAsync(string ourMail, string senderMail, string subject, string message) {
+        public async bool MailerAsync(string ourMail, string senderMail, string subject, string message) {
             try {
                 using (var mail = new MailMessage()) {
 
@@ -255,8 +258,10 @@ namespace Project_Omni_Ride_Network {
 
                 }
 
+                return true;
+
             } catch (Exception ex) {
-                throw ex;
+                return false;
             }
 
         }
