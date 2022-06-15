@@ -1,4 +1,151 @@
-@{
-    ViewData["Title"] = "Bewertung";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="C:\Users\elnaz\c c++\JavaScript\Rating.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+<section id ="rating">
+        <br>
+        <br>
+        <span class="heading">Kunden Bewertung</span>
+        <div class="rating">
+        <span class="rating__res"></span>
+        <i class="rating-star fa fa-star " id="star1"></i>
+        <i class="rating-star fa fa-star " id="star2"></i>
+        <i class="rating-star fa fa-star " id="star3"></i>
+        <i class="rating-star fa fa-star " id="star4"></i>
+        <i class="rating-star fa fa-star" id="star5"></i>
+        </div>
+        <p class="numberRating">  Bewertungen</p>
+        <hr style="border:3px solid #efefef">
+
+        <div class="row">
+            <div class="side">
+                <div>5 star</div>
+            </div>
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-5"></div>
+                </div>
+            </div>
+            <div class="side right">
+                <div>xx</div>
+            </div>
+            <div class="side">
+                <div>4 star</div>
+            </div>
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-4"></div>
+                </div>
+            </div>
+            <div class="side right">
+                <div>xx</div>
+            </div>
+            <div class="side">
+                <div>3 star</div>
+            </div>
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-3"></div>
+                </div>
+            </div>
+            <div class="side right">
+                <div>xx</div>
+            </div>
+            <div class="side">
+                <div>2 star</div>
+            </div>
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-2"></div>
+                </div>
+            </div>
+            <div class="side right">
+                <div>xx</div>
+            </div>
+            <div class="side">
+                <div>1 star</div>
+            </div>
+            <div class="middle">
+                <div class="bar-container">
+                    <div class="bar-1"></div>
+                </div>
+            </div>
+            <div class="side right">
+                <div>xx</div>
+            </div>
+        </div>
+-<div class ="boxreview">
+
+            <!--Profile der Kunden--->
+                <div class="name-user">
+                    <br>
+                    <br>
+                    name1
+                    <br>
+                    @name1
+                </div>
+    <br>
+
+
+    <h1><span>Kommentar</span></h1>
+    <h3>Die Kunden sagen: </h3>
+
+    <form action="textarea.htm" >
+      <br>
+            <textarea id="myText"  cols="50" rows="10" placeholder="Schrieben Sie Ihre Kommentar">
+
+</textarea></p>
+    </form>
+
+<button onclick="myFunction()">submit</button>
+
+<p id="demo"></p>
+        </div>
+
+</section>
+<script>
+ const ratingStars = [...document.getElementsByClassName("rating-star")];
+const ratingResult = document.querySelector(".rating__res");
+printRatingResult(ratingResult);
+function executeRating(stars, result) {
+   const starClassActive = "rating-star far fa-star checked";
+   const starClassUnactive = "rating-star fas fa-star";
+   const starsLength = stars.length;
+   let i;
+   let m;
+   stars.map((star) => {
+      star.onclick = () => {
+        m ==  m+1;
+         i = stars.indexOf(star);
+         if (star.className.indexOf(starClassUnactive ) ) {
+            printRatingResult(result, i + 1);
+            for (i; i >= 0; --i) stars[i].className = starClassActive;
+         } else {
+            printRatingResult(result, i);
+            for (i; i < starsLength; ++i) stars[i].className = starClassUnactive;
+         }
+      };
+   });
 }
-<h1>Hello World</h1>
+function printRatingResult(result, num = 1) {
+   result.textContent = `${num}/5`;
+}
+executeRating(ratingStars, ratingResult);
+
+const number = document.getElementsByClassName("numberRating");
+printNumberRating(numberRating);
+numberRating.textContent= m;
+function myFunction() {
+  var x = document.getElementById("myText").value;
+  document.getElementById("demo").innerHTML = x;
+}
+</script>
+</body>
+</html>

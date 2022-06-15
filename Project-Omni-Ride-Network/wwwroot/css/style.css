@@ -170,12 +170,12 @@ body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
 	background-color: var(--column_dark);
 }
- 
+
  body::-webkit-scrollbar {
     width: 8pt;
     background-color: var(--accents);
  }
- 
+
 body::-webkit-scrollbar-thumb {
     border-radius: 10pt;
     -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,.3);
@@ -298,7 +298,7 @@ footer{
 	flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-	justify-content: space-around;	
+	justify-content: space-around;
 	bottom:0;
 	left:0;
 	right:0;
@@ -677,4 +677,145 @@ select.loginpage option {
 	background: var(--background);
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
+}
+/*Bewertungsseite----------------------------------------------*/
+{
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial;
+  margin: 0 auto; /* Center website */
+  max-width: 800px; /* Max width */
+  padding: 20px;
+}
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+  margin-top:25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+
+
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 20px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 20px;
+}
+
+
+.right {
+  text-align: right;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.bar-container {
+  width: 100%;
+  background-color: var(----column_bright);
+  text-align: center;
+  color: white;
+}
+
+
+.bar-5 {width: 60%; height: 18px; background-color: var(--bright_red);}
+.bar-4 {width: 30%; height: 18px; background-color: var(--bright_red);}
+.bar-3 {width: 10%; height: 18px; background-color: var(--bright_red);}
+.bar-2 {width: 4%; height: 18px; background-color: var(--bright_red);}
+.bar-1 {width: 15%; height: 18px; background-color: var(--bright_red);}
+
+
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+
+  .right {
+    display: none;
+  }
+
+#rating{
+display:flex;
+justify-content: center;
+align-items: center;
+flex-direction:column;
+width: 100%;
+}
+.boxreview{
+  background-color: var (--deep_red);
+  width: 300px;
+  border: 15px ;
+  padding: 10px;
+  margin: 20px;
+}
+.boxreview span{
+
+margin-bottom: 20pt;
+margin-top: 40pt;
+text-transform: uppercase;
+}
+
+.profile{
+display: flex;
+align-items:center;
+}
+.name-user{
+display:flex;
+flex-direction: column;
+}
+.rating {
+          position: relative;
+          width: 180px;
+          background: transparent;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: .3em;
+          padding: 5px;
+          overflow: hidden;
+          border-radius: 20px;
+          box-shadow: 0 0 2px ;
+       }
+
+       .rating__res {
+          position: absolute;
+          top: 0;
+          left: 0;
+          transform: translateY(-10px) translateX(-5px);
+          z-index: -9;
+          font: 3em Arial, Helvetica, sans-serif;
+          color: var(--column_bright);
+          pointer-events: none;
+       }
+       .rating-star {
+          font-size: 1.3em;
+          cursor: pointer;
+          color: var(--deep_red);
+          transition: filter linear .3s;
+       }
+
+       .rating-star:hover {
+          filter: drop-shadow(1px 1px 4px gold);
+       }
+
+       .checked {
+        color: var(--deep_red);
+      }
 }
