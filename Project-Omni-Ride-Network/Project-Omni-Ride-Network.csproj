@@ -6,17 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="wwwroot\images\NewFolder1\**" />
-    <Compile Remove="wwwroot\images\NewFolder\**" />
-    <Content Remove="wwwroot\images\NewFolder1\**" />
-    <Content Remove="wwwroot\images\NewFolder\**" />
-    <EmbeddedResource Remove="wwwroot\images\NewFolder1\**" />
-    <EmbeddedResource Remove="wwwroot\images\NewFolder\**" />
-    <None Remove="wwwroot\images\NewFolder1\**" />
-    <None Remove="wwwroot\images\NewFolder\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Dna.Framework.AspNet" Version="1.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.14" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
