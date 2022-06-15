@@ -224,7 +224,7 @@ namespace Project_Omni_Ride_Network {
                 try {
                     bool succ = MailerAsync(ourMail, ourMail, subject, mailText.ToString());
                     bool succ2 = MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
-                    if (succ == false || succ2 == false) {
+                    if (!succ || !succ2) {
                         return StatusCode(StatusCodes.Status400BadRequest);
                     }
                 } catch (Exception ex) {
