@@ -26,12 +26,14 @@ namespace Project_Omni_Ride_Network {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
+        private readonly ApplicationDbContext dbContext;
 
-        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore, ApplicationDbContext cxt) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
+            this.dbContext = cxt;
         }
 
         #region Authentication
@@ -107,7 +109,7 @@ namespace Project_Omni_Ride_Network {
 
         [HttpPost]
         [Route(Routes.REGISTER_ADMIN)]
-        [Authorize(Roles = UserRoles.Admin)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterApiModel model) {
             var userExists = await userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
@@ -151,13 +153,43 @@ namespace Project_Omni_Ride_Network {
         }
 
 
+        [HttpDelete]
+        [Route(Routes.DELETE_USER)]
+        [AuthorizeToken]
+        public async Task<IActionResult> RemoveUser() {
+            try {
+                var a = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+                if (a == null) {
+                    return Unauthorized();
+                }
+                await dbStore.RemoveCustomerAsync(a);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
+            }
+
+            return Ok(new ApiResponse { Status = "Succsess", Message = "User deleted successfully!" });
+        }
+
         #endregion
 
         #region Vehicles
 
+        [HttpDelete]
+        [Route(Routes.VEHICLE_REMOVE)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> RemoveVehicle([FromBody] Vehicle v) {
+            try {
+                await dbStore.RemoveVehicleAsync(v);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "Vehicle deleted successfully!" });
+        }
+
         [HttpPost]
-        [Route(Routes.VEHICLE_API)]
-        [Authorize(Roles = UserRoles.Admin)]
+        [Route(Routes.VEHICLE_ADD)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
             try {
                 await dbStore.AddVehicleAsync(v);
@@ -208,7 +240,6 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-
         #region Contact
 
 
@@ -223,7 +254,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
                 } catch (Exception ex) {
                     return View();
                 }
