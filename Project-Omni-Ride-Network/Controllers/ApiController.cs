@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +38,7 @@ namespace Project_Omni_Ride_Network {
 
         [HttpPost]
         [Route(Routes.LOGIN)]
-        public async Task<IActionResult> Login([FromBody]LoginApiModel model) {
+        public async Task<IActionResult> Login([FromBody] LoginApiModel model) {
             var user = await userManager.FindByEmailAsync(model.Email);
 
             if (user != null && await userManager.CheckPasswordAsync(user, model.Password)) {
@@ -47,7 +49,7 @@ namespace Project_Omni_Ride_Network {
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
-                foreach(var userRole in userRoles) {
+                foreach (var userRole in userRoles) {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
 
@@ -61,7 +63,7 @@ namespace Project_Omni_Ride_Network {
                     signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                     );
 
-                return Ok(new {token = new JwtSecurityTokenHandler().WriteToken(token),expiration = token.ValidTo}) ;
+                return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token), expiration = token.ValidTo });
             }
 
             return Unauthorized();
@@ -95,10 +97,10 @@ namespace Project_Omni_Ride_Network {
             };
             try {
                 await dbStore.AddCustomerAsync(customer);
-            }catch (DatabaseAPIException) {
+            } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
-
+            MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -148,6 +150,7 @@ namespace Project_Omni_Ride_Network {
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
+
         #endregion
 
         #region Vehicles
@@ -172,7 +175,7 @@ namespace Project_Omni_Ride_Network {
 
             IEnumerable<Vehicle> veh = await dbStore.GetAllVehiclesAsync();
 
-            if(!String.IsNullOrWhiteSpace(searchTxt))
+            if (!String.IsNullOrWhiteSpace(searchTxt))
                 veh = veh.Where(e => e.Brand.ToLower().Contains(searchTxt)
                 || e.Model.ToLower().Contains(searchTxt)
                 || e.Firm.ToLower().Contains(searchTxt));
@@ -198,7 +201,7 @@ namespace Project_Omni_Ride_Network {
             int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
             if (currentPage > pageCount) currentPage = pageCount;
 
-            if(veh != null & totalItems > 0)
+            if (veh != null & totalItems > 0)
                 veh = veh.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
             return PartialView("_overviewList", veh.ToList());
@@ -240,6 +243,64 @@ namespace Project_Omni_Ride_Network {
                 rating = rating.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
             return PartialView("_ratingList", rating.ToList());
+        }
+
+        #endregion
+
+        #region Contact
+
+
+        [HttpPost]
+        [Route(Routes.CONTACT)]
+        public IActionResult Contact([FromBody] ContactModel contact) {
+            if (ModelState.IsValid) {
+                var ourMail = _configuration.GetValue<String>("MailCredentials:Email");
+                var senderMail = contact.SenderEmail;
+                var subject = contact.Subject;
+                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
+
+                try {
+                    MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                } catch (Exception ex) {
+                    return View();
+                }
+                return Ok(new ApiResponse { Status = "Success", Message = "Mail sent!" });
+            }
+            return StatusCode(StatusCodes.Status400BadRequest);
+        }
+
+        #endregion
+
+        #region HelperMethods
+
+
+
+        public async Task<bool> MailerAsync(string ourMail, string senderMail, string subject, string message) {
+            try {
+                using (var mail = new MailMessage()) {
+
+                    mail.From = new MailAddress(ourMail);
+                    mail.Subject = subject;
+                    mail.To.Add(new MailAddress(senderMail));
+                    mail.Body = message;
+                    mail.IsBodyHtml = true;
+
+                    using (var smtpClient = new SmtpClient(_configuration.GetValue<string>("MailCredentials:Hostname"), _configuration.GetValue<int>("MailCredentials:Port"))) {
+                        smtpClient.EnableSsl = true;
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = new NetworkCredential(_configuration.GetValue<string>("MailCredentials:Email"), _configuration.GetValue<string>("MailCredentials:Passwort"));
+                        await smtpClient.SendMailAsync(mail);
+                    }
+
+                }
+
+                return true;
+
+            } catch (Exception ex) {
+                return false;
+            }
+
         }
 
         #endregion

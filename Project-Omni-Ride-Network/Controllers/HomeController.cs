@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -28,10 +33,10 @@ namespace Project_Omni_Ride_Network {
         public async Task<BaseViewModel> PrepareBaseViewModel() {
             bool authorized = User.Identity.IsAuthenticated;
             string name = "";
-            if(authorized) {
+            if (authorized) {
                 var user = await userManager.FindByEmailAsync(User.Identity.Name);
                 var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
-                if(customer.Count() > 0)
+                if (customer.Count() > 0)
                     name = customer.First().KdName + " " + customer.First().KdSurname;
             }
             return new BaseViewModel { Authorized = authorized, UserName = name };
@@ -52,7 +57,7 @@ namespace Project_Omni_Ride_Network {
         [Route(Routes.ERROR_GENERIC)]
         public async Task<IActionResult> Error(int code) {
             TempData["ErrorCode"] = code;
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         #endregion
@@ -64,7 +69,7 @@ namespace Project_Omni_Ride_Network {
             List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
             var modelList = vehicles.Select(m => m.Model).Distinct().OrderBy(e => e).ToList();
             var brandList = vehicles.Select(b => b.Brand).Distinct().OrderBy(e => e).ToList();
-            return View(new OverviewViewModel(await PrepareBaseViewModel()) { 
+            return View(new OverviewViewModel(await PrepareBaseViewModel()) {
                 Vehicles = vehicles,
                 ModelFilterList = modelList,
                 BrandFilterList = brandList
@@ -76,19 +81,19 @@ namespace Project_Omni_Ride_Network {
             List<Vehicle> vehicles = await dbStore.GetAllVehiclesAsync();
             var veh = vehicles.Where(e => id.Equals(e.VehicleId));
             if (veh.Any())
-                return View(new BookingViewModel(await PrepareBaseViewModel (), veh.First()));
+                return View(new BookingViewModel(await PrepareBaseViewModel(), veh.First()));
             else
-                return NotFound(await PrepareBaseViewModel ());
+                return NotFound(await PrepareBaseViewModel());
         }
 
         [Route(Routes.BOOKING + "/bookingaction")]
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> PlaceOrder(string id, [FromForm]Order orderModel) {
-                if (!User.Identity.IsAuthenticated)
+        public async Task<IActionResult> PlaceOrder(string id, [FromForm] Order orderModel) {
+            if (!User.Identity.IsAuthenticated)
                 return RedirectToRoute("Login", "Home");
             var user = await userManager.FindByEmailAsync(User.Identity.Name);
-            if(user == null)
+            if (user == null)
                 return RedirectToRoute("Login", "Home");
             var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
             if (customer == null || customer.Count() == 0)
@@ -102,7 +107,7 @@ namespace Project_Omni_Ride_Network {
 
             try {
                 await dbStore.AddOrderAsync(orderModel);
-            } catch(DatabaseAPIException e) {
+            } catch (DatabaseAPIException e) {
                 return await Error(418);
             }
 
@@ -120,7 +125,7 @@ namespace Project_Omni_Ride_Network {
                 response = new ApiResponse { Status = "100", Message = "" };
             ViewData["ApiStatus"] = response.Status;
             ViewData["ApiMessage"] = response.Message;
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [HttpPost]
@@ -145,7 +150,7 @@ namespace Project_Omni_Ride_Network {
                     return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Login", "Home", new ApiResponse { Status = "Error", Message = "User information incorrect" });
-         }
+        }
 
         [Route(Routes.LOGOUT + Routes.ACTION_SUFFIX)]
         public async Task<IActionResult> LogoutAction() {
@@ -155,11 +160,11 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.REGISTER)]
         public async Task<IActionResult> Register(ApiResponse response) {
-            if(response == null || response.Status == null || response.Message == null)
+            if (response == null || response.Status == null || response.Message == null)
                 response = new ApiResponse { Status = "100", Message = "" };
             ViewData["ApiStatus"] = response.Status;
             ViewData["ApiMessage"] = response.Message;
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [HttpPost]
@@ -167,7 +172,7 @@ namespace Project_Omni_Ride_Network {
         public async Task<IActionResult> RegisterAction([FromForm] RegisterApiModel model) {
             var userExists = await userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
-                return RedirectToAction("Register","Home", new ApiResponse { Status = "Error", Message = "User already exists!" });
+                return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser() {
                 Email = model.Email,
@@ -203,14 +208,14 @@ namespace Project_Omni_Ride_Network {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
             var user = await userManager.FindByEmailAsync(User.Identity.Name);
-            if(user == null) {
+            if (user == null) {
                 return RedirectToAction("Index", "Home");
             }
             var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
-            if(customer == null || customer.Count() == 0) {
+            if (customer == null || customer.Count() == 0) {
                 return RedirectToAction("Index", "Home");
             }
-            return View(new ProfileViewModel(await PrepareBaseViewModel (), customer.First()));
+            return View(new ProfileViewModel(await PrepareBaseViewModel(), customer.First()));
         }
 
         [Route(Routes.RATING)]
@@ -233,34 +238,36 @@ namespace Project_Omni_Ride_Network {
 
         [Route(Routes.CONTACT)]
         public async Task<IActionResult> Contact() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [Route(Routes.KARRIERE)]
         public async Task<IActionResult> Karriere() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [Route(Routes.DATENSCHUTZ)]
         public async Task<IActionResult> Datenschutz() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [Route(Routes.PARTNER)]
         public async Task<IActionResult> Partner() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [Route(Routes.IMPRESSUM)]
         public async Task<IActionResult> Impressum() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         [Route(Routes.AGB)]
         public async Task<IActionResult> AGB() {
-            return View(await PrepareBaseViewModel ());
+            return View(await PrepareBaseViewModel());
         }
 
         #endregion
+
+
     }
 }
