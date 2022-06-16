@@ -562,6 +562,26 @@ div.break {
 	color: var(--deep_red);
 }
 
+.error > div {
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	column-gap: 1em;
+}
+
+@media screen and (max-width: 1200px) {
+	.error img {
+		width:80%
+	}
+}
+@media screen and (max-width: 1000px) {
+	.error > div {
+		display:block;
+	}
+	.error img {
+		width: 100%;
+	}
+}
+
 /*Login*/
 form.loginpage {
 	display: flex;
