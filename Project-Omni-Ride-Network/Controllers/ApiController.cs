@@ -26,14 +26,12 @@ namespace Project_Omni_Ride_Network {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
-        private readonly ApplicationDbContext dbContext;
 
-        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore, ApplicationDbContext cxt) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
-            this.dbContext = cxt;
         }
 
         #region Authentication
