@@ -1,4 +1,37 @@
 @{
     ViewData["Title"] = "Kontakt";
 }
-<h1>Hello World</h1>
+
+<center>
+
+    <h1 class="home">Kontakt</h1>
+
+    <p>
+        Teilen Sie uns Ihr Anliegen mit. Wir helfen Ihnen gerne.
+    </p>
+
+</center>
+
+<img src="/images/train.png" id="zugzug" hidden="hidden" style="position: absolute; left: -4500px;"/>
+
+<script type="text/javascript" src="~/js/contact.js" ></script>
+<form action="@Url.Action("ContactAction", "Home")" method="POST" name="contactForm" id="contactForm">
+    
+    <center>
+        <input type="text" name="SenderName" id="SenderName" class="contact" placeholder="Max Mustermann" maxlength="100" required="required"/>
+
+        <input type="text" name="SenderEmail" id="SenderEmail" class="contact mailIn" placeholder="example@mail.de" maxlength="100"
+            onblur="checkEmail($('#SenderEmail')[0].value)" required="required"/><br>
+
+        <div name="Mailincorrect" id="Mailincorrect" class="mailincorrect"></div>
+
+        <input type="text" name="Subject" id="Subject" class="contact" placeholder="Betreff" maxlength="100" required="required" onchange="check()"/><br>
+ 
+        <textarea id="Message" name="Message" form="contactForm" rows="25" placeholder="Nachricht..." required="required"></textarea><br>
+
+        <input class="contactpage submit" type="submit" value="Senden" position="center"/>
+
+    </center>
+
+
+</form>

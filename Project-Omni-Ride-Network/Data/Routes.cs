@@ -24,6 +24,7 @@ namespace Project_Omni_Ride_Network {
         public const string RATING = "rating";
 
         public const string CONTACT = "contact";
+        public const string CONTACT_DONE = "mailsent";
         public const string KARRIERE = "karriere";
         public const string DATENSCHUTZ = "datenschutz";
         public const string PARTNER = "partner";

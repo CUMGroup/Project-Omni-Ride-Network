@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.Extensions.Configuration;
 
 namespace Project_Omni_Ride_Network {
 
@@ -21,13 +17,17 @@ namespace Project_Omni_Ride_Network {
         private readonly DataStore dbStore;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly Mailer mailer;
+        private readonly IConfiguration configuration;
 
-        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) {
+        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration) {
             this.dbStore = dbStore;
             dbStore.EnsureDataStore();
 
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.mailer = mailer;
+            this.configuration = configuration;
         }
 
         public async Task<BaseViewModel> PrepareBaseViewModel() {
@@ -199,6 +199,7 @@ namespace Project_Omni_Ride_Network {
                 return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
+            mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
             return await LoginAction(new LoginApiModel { Email = model.Email, Password = model.Password }, null);
         }
 
@@ -236,10 +237,40 @@ namespace Project_Omni_Ride_Network {
 
         #region Page Information Routes
 
+
+        #region Kontakt
+
         [Route(Routes.CONTACT)]
         public async Task<IActionResult> Contact() {
             return View(await PrepareBaseViewModel());
         }
+
+        [HttpPost]
+        [Route(Routes.CONTACT + Routes.ACTION_SUFFIX)]
+        public IActionResult ContactAction([FromForm] ContactModel contact) {
+            if (ModelState.IsValid) {
+                var ourMail = configuration.GetValue<String>("MailCredentials:Email");
+                var senderMail = contact.SenderEmail;
+                var subject = contact.Subject;
+                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
+
+                try {
+                    mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
+                } catch (Exception ex) {
+                    return RedirectToAction("Contact", "Home", new ApiResponse { Status = "Error", Message = "Send failed"});
+                }
+                return RedirectToAction("ContactDone", "Home");
+            }
+            return RedirectToAction("Contact","Home", new ApiResponse { Status = "Error", Message = "Bad Request" });
+        }
+
+        [Route(Routes.CONTACT_DONE)]
+        public async Task<IActionResult> ContactDone() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        #endregion
 
         [Route(Routes.KARRIERE)]
         public async Task<IActionResult> Karriere() {
