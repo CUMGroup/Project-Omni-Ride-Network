@@ -21,7 +21,7 @@
         <input type="text" name="SenderName" id="SenderName" class="contact" placeholder="Max Mustermann" maxlength="100" required="required"/>
 
         <input type="text" name="SenderEmail" id="SenderEmail" class="contact mailIn" placeholder="example@mail.de" maxlength="100"
-            onblur="checkEmail($('#SenderEmail')[0].value)" required="required"/><br>
+            onblur="checkEmail($('#SenderEmail')[0].value)" required="required" pattern="^[a-zA-Z0-9._%,+-]{2,}@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" /><br>
 
         <div name="Mailincorrect" id="Mailincorrect" class="mailincorrect"></div>
 
