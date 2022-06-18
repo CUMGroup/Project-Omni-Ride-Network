@@ -169,7 +169,7 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
             }
 
-            return Ok(new ApiResponse { Status = "Succsess", Message = "User deleted successfully!" });
+            return Ok(new ApiResponse { Status = "Success", Message = "User deleted successfully!" });
         }
 
         #endregion
