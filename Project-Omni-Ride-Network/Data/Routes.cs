@@ -35,6 +35,7 @@ namespace Project_Omni_Ride_Network {
         public const string VEHICLE_ADD = "addvehicle";
         public const string VEHICLE_REMOVE = "removevehicle";
         public const string FILTERED_VEHICLES = "filteredvehicles";
+        public const string FILTERED_RATINGS = "filteredratings";
         public const string REGISTER_ADMIN = "registeradmin";
     }
 }
