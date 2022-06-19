@@ -30,13 +30,13 @@ h2 {
 }
 
 /*header-----------------------------------------------*/
-header{
-    display: block;
-    background-image: url("/images/banner.jpg");
-    background-repeat: no-repeat;
+header {
+	display: block;
+	background-image: url("/images/banner.jpg");
+	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-    text-align: center;
+	text-align: center;
 	width: 100%;
 	height: 100%;
 }
@@ -562,6 +562,7 @@ div.break {
 	color: var(--deep_red);
 }
 
+
 .error > div {
 	display:grid;
 	grid-template-columns: 1fr 1fr;
@@ -580,6 +581,69 @@ div.break {
 	.error img {
 		width: 100%;
 	}
+}
+
+/*Contact Page*/
+
+textarea {
+	padding: 1ex;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	box-sizing: border-box;
+	background-color: var(--border);
+	color: var(--font);
+	border: solid var(--accents) 1px;
+	resize: none;
+	overflow: auto;
+	width: 104.55%;
+}
+
+textarea::placeholder {
+	color: var(--accents);
+	font-size: 16px;
+}
+
+input.contact {
+	width: 104.55%;
+	background-color: var(--border);
+	box-sizing: border-box;
+	padding: 1ex;
+	color: var(--font);
+	border: solid var(--accents) 0.1em;
+	margin-bottom: 0.4em;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+}
+
+input.contact::placeholder {
+	color: var(--accents);
+}
+
+input.contact.mailIn {
+	border: solid var(--accents) 0.1em;
+}
+
+input.contact.mailInFalse {
+	border: solid var(--deep_red) 0.1em;
+}
+
+.mailincorrect {
+	visibility: hidden;
+}
+
+input.contactpage.submit {
+	background: var(--deep_red);
+	padding: 7px;
+	font-size: 17pt;
+	color: var(--font);
+	border: solid var(--deep_red) 0.1em;
+}
+
+input.contactpage.submit:hover {
+	background: var(--bright_red);
+	border: solid var(--bright_red) 0.1em;
+	padding: 7px;
+	font-size: 17pt;
 }
 
 /*Login*/
