@@ -19,8 +19,9 @@ namespace Project_Omni_Ride_Network {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly Mailer mailer;
         private readonly IConfiguration configuration;
+        private readonly MailTxt mailtxt;
 
-        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration) {
+        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration, MailTxt mailtxt) {
             this.dbStore = dbStore;
             dbStore.EnsureDataStore();
 
@@ -28,6 +29,7 @@ namespace Project_Omni_Ride_Network {
             this.userManager = userManager;
             this.mailer = mailer;
             this.configuration = configuration;
+            this.mailtxt = mailtxt;
         }
 
         public async Task<BaseViewModel> PrepareBaseViewModel() {
@@ -199,7 +201,8 @@ namespace Project_Omni_Ride_Network {
                 return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailtxt.createRegistryResponse(model.KdTitle, model.KdSurname));
             return await LoginAction(new LoginApiModel { Email = model.Email, Password = model.Password }, null);
         }
 
@@ -256,7 +259,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailtxt.createServiceResponse(contact.SenderName));
                 } catch (Exception ex) {
                     return RedirectToAction("Contact", "Home", new ApiResponse { Status = "Error", Message = "Send failed"});
                 }

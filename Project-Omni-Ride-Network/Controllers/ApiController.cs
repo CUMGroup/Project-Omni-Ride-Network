@@ -27,13 +27,16 @@ namespace Project_Omni_Ride_Network {
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
         private readonly Mailer mailer;
+        private readonly MailTxt mailTxt;
 
-        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore, Mailer mailer) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, 
+            IConfiguration config, DataStore dbStore, Mailer mailer, MailTxt mailTxt) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
             this.mailer = mailer;
+            this.mailTxt = mailTxt;
         }
 
         #region Authentication
@@ -103,7 +106,8 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.createRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -150,7 +154,8 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.createRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
@@ -256,7 +261,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.createServiceResponse(contact.SenderName));
                 } catch (Exception ex) {
                     return View();
                 }
