@@ -795,6 +795,10 @@ article.partner:hover {
 div.partner {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: flex-start;
 
+}
+
+mark.home.disclaimer{
+	font-size: 10pt;
 }
