@@ -780,6 +780,16 @@ article.partner {
 	width: 230px;
 }
 
+article.partner.bubatz {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 5px;
+	font-size: 18px;
+	border: none;
+	width: 50%;
+}
+
 article.partner:hover {
 	display: flex;
 	align-items: center;
@@ -790,6 +800,17 @@ article.partner:hover {
 	font-size: 20px;
 	width: 230px;
 	background: var(--column_dark);
+}
+
+article.partner.bubatz:hover {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 5px;
+	font-size: 18px;
+	border: none;
+	width: 50%;
+	background: none;
 }
 
 div.partner {
