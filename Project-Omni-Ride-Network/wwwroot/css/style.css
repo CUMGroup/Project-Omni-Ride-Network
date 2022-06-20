@@ -762,3 +762,39 @@ select.loginpage option {
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
 }
+
+/*Partner Seite*/
+
+h2.partner {
+	color: var(--bright_red);
+}
+
+article.partner {
+	display: flex;
+	align-items:center;
+	border: 3px solid var(--border);
+	padding: 10px;
+	justify-content: space-around;
+	margin: 5px;
+	font-size: 20px;
+	width: 230px;
+}
+
+article.partner:hover {
+	display: flex;
+	align-items: center;
+	border: 3px solid var(--border);
+	padding: 10px;
+	justify-content: space-between;
+	margin: 5px;
+	font-size: 20px;
+	width: 230px;
+	background: var(--column_dark);
+}
+
+div.partner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+}
