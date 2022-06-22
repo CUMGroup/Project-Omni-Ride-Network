@@ -25,6 +25,9 @@ namespace Project_Omni_Ride_Network {
         [Required]
         public int optAdd { get; set; }
 
+        [Required]
+        public float Totalprice { get; set; }
+
 
     }
 }

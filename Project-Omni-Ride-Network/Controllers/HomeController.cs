@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.Extensions.Configuration;
 
 namespace Project_Omni_Ride_Network {
 
@@ -21,13 +17,19 @@ namespace Project_Omni_Ride_Network {
         private readonly DataStore dbStore;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly Mailer mailer;
+        private readonly IConfiguration configuration;
+        private readonly MailTxt mailtxt;
 
-        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) {
+        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration, MailTxt mailtxt) {
             this.dbStore = dbStore;
             dbStore.EnsureDataStore();
 
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.mailer = mailer;
+            this.configuration = configuration;
+            this.mailtxt = mailtxt;
         }
 
         public async Task<BaseViewModel> PrepareBaseViewModel() {
@@ -35,9 +37,14 @@ namespace Project_Omni_Ride_Network {
             string name = "";
             if (authorized) {
                 var user = await userManager.FindByEmailAsync(User.Identity.Name);
-                var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
-                if (customer.Count() > 0)
-                    name = customer.First().KdName + " " + customer.First().KdSurname;
+
+                if(user == null) {
+                    authorized = false;
+                } else {
+                    var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
+                    if (customer.Count() > 0)
+                        name = customer.First().KdName + " " + customer.First().KdSurname;
+                }
             }
             return new BaseViewModel { Authorized = authorized, UserName = name };
         }
@@ -92,18 +99,22 @@ namespace Project_Omni_Ride_Network {
         public async Task<IActionResult> PlaceOrder(string id, [FromForm] Order orderModel) {
             if (!User.Identity.IsAuthenticated)
                 return RedirectToRoute("Login", "Home");
+
             var user = await userManager.FindByEmailAsync(User.Identity.Name);
             if (user == null)
                 return RedirectToRoute("Login", "Home");
             var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
-            if (customer == null || customer.Count() == 0)
+            if (customer == null || !customer.Any())
                 return RedirectToRoute("Login", "Home");
             orderModel.User = customer.First();
 
             var vehicle = (await dbStore.GetAllVehiclesAsync()).Where(e => e.VehicleId.Equals(id));
-            if (vehicle == null || vehicle.Count() == 0)
+            if (vehicle == null || !vehicle.Any())
                 return NotFound();
             orderModel.Vehicle = vehicle.First();
+
+            orderModel.Totalprice = PriceCalc.CalculateTotalprice(orderModel);
+
 
             try {
                 await dbStore.AddOrderAsync(orderModel);
@@ -111,6 +122,9 @@ namespace Project_Omni_Ride_Network {
                 return await Error(418);
             }
 
+
+            mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), user.Email , mailtxt.CreateOrderSubject(orderModel),
+                mailtxt.CreateOrderResponse(orderModel));
             return RedirectToAction("Index", "Home");
         }
 
@@ -199,6 +213,8 @@ namespace Project_Omni_Ride_Network {
                 return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
+            mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailtxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return await LoginAction(new LoginApiModel { Email = model.Email, Password = model.Password }, null);
         }
 
@@ -216,6 +232,24 @@ namespace Project_Omni_Ride_Network {
                 return RedirectToAction("Index", "Home");
             }
             return View(new ProfileViewModel(await PrepareBaseViewModel(), customer.First()));
+        }
+
+        [HttpPost]
+        [Route(Routes.DELETE_USER)]
+        [Authorize]
+        public async Task<IActionResult> RemoveUser() {
+            try {
+                var a = await userManager.FindByEmailAsync(User.Identity.Name);
+                if (a == null) {
+                    return Unauthorized();
+                }
+                await dbStore.RemoveCustomerAsync(a);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
+            }
+
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
         [Route(Routes.RATING)]
@@ -266,10 +300,40 @@ namespace Project_Omni_Ride_Network {
 
         #region Page Information Routes
 
+
+        #region Kontakt
+
         [Route(Routes.CONTACT)]
         public async Task<IActionResult> Contact() {
             return View(await PrepareBaseViewModel());
         }
+
+        [HttpPost]
+        [Route(Routes.CONTACT + Routes.ACTION_SUFFIX)]
+        public IActionResult ContactAction([FromForm] ContactModel contact) {
+            if (ModelState.IsValid) {
+                var ourMail = configuration.GetValue<String>("MailCredentials:Email");
+                var senderMail = contact.SenderEmail;
+                var subject = contact.Subject;
+                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
+
+                try {
+                    mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailtxt.CreateServiceResponse(contact.SenderName));
+                } catch (Exception ex) {
+                    return RedirectToAction("Contact", "Home", new ApiResponse { Status = "Error", Message = "Send failed"});
+                }
+                return RedirectToAction("ContactDone", "Home");
+            }
+            return RedirectToAction("Contact","Home", new ApiResponse { Status = "Error", Message = "Bad Request" });
+        }
+
+        [Route(Routes.CONTACT_DONE)]
+        public async Task<IActionResult> ContactDone() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        #endregion
 
         [Route(Routes.KARRIERE)]
         public async Task<IActionResult> Karriere() {

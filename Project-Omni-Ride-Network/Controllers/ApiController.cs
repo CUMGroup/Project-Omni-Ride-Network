@@ -26,12 +26,17 @@ namespace Project_Omni_Ride_Network {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
+        private readonly Mailer mailer;
+        private readonly MailTxt mailTxt;
 
-        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, 
+            IConfiguration config, DataStore dbStore, Mailer mailer, MailTxt mailTxt) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
+            this.mailer = mailer;
+            this.mailTxt = mailTxt;
         }
 
         #region Authentication
@@ -100,14 +105,16 @@ namespace Project_Omni_Ride_Network {
             } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
-            MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
 
         [HttpPost]
         [Route(Routes.REGISTER_ADMIN)]
-        [Authorize(Roles = UserRoles.Admin)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterApiModel model) {
             var userExists = await userManager.FindByEmailAsync(model.Email);
             if (userExists != null)
@@ -147,17 +154,49 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
+
+        [HttpDelete]
+        [Route(Routes.DELETE_USER)]
+        [AuthorizeToken]
+        public async Task<IActionResult> RemoveUser() {
+            try {
+                var a = await userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
+                if (a == null) {
+                    return Unauthorized();
+                }
+                await dbStore.RemoveCustomerAsync(a);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "User deleted successfully!" });
+        }
 
         #endregion
 
         #region Vehicles
 
+        [HttpDelete]
+        [Route(Routes.VEHICLE_REMOVE)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> RemoveVehicle([FromBody] Vehicle v) {
+            try {
+                await dbStore.RemoveVehicleAsync(v);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting Vehicle" });
+            }
+
+            return Ok(new ApiResponse { Status = "Success", Message = "Vehicle deleted successfully!" });
+        }
+
         [HttpPost]
-        [Route(Routes.VEHICLE_API)]
-        [Authorize(Roles = UserRoles.Admin)]
+        [Route(Routes.VEHICLE_ADD)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
         public async Task<IActionResult> AddVehicle([FromBody] Vehicle v) {
             try {
                 await dbStore.AddVehicleAsync(v);
@@ -209,6 +248,46 @@ namespace Project_Omni_Ride_Network {
         #endregion
 
 
+        #region Rating
+
+        [HttpGet]
+        [Route(Routes.FILTERED_RATINGS)]
+        public async Task<PartialViewResult> GetRatingListView(int? page, int? starFilter, bool? sortNewest, bool? sortByHighestStars) {
+            IEnumerable<Rating> rating = await dbStore.GetRatingsAsync();
+
+            if(starFilter != null && starFilter > 0 && starFilter < 6) {
+                rating = rating.Where(e => e.Stars == starFilter);
+            }
+            if(sortNewest != null && sortNewest == true) {
+                if (sortNewest.Value)
+                    rating.OrderByDescending(e => e.CmntTime);
+                else
+                    rating.OrderBy(e => e.CmntTime);
+            }
+            if(sortByHighestStars != null) {
+                if (sortByHighestStars.Value)
+                    rating.OrderByDescending(e => e.Stars);
+                else
+                    rating.OrderBy(e => e.Stars);
+            }
+
+            int itemsPerPage = 20;
+            int currentPage = page ?? 1;
+            if (currentPage <= 0) currentPage = 1;
+            int totalItems = rating == null ? 0 : rating.Count();
+
+            int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
+            if (currentPage > pageCount) currentPage = pageCount;
+
+            if (rating != null & totalItems > 0)
+                rating = rating.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+
+            return PartialView("_ratingList", rating.ToList());
+        }
+
+        #endregion
+
+
         #region Contact
 
 
@@ -222,8 +301,8 @@ namespace Project_Omni_Ride_Network {
                 var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
 
                 try {
-                    MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    MailerAsync(ourMail, senderMail, "Ihr Anliegen: "+subject, MailTxt.SERVICE_RESP);
+                    mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.CreateServiceResponse(contact.SenderName));
                 } catch (Exception ex) {
                     return View();
                 }
@@ -232,37 +311,25 @@ namespace Project_Omni_Ride_Network {
             return StatusCode(StatusCodes.Status400BadRequest);
         }
 
-        #region HelperMethods
+        #endregion
 
+        #region Orders
 
+        //TODO:
+        //Get User and Vehicle to complete body of order
 
-        public async Task<bool> MailerAsync(string ourMail, string senderMail, string subject, string message) {
+        [HttpDelete]
+        [Route(Routes.ORDER_DEL)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> DeleteOrder([FromBody]Order o) {
             try {
-                using (var mail = new MailMessage()) {
-
-                    mail.From = new MailAddress(ourMail);
-                    mail.Subject = subject;
-                    mail.To.Add(new MailAddress(senderMail));
-                    mail.Body = message;
-                    mail.IsBodyHtml = true;
-
-                    using (var smtpClient = new SmtpClient(_configuration.GetValue<string>("MailCredentials:Hostname"), _configuration.GetValue<int>("MailCredentials:Port"))) {
-                        smtpClient.EnableSsl = true;
-                        smtpClient.UseDefaultCredentials = false;
-                        smtpClient.Credentials = new NetworkCredential(_configuration.GetValue<string>("MailCredentials:Email"), _configuration.GetValue<string>("MailCredentials:Passwort"));
-                        await smtpClient.SendMailAsync(mail);
-                    }
-
-                }
-
-                return true;
-
-            } catch (Exception ex) {
-                return false;
+                await dbStore.RemoveOrderAsync(o);
+            } catch (DatabaseAPIException ex) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting order"});
             }
+            return Ok(new ApiResponse { Status = "Success", Message = "Order deleted successfully!" });
         }
 
-        #endregion
         #endregion
         
         #region Rating
@@ -314,6 +381,5 @@ namespace Project_Omni_Ride_Network {
         }
 
         #endregion
-
     }
 }
