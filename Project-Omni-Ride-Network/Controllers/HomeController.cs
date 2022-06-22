@@ -255,15 +255,45 @@ namespace Project_Omni_Ride_Network {
         [Route(Routes.RATING)]
         public async Task<IActionResult> Rating() {
             List<Rating> ratings = await dbStore.GetRatingsAsync();
-            return View(new RatingViewModel(await PrepareBaseViewModel()) { Ratings = ratings });
+            int[] count = { ratings.Where(e => e.Stars == 1).Count(), ratings.Where(e => e.Stars == 2).Count(), ratings.Where(e => e.Stars == 3).Count(), ratings.Where(e => e.Stars == 4).Count(), ratings.Where(e => e.Stars == 5).Count() };
+            int sumCount = count[0] + count[1] + count[2] + count[3] + count[4];
+            if(sumCount == 0) sumCount = 1;
+            int[] dist = { CalcRatingDistribution(count[0], sumCount), CalcRatingDistribution(count[1], sumCount), CalcRatingDistribution(count[2], sumCount), CalcRatingDistribution(count[3], sumCount), CalcRatingDistribution(count[4], sumCount) };
+
+            bool userAlreadyReviewed = false;
+            if(User.Identity.IsAuthenticated) {
+                var user = await userManager.FindByEmailAsync(User.Identity.Name);
+                if (user != null)
+                    userAlreadyReviewed = ratings.Where(e => e.UserId.Equals(user.Id)).Any();
+            }
+
+            return View(new RatingViewModel(await PrepareBaseViewModel()) { RatingCounts = count, RatingDistribution = dist, UserAlreadyReviewed=userAlreadyReviewed});
+        }
+
+        private int CalcRatingDistribution(int starCount, int totalSum) {
+            return (int)((starCount / (double)totalSum) * 10);
         }
 
         [Route(Routes.RATING)]
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddRating() {
-            // TODO check form and add rating to db
-            return Ok(await PrepareBaseViewModel());
+        public async Task<IActionResult> RatingAction([FromForm]RatingApiModel model) {
+            var user = await userManager.FindByEmailAsync(User.Identity.Name);
+            if (user == null)
+                return Unauthorized();
+            var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id)).FirstOrDefault();
+            if (customer == null)
+                return Unauthorized();
+            if ((await dbStore.GetRatingsAsync()).Where(e => e.UserId.Equals(user.Id)).Any())
+                return Unauthorized();
+
+            var r = new Rating() { CmntTime = DateTime.Now, Comment = model.Comment, Stars = model.Stars % 6, User = customer, UserId = user.Id };
+            try {
+                await dbStore.AddRatingAsync(r);
+            } catch (DatabaseAPIException) { 
+                return Unauthorized();
+            }
+            return Ok();
         }
 
         #endregion

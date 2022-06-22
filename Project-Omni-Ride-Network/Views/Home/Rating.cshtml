@@ -1,4 +1,143 @@
 @{
     ViewData["Title"] = "Bewertung";
 }
-<h1>Hello World</h1>
+<section id ="rating">
+    <br />
+    <span class="heading">Kunden Bewertung</span>
+        
+    <p class="numberRating">@Model.TotalRatings  Bewertungen</p>
+
+    <div class="row">
+        <div class="side">
+            <div>5 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[4]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[4]</div>
+        </div>
+        <div class="side">
+            <div>4 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[3]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[3]</div>
+        </div>
+        <div class="side">
+            <div>3 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[2]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[2]</div>
+        </div>
+        <div class="side">
+            <div>2 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[1]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[1]</div>
+        </div>
+        <div class="side">
+            <div>1 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[0]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[0]</div>
+        </div>
+    </div>
+    <hr />
+    @if (Model.Authorized && !Model.UserAlreadyReviewed) {
+        <div id="ratingAuthOnly">
+            <div class="rating">
+                <span class="rating__res"></span>
+                <i class="rating-userstar editable-star checked" id="star1"></i>
+                <i class="rating-userstar editable-star" id="star2"></i>
+                <i class="rating-userstar editable-star" id="star3"></i>
+                <i class="rating-userstar editable-star" id="star4"></i>
+                <i class="rating-userstar editable-star" id="star5"></i>
+            </div>
+            <script>
+            function addReview(url) {
+                $.ajax({
+		            url: url,
+		            dataType: 'html',
+		            method: 'POST',
+		            data: {
+                        Comment: $('#commentArea').val(),
+                        Stars: currentRating
+		            },
+		            success: (res) => {
+			            $('#commentArea').html('');
+                        window.location.reload();
+		            },
+		            error: (err) => {
+			            console.log(err);
+		            }
+	            });
+
+                // Don't submit the form
+                return false;
+            }
+            </script>
+            <form onsubmit="event.preventDefault(); return addReview('@Url.Action("RatingAction", "Home")')">
+                <textarea id="commentArea" rows="5" placeholder="Kommentar..." required="required" style="width:100%;"></textarea><br/>
+                <input type="submit" class="rating submit" value="Kommentieren"/>
+            </form>
+            <hr />
+            <script>
+                const ratingStars = [...document.getElementsByClassName("editable-star")];
+                const ratingResult = document.querySelector(".rating__res");
+                printRatingResult(ratingResult);
+                var currentRating = 1;
+                function executeRating(stars, result) {
+                   let starClassActive = "rating-userstar editable-star checked";
+                   let starClassUnactive = "rating-userstar editable-star";
+                   let i;
+                   let m;
+                   stars.map((star) => {
+                      star.onclick = () => {
+                        m ==  m+1;
+                        i = stars.indexOf(star);
+                        for(s of stars) {
+                            s.className = starClassUnactive;
+                        }
+                        printRatingResult(result, i + 1);
+                        for (i; i >= 0; --i) { 
+                            stars[i].className = starClassActive;
+                        }
+                      };
+                   });
+                }
+                function printRatingResult(result, num = 1) {
+                   result.textContent = `${num}/5`;
+                   currentRating = num;
+                }
+                executeRating(ratingStars, ratingResult);
+            </script>
+        </div>
+    }
+    <div id ="reviewList">
+    </div>
+    <script>let apiUrl="@Url.Action("GetRatingListView", "Api")"</script>
+    <script src="~/js/reviewList.js"></script>
+</section>
+
