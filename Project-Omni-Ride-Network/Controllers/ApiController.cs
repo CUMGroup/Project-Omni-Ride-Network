@@ -27,13 +27,16 @@ namespace Project_Omni_Ride_Network {
         private readonly IConfiguration _configuration;
         private readonly DataStore dbStore;
         private readonly Mailer mailer;
+        private readonly MailTxt mailTxt;
 
-        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration config, DataStore dbStore, Mailer mailer) {
+        public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, 
+            IConfiguration config, DataStore dbStore, Mailer mailer, MailTxt mailTxt) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             this._configuration = config;
             this.dbStore = dbStore;
             this.mailer = mailer;
+            this.mailTxt = mailTxt;
         }
 
         #region Authentication
@@ -103,7 +106,8 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -150,7 +154,8 @@ namespace Project_Omni_Ride_Network {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error creating the User" });
             }
 
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, MailTxt.REGISTRY_PRSP);
+            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
@@ -183,7 +188,7 @@ namespace Project_Omni_Ride_Network {
             try {
                 await dbStore.RemoveVehicleAsync(v);
             } catch (DatabaseAPIException) {
-                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting Vehicle" });
             }
 
             return Ok(new ApiResponse { Status = "Success", Message = "Vehicle deleted successfully!" });
@@ -297,7 +302,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, MailTxt.SERVICE_RESP);
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.CreateServiceResponse(contact.SenderName));
                 } catch (Exception ex) {
                     return View();
                 }
@@ -305,6 +310,26 @@ namespace Project_Omni_Ride_Network {
             }
             return StatusCode(StatusCodes.Status400BadRequest);
         }
+
+        #endregion
+
+        #region Orders
+
+        //TODO:
+        //Get User and Vehicle to complete body of order
+
+        [HttpDelete]
+        [Route(Routes.ORDER_DEL)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> DeleteOrder([FromBody]Order o) {
+            try {
+                await dbStore.RemoveOrderAsync(o);
+            } catch (DatabaseAPIException ex) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting order"});
+            }
+            return Ok(new ApiResponse { Status = "Success", Message = "Order deleted successfully!" });
+        }
+
 
         #endregion
 

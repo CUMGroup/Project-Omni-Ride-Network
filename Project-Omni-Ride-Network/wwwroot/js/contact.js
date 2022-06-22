@@ -50,7 +50,7 @@ function move() {
     if (parseInt($('#zugzug')[0].style.left) >= 1800) {
         window.clearInterval(job);
         $('#zugzug')[0].hidden = "hidden";
-        $('#zugzug')[0].style.left = "-472px";
+        $('#zugzug')[0].style.left = "-4500px";
     }
 
 }
