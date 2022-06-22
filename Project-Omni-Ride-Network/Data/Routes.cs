@@ -19,10 +19,12 @@ namespace Project_Omni_Ride_Network {
         public const string LOGIN = "login";
         public const string LOGOUT = "logout";
         public const string REGISTER = "register";
+        public const string DELETE_USER = "deleteuser";
         public const string PROFILE = "profile";
         public const string RATING = "rating";
 
         public const string CONTACT = "contact";
+        public const string CONTACT_DONE = "mailsent";
         public const string KARRIERE = "karriere";
         public const string DATENSCHUTZ = "datenschutz";
         public const string PARTNER = "partner";
@@ -30,8 +32,10 @@ namespace Project_Omni_Ride_Network {
         public const string AGB = "agb";
 
 
-        public const string VEHICLE_API = "addvehicle";
+        public const string VEHICLE_ADD = "addvehicle";
+        public const string VEHICLE_REMOVE = "removevehicle";
         public const string FILTERED_VEHICLES = "filteredvehicles";
+        public const string FILTERED_RATINGS = "filteredratings";
         public const string REGISTER_ADMIN = "registeradmin";
     }
 }
