@@ -37,9 +37,13 @@ namespace Project_Omni_Ride_Network {
             string name = "";
             if (authorized) {
                 var user = await userManager.FindByEmailAsync(User.Identity.Name);
-                var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
-                if (customer.Count() > 0)
-                    name = customer.First().KdName + " " + customer.First().KdSurname;
+                if(user == null) {
+                    authorized = false;
+                } else {
+                    var customer = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals(user.Id));
+                    if (customer.Count() > 0)
+                        name = customer.First().KdName + " " + customer.First().KdSurname;
+                }
             }
             return new BaseViewModel { Authorized = authorized, UserName = name };
         }
