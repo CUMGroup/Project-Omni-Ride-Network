@@ -247,47 +247,6 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-
-        #region Rating
-
-        [HttpGet]
-        [Route(Routes.FILTERED_RATINGS)]
-        public async Task<PartialViewResult> GetRatingListView(int? page, int? starFilter, bool? sortNewest, bool? sortByHighestStars) {
-            IEnumerable<Rating> rating = await dbStore.GetRatingsAsync();
-
-            if(starFilter != null && starFilter > 0 && starFilter < 6) {
-                rating = rating.Where(e => e.Stars == starFilter);
-            }
-            if(sortNewest != null && sortNewest == true) {
-                if (sortNewest.Value)
-                    rating.OrderByDescending(e => e.CmntTime);
-                else
-                    rating.OrderBy(e => e.CmntTime);
-            }
-            if(sortByHighestStars != null) {
-                if (sortByHighestStars.Value)
-                    rating.OrderByDescending(e => e.Stars);
-                else
-                    rating.OrderBy(e => e.Stars);
-            }
-
-            int itemsPerPage = 20;
-            int currentPage = page ?? 1;
-            if (currentPage <= 0) currentPage = 1;
-            int totalItems = rating == null ? 0 : rating.Count();
-
-            int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
-            if (currentPage > pageCount) currentPage = pageCount;
-
-            if (rating != null & totalItems > 0)
-                rating = rating.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
-
-            return PartialView("_ratingList", rating.ToList());
-        }
-
-        #endregion
-
-
         #region Contact
 
 
