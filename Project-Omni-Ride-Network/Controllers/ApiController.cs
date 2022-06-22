@@ -107,7 +107,7 @@ namespace Project_Omni_Ride_Network {
             }
 
             mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
-                mailTxt.createRegistryResponse(model.KdTitle, model.KdSurname));
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -155,7 +155,7 @@ namespace Project_Omni_Ride_Network {
             }
 
             mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
-                mailTxt.createRegistryResponse(model.KdTitle, model.KdSurname));
+                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
@@ -188,7 +188,7 @@ namespace Project_Omni_Ride_Network {
             try {
                 await dbStore.RemoveVehicleAsync(v);
             } catch (DatabaseAPIException) {
-                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on creating Vehicle" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting Vehicle" });
             }
 
             return Ok(new ApiResponse { Status = "Success", Message = "Vehicle deleted successfully!" });
@@ -302,7 +302,7 @@ namespace Project_Omni_Ride_Network {
 
                 try {
                     mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.createServiceResponse(contact.SenderName));
+                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.CreateServiceResponse(contact.SenderName));
                 } catch (Exception ex) {
                     return View();
                 }
@@ -310,6 +310,26 @@ namespace Project_Omni_Ride_Network {
             }
             return StatusCode(StatusCodes.Status400BadRequest);
         }
+
+        #endregion
+
+        #region Orders
+
+        //TODO:
+        //Get User and Vehicle to complete body of order
+
+        [HttpDelete]
+        [Route(Routes.ORDER_DEL)]
+        [AuthorizeToken(Roles = UserRoles.Admin)]
+        public async Task<IActionResult> DeleteOrder([FromBody]Order o) {
+            try {
+                await dbStore.RemoveOrderAsync(o);
+            } catch (DatabaseAPIException ex) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting order"});
+            }
+            return Ok(new ApiResponse { Status = "Success", Message = "Order deleted successfully!" });
+        }
+
 
         #endregion
 
