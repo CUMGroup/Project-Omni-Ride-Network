@@ -3,20 +3,25 @@
 }
 <h1 class="home">Hallo @Model.Customer.KdName @Model.Customer.KdSurname</h1>
 
+<p>
+    Folgende Daten haben wir von dir Gespeichert:
+</p>
+
 <div>
+    Anrede: @Model.Customer.KdTitle <br />
     Vorname: @Model.Customer.KdName <br />
     Nachname: @Model.Customer.KdSurname
 </div>
 <div>
-    Geburtsdatum: @Model.Customer.KdBirth
+    Geburtsdatum: @(Model.Customer.KdBirth.ToString().Substring(0, 11))
+    @{
+        if(Model.Customer.Paymnt == 1) {
+                <div>Bezahlmethode: PayPal</div>
+        }
+        else if (Model.Customer.Paymnt == 1) {
+                <div>Bezahlmethode: Kreditkarte</div>
+        } else {
+                <div>Bezahlmethode: Sofort&uuml;berweisung</div>
+        }
+    }
 </div>
-@{
-    if(Model.Customer.Paymnt == 1) {
-        <div>Bezahlmethode: PayPal</div>
-    }
-    else if (Model.Customer.Paymnt == 1) {
-        <div>Bezahlmethode: Kreditkarte</div>
-    } else {
-        <div>Bezahlmethode: Sofortüberweisung</div>
-    }
-}
