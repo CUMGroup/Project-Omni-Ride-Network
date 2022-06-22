@@ -4,24 +4,42 @@
 <h1 class="home">Hallo @Model.Customer.KdName @Model.Customer.KdSurname</h1>
 
 <p>
-    Folgende Daten haben wir von dir Gespeichert:
+   Folgende Daten haben wir von Dir Gespeichert:
 </p>
 
-<div>
-    Anrede: @Model.Customer.KdTitle <br />
-    Vorname: @Model.Customer.KdName <br />
-    Nachname: @Model.Customer.KdSurname
+<div class="profile box">
+    <mark class="boxtitle">Deine pers&ouml;nlichen Informationen</mark> <br /><br />
+    <lable class="profile">Anrede: </lable> @Model.Customer.KdTitle <br />
+    <lable class="profile">Vorname: </lable> @Model.Customer.KdName <br />
+    <lable class="profile">Nachname: </lable> @Model.Customer.KdSurname <br />
+    <lable class="profile">Geburtsdatum:  </lable> @(Model.Customer.KdBirth.ToString().Substring(0, 11))
 </div>
-<div>
-    Geburtsdatum: @(Model.Customer.KdBirth.ToString().Substring(0, 11))
+<br />
+<div class="profile box">
+    <mark class="boxtitle">Deine Anmelde-Informationen</mark> <br /><br />
+    <lable class="profile">E-Mail: </lable> @Model.Customer.User.Email <br />
+    <lable class="profile">Passwort: </lable> <input class="profile" type="password" disabled="disabled" value="password" />
+</div>
+<br />
+<div class="profile box">
     @{
         if(Model.Customer.Paymnt == 1) {
-                <div>Bezahlmethode: PayPal</div>
+            <div><lable class="profile">Bezahlmethode: </lable> PayPal</div>
         }
         else if (Model.Customer.Paymnt == 1) {
-                <div>Bezahlmethode: Kreditkarte</div>
+            <div><lable class="profile">Bezahlmethode: </lable> Kreditkarte</div>
         } else {
-                <div>Bezahlmethode: Sofort&uuml;berweisung</div>
+            <div><lable class="profile">Bezahlmethode: </lable> Sofort&uuml;berweisung</div>
         }
     }
 </div>
+<br />
+<p class="profile info">
+    Falls du kein Konto mehr bei uns haben m&oumlchtest, kannst du auch gerne dein Konto l&ouml;schen. 
+    Wir entfernen dann deine Daten aus unserer Datenbank. 
+    <br /><br />
+    Wenn Informationen falsch sind und du diese korrigieren m&oumlchtest, dann musst du dein Konto l&ouml;schen und ein neues erstellen ._.
+</p>
+<form method="post" >
+    <input type="submit" class="loginpage submit" value="Konto löschen"/>
+</form>

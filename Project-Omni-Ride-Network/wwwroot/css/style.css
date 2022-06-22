@@ -823,3 +823,34 @@ div.partner {
 mark.home.disclaimer{
 	font-size: 10pt;
 }
+
+/*-----profile-------*/
+
+lable.profile{
+	color: var(--accents);
+}
+
+mark.boxtitle{
+	color: var(--documents);
+	background: none;
+}
+
+div.profile.box{
+	background: var(--border);
+	padding: 10px;
+	min-width: 140px;
+}
+
+input.profile {
+	color: var(--font);
+	font-size: 14pt;
+	width: auto;
+	background: transparent;
+	border: none;
+	user-select: none;
+}
+
+.profile.info{
+	color: var(--accents);
+	font-size: 10pt;
+}
