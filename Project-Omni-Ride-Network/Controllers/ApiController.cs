@@ -247,7 +247,6 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-
         #region Rating
 
         [HttpGet]
@@ -287,7 +286,6 @@ namespace Project_Omni_Ride_Network {
 
         #endregion
 
-
         #region Contact
 
 
@@ -321,9 +319,9 @@ namespace Project_Omni_Ride_Network {
         [HttpDelete]
         [Route(Routes.ORDER_DEL)]
         [AuthorizeToken(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> DeleteOrder([FromBody]Order o) {
+        public async Task<IActionResult> DeleteOrder([FromBody]string id) {
             try {
-                await dbStore.RemoveOrderAsync(o);
+                await dbStore.RemoveOrderAsync(id);
             } catch (DatabaseAPIException ex) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting order"});
             }
