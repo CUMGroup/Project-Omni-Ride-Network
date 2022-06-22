@@ -223,6 +223,24 @@ namespace Project_Omni_Ride_Network {
             return View(new ProfileViewModel(await PrepareBaseViewModel(), customer.First()));
         }
 
+        [HttpPost]
+        [Route(Routes.DELETE_USER)]
+        [Authorize]
+        public async Task<IActionResult> RemoveUser() {
+            try {
+                var a = await userManager.FindByEmailAsync(User.Identity.Name);
+                if (a == null) {
+                    return Unauthorized();
+                }
+                await dbStore.RemoveCustomerAsync(a);
+            } catch (DatabaseAPIException) {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
+            }
+
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         [Route(Routes.RATING)]
         public async Task<IActionResult> Rating() {
             List<Rating> ratings = await dbStore.GetRatingsAsync();
