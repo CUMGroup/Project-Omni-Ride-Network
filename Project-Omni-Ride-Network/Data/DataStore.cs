@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -138,7 +139,7 @@ namespace Project_Omni_Ride_Network {
         }
 
         public async Task<List<Rating>> GetRatingsAsync() {
-            return dbContext.Rating.ToList();
+            return dbContext.Rating.Include(e => e.User).ToList();
         }
 
         #endregion

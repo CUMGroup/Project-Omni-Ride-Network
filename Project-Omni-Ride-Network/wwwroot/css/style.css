@@ -690,63 +690,96 @@ select.loginpage option {
   padding: 20px;
 }
 
-.rating-userstar:before {
+#rating .rating-userstar:before {
 	content: "\2605";
 }
 
-.rating-userstar {
+#rating .rating-userstar {
 	font-style:normal;
 	font-size: 1.3em;
 }
 
-.rating-userstar.checked {
+#rating .rating-userstar.checked {
 	color: var(--bright_red);
 }
 
-.heading {
+#rating .heading {
   font-size: 25px;
   margin-right: 25px;
   margin-top:25px;
 }
 
-.fa {
+#rating .fa {
   font-size: 25px;
 }
 
 
-
-.side {
-  float: left;
-  width: 15%;
-  margin-top: 20px;
-}
-
-.middle {
+#rating .middle {
   float: left;
   width: 70%;
   margin-top: 20px;
 }
 
-
-.right {
-  text-align: right;
-}
-
-
-.row:after {
+#rating .row:after {
   content: "";
   display: table;
   clear: both;
 }
 
 
-.bar-container {
+#rating .bar-container {
   width: 100%;
   background-color: var(--column_bright);
   text-align: center;
   color: white;
 }
 
+#rating .review-date {
+	color: var(--accents);
+	margin-left: .5em;
+}
+
+#rating .child {
+	padding: .1em .5em;
+	background: var(--border);
+	margin: 1em 0;
+}
+
+#rating .side {
+	
+	float:left;
+	width:15%;
+}
+
+#rating .right {
+	text-align: right;
+}
+
+
+#rating .right + .side {
+	clear:both;
+}
+
+@media screen and (max-width: 600px) {
+	#rating {
+		padding:0;
+	}
+
+	#rating .side {
+		width:unset;
+		margin: 20px 10px 0 0;
+	}
+
+	#rating .right {
+		margin: 20px 0 0 10px;
+	}
+}
+
+@media screen and (max-width: 370px) {
+	#rating .middle {
+		width:60%;
+	}
+}
 
 .bar-0 { width: 0%;}
 .bar-1 { width: 10%;}
@@ -759,7 +792,23 @@ select.loginpage option {
 .bar-8 { width: 80%;}
 .bar-9 { width: 90%;}
 .bar-10 { width: 100%;}
-.ratingbar {
+#rating .ratingbar {
 	height:18px;
 	background-color: var(--bright_red);
+}
+
+
+input.rating.submit {
+	background: var(--deep_red);
+	padding: 7px;
+	font-size: 17pt;
+	color: var(--font);
+	border: solid var(--deep_red) 0.1em;
+}
+
+input.rating.submit:hover {
+	background: var(--bright_red);
+	border: solid var(--bright_red) 0.1em;
+	padding: 7px;
+	font-size: 17pt;
 }

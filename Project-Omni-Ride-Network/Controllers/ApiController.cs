@@ -279,7 +279,7 @@ namespace Project_Omni_Ride_Network {
             //    int j = 0;
             //}
             IEnumerable<Rating> rating = await dbStore.GetRatingsAsync();
-            if(starFilter != null && starFilter > 0 && starFilter < 6) {
+            if (starFilter != null && starFilter > 0 && starFilter < 6) {
                 rating = rating.Where(e => e.Stars == starFilter);
             }
 
