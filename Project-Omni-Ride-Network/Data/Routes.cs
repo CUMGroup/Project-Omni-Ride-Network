@@ -15,6 +15,7 @@ namespace Project_Omni_Ride_Network {
 
         public const string OVERVIEW = "overview";
         public const string BOOKING = "booking/{id}";
+        public const string ORDER_DEL = "deleteorder";
 
         public const string LOGIN = "login";
         public const string LOGOUT = "logout";

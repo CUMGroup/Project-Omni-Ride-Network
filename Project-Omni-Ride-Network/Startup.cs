@@ -37,6 +37,7 @@ namespace Project_Omni_Ride_Network {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Framework.Construction.Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<DataStore>(provider => new DataStore(provider.GetService<ApplicationDbContext>()));
             services.AddScoped<Mailer>(provider => new Mailer(Configuration));
+            services.AddScoped<MailTxt>(provider => new MailTxt());
 
             // AddIdentity adds cookie based authentication
             // Adds scoped classes for things like UserManager, SignInManager, PasswordHashers...

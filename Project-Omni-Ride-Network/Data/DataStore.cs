@@ -144,6 +144,20 @@ namespace Project_Omni_Ride_Network {
             return dbContext.Orders.ToList();
         }
 
+        public async Task<bool> RemoveOrderAsync(Order o) {
+            if (String.IsNullOrEmpty(o?.OrderId)) {
+                throw new DatabaseAPIException("OrderId can't be null when removing");
+            }
+
+            var order = dbContext.Orders.Where(e => e.OrderId.Equals(o.OrderId));
+            if (order.Any()) {
+                dbContext.Orders.Remove(order.First());
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Ratings
