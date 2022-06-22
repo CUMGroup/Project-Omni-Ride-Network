@@ -1,4 +1,22 @@
 @{
     ViewData["Title"] = "Profil";
 }
-<h1>Hello World</h1>
+<h1 class="home">Hallo @Model.Customer.KdName @Model.Customer.KdSurname</h1>
+
+<div>
+    Vorname: @Model.Customer.KdName <br />
+    Nachname: @Model.Customer.KdSurname
+</div>
+<div>
+    Geburtsdatum: @Model.Customer.KdBirth
+</div>
+@{
+    if(Model.Customer.Paymnt == 1) {
+        <div>Bezahlmethode: PayPal</div>
+    }
+    else if (Model.Customer.Paymnt == 1) {
+        <div>Bezahlmethode: Kreditkarte</div>
+    } else {
+        <div>Bezahlmethode: Sofortüberweisung</div>
+    }
+}
