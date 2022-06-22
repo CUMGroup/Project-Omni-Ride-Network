@@ -831,6 +831,7 @@ select.loginpage option {
 	
 	float:left;
 	width:15%;
+	margin-top:20px;
 }
 
 #rating .right {
