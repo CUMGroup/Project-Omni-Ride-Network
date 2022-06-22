@@ -854,3 +854,9 @@ input.profile {
 	color: var(--accents);
 	font-size: 10pt;
 }
+
+div.profileview{
+	justify-self: center;
+	width: 60%;
+	margin: auto;
+}
