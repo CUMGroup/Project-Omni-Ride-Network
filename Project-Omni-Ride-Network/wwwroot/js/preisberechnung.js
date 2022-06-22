@@ -1,11 +1,11 @@
 ﻿$(document).ready(
     function () {
         date = new Date();
+        today = date.toLocaleString('sv', { timeZoneName: 'short' }).substring(0, 10);
 
         if ($('#category')[0].innerText.includes("Sharing")) {
-            today = date.toISOString().substring(0, 16);
-        } else {
-            today = date.toISOString().substring(0, 10);
+            today += "T";
+            today += date.toLocaleString('sv', { timeZoneName: 'short' }).substring(11, 16);
         }
 
         $("#pickupdate")[0].value = today;
