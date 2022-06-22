@@ -260,6 +260,7 @@ namespace Project_Omni_Ride_Network {
             } catch (Exception ex) {
                 return false;
             }
+        }
 
         #endregion
         #endregion
@@ -269,11 +270,22 @@ namespace Project_Omni_Ride_Network {
         [HttpGet]
         [Route(Routes.FILTERED_RATINGS)]
         public async Task<PartialViewResult> GetRatingListView(int? page, int? starFilter, bool? sortNewest, bool? sortByHighestStars) {
+            //Random r = new Random();
+            //Customer u = (await dbStore.GetCustomersAsync()).Where(e => e.UserId.Equals("dfaba825-94ae-44bb-bcef-95d6454190b6")).FirstOrDefault();
+            //for (int i = 0; i < 30; ++i) {
+            //    int rat = r.Next(5) + 1;
+            //    await dbStore.AddRatingAsync(new Rating { CmntTime = DateTime.Now, Comment = rat + " cmnttext", Stars = rat, UserId = "lel"+i, User = new Customer { UserId = "lel" + i} });
+            //    await Task.Delay(r.Next(10000));
+            //    int j = 0;
+            //}
             IEnumerable<Rating> rating = await dbStore.GetRatingsAsync();
-
             if(starFilter != null && starFilter > 0 && starFilter < 6) {
                 rating = rating.Where(e => e.Stars == starFilter);
             }
+
+            if (rating == null || !rating.Any())
+                return PartialView("_noRatings");
+
             if(sortNewest != null && sortNewest == true) {
                 if (sortNewest.Value)
                     rating.OrderByDescending(e => e.CmntTime);

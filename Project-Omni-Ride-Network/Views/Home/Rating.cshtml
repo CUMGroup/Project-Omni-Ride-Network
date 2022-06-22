@@ -1,151 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="C:\Users\elnaz\c c++\JavaScript\Rating.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-</head>
-<body>
+@{
+    ViewData["Title"] = "Rating";
+}
 <section id ="rating">
-        <br>
-        <br>
-        <span class="heading">Kunden Bewertung</span>
+    <br />
+    <span class="heading">Kunden Bewertung</span>
+        
+    <p class="numberRating">@Model.TotalRatings  Bewertungen</p>
+
+    <div class="row">
+        <div class="side">
+            <div>5 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[4]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[4]</div>
+        </div>
+        <div class="side">
+            <div>4 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[3]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[3]</div>
+        </div>
+        <div class="side">
+            <div>3 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[2]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[2]</div>
+        </div>
+        <div class="side">
+            <div>2 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[1]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[1]</div>
+        </div>
+        <div class="side">
+            <div>1 star</div>
+        </div>
+        <div class="middle">
+            <div class="bar-container">
+                <div class="ratingbar bar-@Model.RatingDistribution[0]"></div>
+            </div>
+        </div>
+        <div class="side right">
+            <div>@Model.RatingCounts[0]</div>
+        </div>
+    </div>
+    <hr />
+    @if (Model.Authorized && !Model.UserAlreadyReviewed) {
         <div class="rating">
-        <span class="rating__res"></span>
-        <i class="rating-star fa fa-star " id="star1"></i>
-        <i class="rating-star fa fa-star " id="star2"></i>
-        <i class="rating-star fa fa-star " id="star3"></i>
-        <i class="rating-star fa fa-star " id="star4"></i>
-        <i class="rating-star fa fa-star" id="star5"></i>
+            <span class="rating__res"></span>
+            <i class="rating-userstar checked" id="star1"></i>
+            <i class="rating-userstar" id="star2"></i>
+            <i class="rating-userstar" id="star3"></i>
+            <i class="rating-userstar" id="star4"></i>
+            <i class="rating-userstar" id="star5"></i>
         </div>
-        <p class="numberRating">  Bewertungen</p>
-        <hr style="border:3px solid #efefef">
+        <script>
+        function addReview(url) {
+            $.ajax({
+		        url: url,
+		        dataType: 'html',
+		        method: 'POST',
+		        data: {
+                    Comment: $('#commentArea').val(),
+                    Stars: currentRating
+		        },
+		        success: (res) => {
+			        $('#commentArea').html('');
+                    getRatingList();
+		        },
+		        error: (err) => {
+			        console.log(err);
+		        }
+	        });
 
-        <div class="row">
-            <div class="side">
-                <div>5 star</div>
-            </div>
-            <div class="middle">
-                <div class="bar-container">
-                    <div class="bar-5"></div>
-                </div>
-            </div>
-            <div class="side right">
-                <div>xx</div>
-            </div>
-            <div class="side">
-                <div>4 star</div>
-            </div>
-            <div class="middle">
-                <div class="bar-container">
-                    <div class="bar-4"></div>
-                </div>
-            </div>
-            <div class="side right">
-                <div>xx</div>
-            </div>
-            <div class="side">
-                <div>3 star</div>
-            </div>
-            <div class="middle">
-                <div class="bar-container">
-                    <div class="bar-3"></div>
-                </div>
-            </div>
-            <div class="side right">
-                <div>xx</div>
-            </div>
-            <div class="side">
-                <div>2 star</div>
-            </div>
-            <div class="middle">
-                <div class="bar-container">
-                    <div class="bar-2"></div>
-                </div>
-            </div>
-            <div class="side right">
-                <div>xx</div>
-            </div>
-            <div class="side">
-                <div>1 star</div>
-            </div>
-            <div class="middle">
-                <div class="bar-container">
-                    <div class="bar-1"></div>
-                </div>
-            </div>
-            <div class="side right">
-                <div>xx</div>
-            </div>
-        </div>
--<div class ="boxreview">
-
-            <!--Profile der Kunden--->
-                <div class="name-user">
-                    <br>
-                    <br>
-                    name1
-                    <br>
-                    @name1
-                </div>
-    <br>
-
-
-    <h1><span>Kommentar</span></h1>
-    <h3>Die Kunden sagen: </h3>
-
-    <form action="textarea.htm" >
-      <br>
-            <textarea id="myText"  cols="50" rows="10" placeholder="Schrieben Sie Ihre Kommentar">
-
-</textarea></p>
-    </form>
-
-<button onclick="myFunction()">submit</button>
-
-<p id="demo"></p>
-        </div>
-
+            // Don't submit the form
+            return false;
+        }
+        </script>
+        <form onsubmit="addReview('@Url.Action("RatingAction", "Home")')">
+            <textarea name="commentArea" id="commentArea" rows="5" placeholder="Kommentar..." required="required" style="width:100%;"></textarea><br/>
+            <input type="submit"/>
+        </form>
+        <hr />
+    }
+    <div id ="reviewList">
+    </div>
+    <script>let apiUrl="@Url.Action("GetRatingListView", "Api")"</script>
+    <script src="~/js/reviewList.js"></script>
 </section>
-<script>
- const ratingStars = [...document.getElementsByClassName("rating-star")];
-const ratingResult = document.querySelector(".rating__res");
-printRatingResult(ratingResult);
-function executeRating(stars, result) {
-   const starClassActive = "rating-star far fa-star checked";
-   const starClassUnactive = "rating-star fas fa-star";
-   const starsLength = stars.length;
-   let i;
-   let m;
-   stars.map((star) => {
-      star.onclick = () => {
-        m ==  m+1;
-         i = stars.indexOf(star);
-         if (star.className.indexOf(starClassUnactive ) ) {
-            printRatingResult(result, i + 1);
-            for (i; i >= 0; --i) stars[i].className = starClassActive;
-         } else {
-            printRatingResult(result, i);
-            for (i; i < starsLength; ++i) stars[i].className = starClassUnactive;
-         }
-      };
-   });
-}
-function printRatingResult(result, num = 1) {
-   result.textContent = `${num}/5`;
-}
-executeRating(ratingStars, ratingResult);
 
-const number = document.getElementsByClassName("numberRating");
-printNumberRating(numberRating);
-numberRating.textContent= m;
-function myFunction() {
-  var x = document.getElementById("myText").value;
-  document.getElementById("demo").innerHTML = x;
-}
+<script>
+    const ratingStars = [...document.getElementsByClassName("rating-userstar")];
+    const ratingResult = document.querySelector(".rating__res");
+    printRatingResult(ratingResult);
+    var currentRating = 1;
+    function executeRating(stars, result) {
+       let starClassActive = "rating-userstar checked";
+       let starClassUnactive = "rating-userstar";
+       let i;
+       let m;
+       stars.map((star) => {
+          star.onclick = () => {
+            m ==  m+1;
+            i = stars.indexOf(star);
+            for(s of stars) {
+                s.className = starClassUnactive;
+            }
+            printRatingResult(result, i + 1);
+            for (i; i >= 0; --i) { 
+                stars[i].className = starClassActive;
+            }
+          };
+       });
+    }
+    function printRatingResult(result, num = 1) {
+       result.textContent = `${num}/5`;
+       currentRating = num;
+    }
+    executeRating(ratingStars, ratingResult);
 </script>
-</body>
-</html>
