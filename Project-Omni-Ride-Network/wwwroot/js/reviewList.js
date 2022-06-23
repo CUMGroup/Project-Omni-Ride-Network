@@ -33,3 +33,21 @@ function findGetParameter(parameterName) {
 	});
 	return result;
 }
+
+function getPage() {
+	let currentPage = findGetParameter("page");
+	if (currentPage != null) {
+		return currentPage;
+	} else {
+		return 1;
+	}
+}
+
+function switchPage(i) {
+	let switchToPage = Number(getPage()) + i;
+
+	if (switchToPage <= 0) {
+		switchToPage = 1;
+	}
+	$('#page')[0].value = switchToPage;
+}
