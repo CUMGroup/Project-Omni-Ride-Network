@@ -1019,19 +1019,19 @@ input.pageswitch {
 
 /*Karriereseite----------------------------------------------*/
 
-#karriere{
-    .h1{
+
+   #karriere.h1{
     color: var(--deep_red);
     text-align: center;
     margin-top:50pt;
     }
-    .center {
+   #karriere.center {
       display: block;
       margin-left: auto;
       margin-right: auto;
 
     }
-    .box{
+    #karriere.box{
     justify-content: center;
     align-items: center;
     padding:20px;
@@ -1042,13 +1042,12 @@ input.pageswitch {
     text-align:center;
     }
 
-    .list{
+   #karriere.list{
     list-style-position: inside;
     text-align: center;
     margin-top:5px;
-
     }
-    .flex-container {
+    #karriere.flex-container {
     justify-content: center;
     align-items: center;
     display: flex;
@@ -1057,7 +1056,7 @@ input.pageswitch {
     margin:40px;
 
     }
-    .flex-container div{
+   #karriere.flex-container div{
     background-color:var(--border);
     width:500px;
     margin:10px;
@@ -1067,4 +1066,4 @@ input.pageswitch {
     align-items: center;
     height:400px;
     }
-}
+
