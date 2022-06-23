@@ -819,3 +819,71 @@ flex-direction: column;
         color: var(--deep_red);
       }
 }
+
+/*Karriereseite----------------------------------------------*/
+
+}
+
+html, body {
+	height: 100vh;
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+}
+
+body{
+    background: var(--background);
+    color: var(--font);
+	padding: 0pt;
+	margin: 0pt;
+	font-family: arial, sans-serif;
+}
+.h1{
+color: var(--deep_red);
+text-align: center;
+margin-top:50pt;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+.box{
+justify-content: center;
+align-items: center;
+padding:20px;
+margin-left:180pt;
+margin-right:180pt;
+height:20%;
+box-sizing:border;
+text-align:center;
+}
+
+.list{
+list-style-position: inside;
+text-align: center;
+margin-top:5px;
+
+}
+.flex-container {
+justify-content: center;
+align-items: center;
+display: flex;
+flex-wrap:row wrap;
+height:500px;
+margin:40px;
+
+}
+.flex-container div{
+background-color:var(--border);
+width:500px;
+margin:10px;
+padding:25px;
+text-align:center;
+justify-content: center;
+align-items: center;
+height:400px;
+}
+
+
