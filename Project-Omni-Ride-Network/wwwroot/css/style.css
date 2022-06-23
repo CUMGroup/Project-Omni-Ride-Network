@@ -170,12 +170,12 @@ body::-webkit-scrollbar-track {
 	-webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,0.3);
 	background-color: var(--column_dark);
 }
- 
+
  body::-webkit-scrollbar {
     width: 8pt;
     background-color: var(--accents);
  }
- 
+
 body::-webkit-scrollbar-thumb {
     border-radius: 10pt;
     -webkit-box-shadow: inset 0 0 6pt rgba(0,0,0,.3);
@@ -298,7 +298,7 @@ footer{
 	flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
-	justify-content: space-around;	
+	justify-content: space-around;
 	bottom:0;
 	left:0;
 	right:0;
@@ -762,3 +762,306 @@ select.loginpage option {
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
 }
+
+/*Bewertungsseite----------------------------------------------*/
+
+#rating {
+  font-family: Arial;
+  margin: 0 auto; /* Center website */
+  max-width: 800px; /* Max width */
+  padding: 20px;
+}
+
+#rating .rating-userstar:before {
+	content: "\2605";
+}
+
+#rating .rating-userstar {
+	font-style:normal;
+	font-size: 1.3em;
+}
+
+#rating .rating-userstar.checked {
+	color: var(--bright_red);
+}
+
+#rating .heading {
+  font-size: 25px;
+  margin-right: 25px;
+  margin-top:25px;
+}
+
+#rating .fa {
+  font-size: 25px;
+}
+
+
+#rating .middle {
+  float: left;
+  width: 70%;
+  margin-top: 20px;
+}
+
+#rating .row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+#rating .bar-container {
+  width: 100%;
+  background-color: var(--column_bright);
+  text-align: center;
+  color: white;
+}
+
+#rating .review-date {
+	color: var(--accents);
+	margin-left: .5em;
+}
+
+#rating .child {
+	padding: .1em .5em;
+	background: var(--border);
+	margin: 1em 0;
+}
+
+#rating .side {
+	
+	float:left;
+	width:15%;
+	margin-top:20px;
+}
+
+#rating .right {
+	text-align: right;
+}
+
+
+#rating .right + .side {
+	clear:both;
+}
+
+@media screen and (max-width: 600px) {
+	#rating {
+		padding:0;
+	}
+
+	#rating .side {
+		width:unset;
+		margin: 20px 10px 0 0;
+	}
+
+	#rating .right {
+		margin: 20px 0 0 10px;
+	}
+}
+
+@media screen and (max-width: 370px) {
+	#rating .middle {
+		width:60%;
+	}
+}
+
+
+
+
+.bar-0 { width: 0%;}
+.bar-1 { width: 10%;}
+.bar-2 { width: 20%;}
+.bar-3 { width: 30%;}
+.bar-4 { width: 40%;}
+.bar-5 { width: 50%;}
+.bar-6 { width: 60%;}
+.bar-7 { width: 70%;}
+.bar-8 { width: 80%;}
+.bar-9 { width: 90%;}
+.bar-10 { width: 100%;}
+#rating .ratingbar {
+	height:18px;
+	background-color: var(--bright_red);
+}
+
+
+input.rating.submit {
+	background: var(--deep_red);
+	padding: 7px;
+	font-size: 17pt;
+	color: var(--font);
+	border: solid var(--deep_red) 0.1em;
+}
+
+input.rating.submit:hover {
+	background: var(--bright_red);
+	border: solid var(--bright_red) 0.1em;
+	padding: 7px;
+	font-size: 17pt;
+}
+
+/*Partner Seite*/
+
+h2.partner {
+	color: var(--bright_red);
+}
+
+article.partner {
+	display: flex;
+	align-items:center;
+	border: 3px solid var(--border);
+	padding: 10px;
+	justify-content: space-around;
+	margin: 5px;
+	font-size: 20px;
+	width: 230px;
+}
+
+article.partner.bubatz {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 5px;
+	font-size: 18px;
+	border: none;
+	width: 50%;
+}
+
+article.partner:hover {
+	display: flex;
+	align-items: center;
+	border: 3px solid var(--border);
+	padding: 10px;
+	justify-content: space-between;
+	margin: 5px;
+	font-size: 20px;
+	width: 230px;
+	background: var(--column_dark);
+}
+
+article.partner.bubatz:hover {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	margin: 5px;
+	font-size: 18px;
+	border: none;
+	width: 50%;
+	background: none;
+}
+
+div.partner {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+
+}
+
+mark.home.disclaimer{
+	font-size: 10pt;
+}
+
+/*-----profile-------*/
+
+lable.profile{
+	color: var(--accents);
+}
+
+mark.boxtitle{
+	color: var(--documents);
+	background: none;
+}
+
+div.profile.box{
+	background: var(--border);
+	padding: 10px;
+	min-width: 140px;
+}
+
+input.profile {
+	color: var(--font);
+	font-size: 14pt;
+	width: auto;
+	background: transparent;
+	border: none;
+	user-select: none;
+}
+
+.profile.info{
+	color: var(--accents);
+	font-size: 10pt;
+}
+
+div.profileview{
+	justify-self: center;
+	width: 60%;
+	margin: auto;
+}
+
+
+/*-------------------------------*/
+
+form.pageswitch {
+	display: flex;
+	justify-content: center;
+}
+
+input.pageswitch {
+	font-size: 20pt;
+	color: var(--font);
+	background: var(--deep_red);
+	border: 1px solid var(--border);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+
+/*Karriereseite----------------------------------------------*/
+
+   #karriere .h1{
+    color: var(--deep_red);
+    text-align: center;
+    margin-top:50pt;
+    }
+   #karriere .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+    #karriere .box{
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    margin-left:180pt;
+    margin-right:180pt;
+    height:20%;
+    box-sizing:border;
+    text-align:center;
+    }
+
+   #karriere .list{
+    list-style-position: inside;
+    text-align: center;
+    margin-top:5px;
+    }
+#karriere .flex-container {
+	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+@media screen and (max-width:800px) {
+	#karriere .flex-container {
+		display: block;
+	}
+}
+
+#karriere .flex-container div {
+	background-color: var(--border);
+	margin: 10px;
+	padding: 25px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
