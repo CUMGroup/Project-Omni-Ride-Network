@@ -993,3 +993,22 @@ div.profileview{
 	width: 60%;
 	margin: auto;
 }
+
+
+/*-------------------------------*/
+
+form.pageswitch {
+	display: flex;
+	justify-content: center;
+}
+
+input.pageswitch {
+	font-size: 20pt;
+	color: var(--font);
+	background: var(--deep_red);
+	border: 1px solid var(--border);
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 8px;
+	padding-right: 8px;
+}

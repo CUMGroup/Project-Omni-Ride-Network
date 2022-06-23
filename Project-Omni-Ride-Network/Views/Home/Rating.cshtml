@@ -137,6 +137,14 @@
     }
     <div id ="reviewList">
     </div>
+
+    <form class="pageswitch" method="get" action="">
+        <input name="page" id="page" type="hidden" value=""/>
+        <input class="pageswitch" onclick="switchPage(-1)" type="submit" value="&#8656;" />
+        &nbsp;
+        <input class="pageswitch" onclick="switchPage(1)" type="submit" value="&#8658;" />
+    </form>
+
     <script>let apiUrl="@Url.Action("GetRatingListView", "Api")"</script>
     <script src="~/js/reviewList.js"></script>
 </section>
