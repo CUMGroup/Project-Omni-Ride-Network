@@ -824,20 +824,7 @@ flex-direction: column;
 
 }
 
-html, body {
-	height: 100vh;
-	display:flex;
-	flex-direction:column;
-	justify-content:space-between;
-}
 
-body{
-    background: var(--background);
-    color: var(--font);
-	padding: 0pt;
-	margin: 0pt;
-	font-family: arial, sans-serif;
-}
 .h1{
 color: var(--deep_red);
 text-align: center;
