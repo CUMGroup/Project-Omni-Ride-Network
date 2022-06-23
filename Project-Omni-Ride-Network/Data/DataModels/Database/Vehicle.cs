@@ -28,6 +28,7 @@ namespace Project_Omni_Ride_Network {
         // E-Scooter = 3
         // Busse/Transporter = 4
         // LKW = 5
+        // Panzer = 6
 
         [Required]
         [MaxLength(15)]

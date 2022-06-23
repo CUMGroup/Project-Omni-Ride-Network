@@ -22,7 +22,6 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-
         #region Database functions
         // TODO : Add Parameters and Return Values to Database functions;   + Create the APIModels or Datamodels to communicate
 
@@ -145,12 +144,12 @@ namespace Project_Omni_Ride_Network {
             return dbContext.Orders.ToList();
         }
 
-        public async Task<bool> RemoveOrderAsync(Order o) {
-            if (String.IsNullOrEmpty(o?.OrderId)) {
+        public async Task<bool> RemoveOrderAsync(string id) {
+            if (String.IsNullOrEmpty(id)) {
                 throw new DatabaseAPIException("OrderId can't be null when removing");
             }
 
-            var order = dbContext.Orders.Where(e => e.OrderId.Equals(o.OrderId));
+            var order = dbContext.Orders.Where(e => e.OrderId.Equals(id));
             if (order.Any()) {
                 dbContext.Orders.Remove(order.First());
                 await dbContext.SaveChangesAsync();
