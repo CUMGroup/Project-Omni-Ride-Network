@@ -60,8 +60,16 @@
             <!-- Gets generated via API Controller and Partial view : Views/Api/_overviewList.cshtml -->
         </div>
     </div>
+    
     <script>
         let apiUrl = '@Url.Action("GetVehicleListView", "Api")';
     </script>
     <script src="~/js/overviewList.js"></script>
 </div>
+
+<form class="pageswitch" method="get" action="">
+    <input type="hidden" value="findGetParameter('page')"/>
+    <input class="pageswitch" type="submit" value="&#8656;" />
+    &nbsp;
+    <input class="pageswitch" type="submit" value="&#8658;" />
+</form>
