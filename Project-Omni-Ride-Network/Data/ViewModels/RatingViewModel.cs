@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
     public class RatingViewModel : BaseViewModel {
+        public int[] RatingDistribution { get; set; }
+        public int[] RatingCounts { get; set; }
 
-        public List<Rating> Ratings { get; set; }
+        public int TotalRatings { get => RatingCounts.Sum(); }
+
+        public bool UserAlreadyReviewed { get; set; }
 
         public RatingViewModel() {
             init();
@@ -19,7 +23,8 @@ namespace Project_Omni_Ride_Network {
         }
 
         private void init() {
-            Ratings = new List<Rating>();
+            RatingDistribution = new int[5];
+            RatingCounts = new int[5];
         }
     }
 }

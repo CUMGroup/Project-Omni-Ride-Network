@@ -1,26 +1,22 @@
 ﻿$(() => {
-	getVehicleList();
-	$('#filterForm').change(getVehicleList);
+	getRatingList();
 });
 
-function getVehicleList() {
+function getRatingList() {
+
 	$.ajax({
 		url: apiUrl,
 		dataType: 'html',
 		method: 'GET',
 		data: {
 			page: findGetParameter("page"),
-			searchTxt: $('#searchFilter').val(),
-			categoryFilter: $('#categoryFilter').val(),
-			brandFilter: $('#brandFilter').val(),
-			modelFilter: $('#modelFilter').val(),
-			typeFilter: $('#typeFilter').val(),
-			minPrice: $('#minPriceFilter').val(),
-			maxPrice: $('#maxPriceFilter').val()
+			starFilter: null,
+			sortNewest: true,
+			sortByHighestStars: null
 
 		},
 		success: (res) => {
-			$('#listVehicles').html('').html(res);
+			$('#reviewList').html('').html(res);
 		},
 		error: (err) => {
 			console.log(err);
@@ -44,7 +40,7 @@ function getPage() {
 		return currentPage;
 	} else {
 		return 1;
-    }
+	}
 }
 
 function switchPage(i) {
