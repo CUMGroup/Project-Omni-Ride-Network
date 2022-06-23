@@ -364,3 +364,5 @@ FodyWeavers.xsd
 
 *.json
 log.txt
+*.scuml-shm
+*.scuml-wal

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -46,6 +47,32 @@ namespace Project_Omni_Ride_Network {
         public async Task<List<Customer>> GetCustomersAsync() {
             return dbContext.Customers.ToList();
         }
+
+
+        public async Task<bool> RemoveCustomerAsync(ApplicationUser user) {
+            if (String.IsNullOrWhiteSpace(user?.Id)) {
+                throw new DatabaseAPIException("UserId can't be null when removing");
+            }
+
+            var applUser = dbContext.Users.Where(e => e.Id.Equals(user.Id));
+            if (applUser.Any()) {
+                dbContext.Users.Remove(applUser.First()); 
+                await dbContext.SaveChangesAsync();
+            }
+            var rating = dbContext.Rating.Where(r => r.UserId.Equals(user.Id));
+            if (rating.Any()) {
+                dbContext.Rating.Remove(rating.First());
+                await dbContext.SaveChangesAsync();
+            }
+            var customer = dbContext.Customers.Where(e => e.UserId.Equals(user.Id));
+            if (customer.Any()) {
+                dbContext.Customers.Remove(customer.First());
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
 
         #endregion
 
@@ -118,6 +145,20 @@ namespace Project_Omni_Ride_Network {
             return dbContext.Orders.ToList();
         }
 
+        public async Task<bool> RemoveOrderAsync(Order o) {
+            if (String.IsNullOrEmpty(o?.OrderId)) {
+                throw new DatabaseAPIException("OrderId can't be null when removing");
+            }
+
+            var order = dbContext.Orders.Where(e => e.OrderId.Equals(o.OrderId));
+            if (order.Any()) {
+                dbContext.Orders.Remove(order.First());
+                await dbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Ratings
@@ -138,7 +179,7 @@ namespace Project_Omni_Ride_Network {
         }
 
         public async Task<List<Rating>> GetRatingsAsync() {
-            return dbContext.Rating.ToList();
+            return dbContext.Rating.Include(e => e.User).ToList();
         }
 
         #endregion

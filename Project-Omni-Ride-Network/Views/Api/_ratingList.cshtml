@@ -1,0 +1,19 @@
+﻿@model List<Rating>
+@foreach(var r in Model) {
+    <div class="child">
+        <div class="">
+            <p>@r.User.KdName @r.User.KdSurname <span class="review-date">@r.CmntTime.ToShortDateString()</span>
+                <br />
+                <span>
+                    <i class="rating-userstar checked"></i>
+                    <i class="rating-userstar @(r.Stars > 1 ? "checked" : "")"></i>
+                    <i class="rating-userstar @(r.Stars > 2 ? "checked" : "")"></i>
+                    <i class="rating-userstar @(r.Stars > 3 ? "checked" : "")"></i>
+                    <i class="rating-userstar @(r.Stars > 4 ? "checked" : "")"></i>
+                </span>
+                <br />
+            <span>@r.Comment</span>
+            </p>
+        </div>
+    </div>
+}
