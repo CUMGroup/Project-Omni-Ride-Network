@@ -1019,51 +1019,52 @@ input.pageswitch {
 
 /*Karriereseite----------------------------------------------*/
 
+#karriere{
+    .h1{
+    color: var(--deep_red);
+    text-align: center;
+    margin-top:50pt;
+    }
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
 
-.h1{
-color: var(--deep_red);
-text-align: center;
-margin-top:50pt;
-}
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    }
+    .box{
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    margin-left:180pt;
+    margin-right:180pt;
+    height:20%;
+    box-sizing:border;
+    text-align:center;
+    }
 
-}
-.box{
-justify-content: center;
-align-items: center;
-padding:20px;
-margin-left:180pt;
-margin-right:180pt;
-height:20%;
-box-sizing:border;
-text-align:center;
-}
+    .list{
+    list-style-position: inside;
+    text-align: center;
+    margin-top:5px;
 
-.list{
-list-style-position: inside;
-text-align: center;
-margin-top:5px;
+    }
+    .flex-container {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-wrap:row wrap;
+    height:500px;
+    margin:40px;
 
-}
-.flex-container {
-justify-content: center;
-align-items: center;
-display: flex;
-flex-wrap:row wrap;
-height:500px;
-margin:40px;
-
-}
-.flex-container div{
-background-color:var(--border);
-width:500px;
-margin:10px;
-padding:25px;
-text-align:center;
-justify-content: center;
-align-items: center;
-height:400px;
+    }
+    .flex-container div{
+    background-color:var(--border);
+    width:500px;
+    margin:10px;
+    padding:25px;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    height:400px;
+    }
 }
