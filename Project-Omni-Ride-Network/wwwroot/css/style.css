@@ -864,6 +864,9 @@ select.loginpage option {
 	}
 }
 
+
+
+
 .bar-0 { width: 0%;}
 .bar-1 { width: 10%;}
 .bar-2 { width: 20%;}
@@ -1012,3 +1015,53 @@ input.pageswitch {
 	padding-left: 8px;
 	padding-right: 8px;
 }
+
+/*Karriereseite----------------------------------------------*/
+
+   #karriere .h1{
+    color: var(--deep_red);
+    text-align: center;
+    margin-top:50pt;
+    }
+   #karriere .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+
+    }
+    #karriere .box{
+    justify-content: center;
+    align-items: center;
+    padding:20px;
+    margin-left:180pt;
+    margin-right:180pt;
+    height:20%;
+    box-sizing:border;
+    text-align:center;
+    }
+
+   #karriere .list{
+    list-style-position: inside;
+    text-align: center;
+    margin-top:5px;
+    }
+#karriere .flex-container {
+	justify-content: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+@media screen and (max-width:800px) {
+	#karriere .flex-container {
+		display: block;
+	}
+}
+
+#karriere .flex-container div {
+	background-color: var(--border);
+	margin: 10px;
+	padding: 25px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
