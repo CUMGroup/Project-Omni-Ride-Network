@@ -68,8 +68,8 @@
 </div>
 
 <form class="pageswitch" method="get" action="">
-    <input type="hidden" value="findGetParameter('page')"/>
-    <input class="pageswitch" type="submit" value="&#8656;" />
+    <input name="page" id="page" type="hidden" value=""/>
+    <input class="pageswitch" onclick="switchPage(-1)" type="submit" value="&#8656;" />
     &nbsp;
-    <input class="pageswitch" type="submit" value="&#8658;" />
+    <input class="pageswitch" onclick="switchPage(1)" type="submit" value="&#8658;" />
 </form>
