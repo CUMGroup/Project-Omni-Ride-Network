@@ -1019,7 +1019,6 @@ input.pageswitch {
 
 /*Karriereseite----------------------------------------------*/
 
-
    #karriere .h1{
     color: var(--deep_red);
     text-align: center;
@@ -1060,12 +1059,10 @@ input.pageswitch {
 
 #karriere .flex-container div {
 	background-color: var(--border);
-	/*width:500px;*/
 	margin: 10px;
 	padding: 25px;
 	text-align: center;
 	justify-content: center;
 	align-items: center;
-	/*height:400px;*/
 }
 
