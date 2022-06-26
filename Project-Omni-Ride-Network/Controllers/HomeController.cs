@@ -125,7 +125,12 @@ namespace Project_Omni_Ride_Network {
 
             mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), user.Email , mailtxt.CreateOrderSubject(orderModel),
                 mailtxt.CreateOrderResponse(orderModel));
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("BookingDone", "Home");
+        }
+
+        [Route(Routes.BOOKING_DONE)]
+        public async Task<IActionResult> BookingDone() {
+            return View(await PrepareBaseViewModel());
         }
 
         #endregion
