@@ -306,34 +306,26 @@ footer{
 }
 
 footer ul{
-	width: 10em;
+	width: 12.6em;
 	list-style: none;
+}
+
+footer ul:first-child img {
+	width: 1.2em;
+	vertical-align:bottom;
+	margin-right: 1em;
+}
+
+footer ul {
+	padding-left: 0;
+}
+
+footer ul:nth-child(2) {
+	text-align: center;
 }
 
 footer ul li{
 	padding: 10pt;
-}
-
-footer ul li.mail{
-	list-style-image: url("/images/icons/mail.svg");
-	padding-inline-start: 1ch;
-}
-footer ul li.tell{
-	list-style-image: url("/images/icons/phone.svg");
-	padding-inline-start: 1ch;
-}
-footer ul li.instagram{
-	list-style-image: url("/images/icons/instagram.svg");
-	padding-inline-start: 1ch;
-}
-footer ul li.youtube{
-	list-style-image: url("/images/icons/youtube.svg");
-	padding-inline-start: 1ch;
-}
-
-footer ul li::marker {
-	font-size:2.3em;
-	line-height:0;
 }
 
 footer div.copyright{
