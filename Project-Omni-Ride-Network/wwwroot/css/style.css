@@ -315,20 +315,25 @@ footer ul li{
 }
 
 footer ul li.mail{
-	list-style-image: url("/images/mail.png");
+	list-style-image: url("/images/icons/mail.svg");
 	padding-inline-start: 1ch;
 }
 footer ul li.tell{
-	list-style-image: url("/images/phone.png");
+	list-style-image: url("/images/icons/phone.svg");
 	padding-inline-start: 1ch;
 }
 footer ul li.instagram{
-	list-style-image: url("/images/instagram.png");
+	list-style-image: url("/images/icons/instagram.svg");
 	padding-inline-start: 1ch;
 }
 footer ul li.youtube{
-	list-style-image: url("/images/youtube.png");
+	list-style-image: url("/images/icons/youtube.svg");
 	padding-inline-start: 1ch;
+}
+
+footer ul li::marker {
+	font-size:2.3em;
+	line-height:0;
 }
 
 footer div.copyright{

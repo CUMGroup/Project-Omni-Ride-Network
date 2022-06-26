@@ -8,17 +8,17 @@
         <h2>Filter</h2>
         <label for="searchFilter">Suche</label>
         <br />
-        <input id="searchFilter" type="text" />
+        <input name="searchFilter" id="searchFilter" data-form="pageswitch" type="text" />
         <br />
 
-        <select id="categoryFilter">
+        <select name="categoryFilter" id="categoryFilter" data-form="pageswitch">
             <option value="">-</option>
             <option value="1">Leihe</option>
             <option value="2">Sharing</option>
         </select>
         <label for="categoryFilter">Kategorie</label>
         <br>
-        <select id="brandFilter">
+        <select name="brandFilter" id="brandFilter" data-form="pageswitch">
             <option value="">-</option>
             @foreach (var brand in Model.BrandFilterList) {
                 <option value="@brand">@brand</option>
@@ -27,7 +27,7 @@
         <label for="brandFilter">Marke</label>
         <br>
 
-        <select id="modelFilter">
+        <select name="modelFilter" id="modelFilter" data-form="pageswitch">
             <option value="">-</option>
             @foreach (var m in Model.ModelFilterList) {
                 <option value="@m">@m</option>
@@ -36,7 +36,7 @@
         <label for="modelFilter">Modell</label>
         <br>
 
-        <select id="typeFilter">
+        <select name="typeFilter" id="typeFilter" data-form="pageswitch">
             <option value="">-</option>
             <option value="1">Auto</option>
             <option value="2">Fahrrad</option>
@@ -49,11 +49,11 @@
         <br>
         <label for="minPriceFilter">Min. Preis</label>
         <br />
-        <input id="minPriceFilter" type="number" step="0.01" />
+        <input name="minPriceFilter" id="minPriceFilter" type="number" step="0.01" data-form="pageswitch"/>
         <br>
         <label for="maxPriceFilter">Max. Preis</label>
         <br />
-        <input id="maxPriceFilter" type="number" step="0.01" />
+        <input name="maxPriceFilter" id="maxPriceFilter" type="number" step="0.01" data-form="pageswitch" />
     </div>
 
     <div class="prod">
@@ -68,9 +68,9 @@
     <script src="~/js/overviewList.js"></script>
 </div>
 
-<form class="pageswitch" method="get" action="">
+<form id="pageswitch" class="pageswitch" method="get" action="">
     <input name="page" id="page" type="hidden" value=""/>
-    <input class="pageswitch" onclick="switchPage(-1)" type="submit" value="&#8656;" />
+    <input class="pageswitch" onclick="switchPage(-1)" type="button" value="&#8656;" />
     &nbsp;
-    <input class="pageswitch" onclick="switchPage(1)" type="submit" value="&#8658;" />
+    <input class="pageswitch" onclick="switchPage(1)" type="button" value="&#8658;" />
 </form>
