@@ -42,7 +42,7 @@ function inputchange(basicprice, priceHD, priceIns) {
 
     gesamtpreis += dates * fixNumber(priceHD);
 
-    $('#gesamtpreis')[0].innerText = gesamtpreis.toFixed(2);
+    $('#gesamtpreis')[0].innerText = gesamtpreis.toFixed(2).replace(".", ",");
 
     calcOptNumber();
 }

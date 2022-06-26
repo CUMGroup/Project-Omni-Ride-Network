@@ -38,7 +38,7 @@
 		<form onchange="inputchange('@Model.Vehicle.BasicPrice', '@Model.Vehicle.PriceHD', '@Model.Vehicle.PriceInsu')" method="POST" action="/booking/@(Model.Vehicle.VehicleId)/bookingaction">
 			<div>
 				<lable class="booking lable">Basispreis:</lable>
-				&nbsp; @Model.Vehicle.BasicPrice &euro;<br /><br />
+				&nbsp; @String.Format("{0:0.00}", Model.Vehicle.BasicPrice) &euro;<br /><br />
 
 				<lable class="booking lable">Pick-Up-Datum: </lable> &nbsp;
 
@@ -77,7 +77,7 @@
 			<div class="flex">
 				<lable class="booking lable">Gesamtpreis:</lable> &nbsp;
 			
-				<div id="gesamtpreis">@Model.Vehicle.BasicPrice</div> &euro;
+				<div id="gesamtpreis">@String.Format("{0:0.00}", Model.Vehicle.BasicPrice)</div> &euro;
 			</div> <br />
 
 			<input type="submit" class="sendbutton" value="Buchen"/>
