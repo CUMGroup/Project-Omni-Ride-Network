@@ -13,6 +13,13 @@
 
         $("#pickupdate")[0].min = today;
         $("#returndate")[0].min = today;
+
+        $("#pickupdate").change(function () {
+            let ret = $("#returndate")[0];
+            ret.min = this.value;
+            if (ret.value < this.value)
+                ret.value = this.value;
+        });
     }
 );
 
@@ -35,7 +42,7 @@ function inputchange(basicprice, priceHD, priceIns) {
 
     gesamtpreis += dates * fixNumber(priceHD);
 
-    $('#gesamtpreis')[0].innerText = gesamtpreis.toFixed(2);
+    $('#gesamtpreis')[0].innerText = gesamtpreis.toFixed(2).replace(".", ",");
 
     calcOptNumber();
 }

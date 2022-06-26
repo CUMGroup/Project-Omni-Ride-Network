@@ -19,7 +19,7 @@
                         <mark class="tabellenueberschrift">Modell</mark> <br> @veh.Model
                     </div>
                     <div class="carattribute">
-                        <mark class="tabellenueberschrift">Grundpreis</mark> <br> @veh.BasicPrice
+                        <mark class="tabellenueberschrift">Grundpreis</mark> <br> @String.Format("{0:0.00}", veh.BasicPrice) &euro;
                     </div>
                 </div>
             </div>
