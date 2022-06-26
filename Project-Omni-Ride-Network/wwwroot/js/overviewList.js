@@ -1,4 +1,6 @@
 ﻿$(() => {
+	(new URL(window.location.href)).searchParams.forEach((x, y) =>
+		document.getElementById(y).value = x)
 	getVehicleList();
 	$('#filterForm').change(getVehicleList);
 });
@@ -54,4 +56,15 @@ function switchPage(i) {
 		switchToPage = 1;
 	}
 	$('#page')[0].value = switchToPage;
+
+	let form = $('#pageswitch');
+
+	$('[data-form="pageswitch"]').each(function () {
+		let input = $(this);
+		let hidden = $('<input type="hidden"></input>');
+		hidden.attr('name', input.attr('name'));
+		hidden.val(input.val());
+		form.append(hidden);
+	});
+	form.submit();
 }
