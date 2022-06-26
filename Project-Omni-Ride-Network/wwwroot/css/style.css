@@ -777,6 +777,10 @@ select.loginpage option {
   padding: 20px;
 }
 
+#rating .rating {
+	user-select: none;
+}
+
 #rating .rating-userstar:before {
 	content: "\2605";
 }
@@ -784,6 +788,10 @@ select.loginpage option {
 #rating .rating-userstar {
 	font-style:normal;
 	font-size: 1.3em;
+}
+
+#rating .editable-star {
+	cursor: pointer;
 }
 
 #rating .rating-userstar.checked {
@@ -1023,33 +1031,33 @@ input.pageswitch {
 
 /*Karriereseite----------------------------------------------*/
 
-   #karriere .h1{
-    color: var(--deep_red);
-    text-align: center;
-    margin-top:50pt;
-    }
-   #karriere .center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+#karriere .h1{
+	color: var(--deep_red);
+	text-align: center;
+	margin-top:50pt;
+}
+#karriere .center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 
-    }
-    #karriere .box{
-    justify-content: center;
-    align-items: center;
-    padding:20px;
-    margin-left:180pt;
-    margin-right:180pt;
-    height:20%;
-    box-sizing:border;
-    text-align:center;
-    }
+}
+#karriere .box{
+	justify-content: center;
+	align-items: center;
+	padding:20px;
+	margin-left:180pt;
+	margin-right:180pt;
+	height:20%;
+	box-sizing:border;
+	text-align:center;
+}
 
-   #karriere .list{
-    list-style-position: inside;
-    text-align: center;
-    margin-top:5px;
-    }
+#karriere .list{
+	list-style-position: inside;
+	text-align: center;
+	margin-top:5px;
+}
 #karriere .flex-container {
 	justify-content: center;
 	display: grid;
