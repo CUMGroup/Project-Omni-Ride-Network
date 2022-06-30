@@ -544,6 +544,102 @@ div.break {
 	}
 }
 
+select[data-form="pageswitch"],
+select[data-form="pageswitch"] option,
+input[type="text"][data-form="pageswitch"] {
+	color: var(--font);
+	margin-bottom: 15pt;
+	font-size: 14pt;
+	width: auto;
+	background: var(--column_dark);
+	border: none;
+	border-bottom: 2pt solid var(--accents);
+}
+
+input[type='range'] {
+	-webkit-appearance: none;
+	border-radius: 5px;
+	box-shadow: inset 0 0 5px #333;
+	background-color: var(--documents);
+	height: 10px;
+	vertical-align: middle;
+}
+
+	input[type='range']::-moz-range-track {
+		-moz-appearance: none;
+		border-radius: 5px;
+		box-shadow: inset 0 0 5px #333;
+		background-color: var(--deep_red);
+		height: 10px;
+	}
+
+	input[type='range']::-webkit-slider-thumb {
+		-webkit-appearance: none !important;
+		border-radius: 20px;
+		background-color: var(--deep_red);
+		box-shadow: inset 0 0 10px rgba(000,000,000,0.5);
+		border: 1px solid #999;
+		height: 20px;
+		width: 20px;
+	}
+
+	input[type='range']::-moz-range-thumb {
+		-moz-appearance: none;
+		border-radius: 20px;
+		background-color: var(--documents);
+		box-shadow: inset 0 0 10px rgba(000,000,000,0.5);
+		border: 1px solid #999;
+		height: 20px;
+		width: 20px;
+	}
+
+/*input[type=range]::-webkit-slider-runnable-track {
+	width: 100%;
+	height: 10px;
+	cursor: pointer;
+	animate: 0.2s;
+	box-shadow: 1px 1px 1px #000000;
+	background: var(--deep_red);
+	border-radius: 5px;
+	border: 1px solid #000000;
+}
+
+input[type="range" i]::-ms-fill-lower {
+	background: var(--deep_red);
+	border: 1px solid #000000;
+	border-radius: 10px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+input[type="range" i]::-ms-fill-upper {
+	background: var(--deep_red);
+	border: 1px solid #000000;
+	border-radius: 10px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+input[type="range" i]:focus::-ms-fill-lower {
+	background: var(--deep_red);
+}
+
+input[type="range" i]:focus::-ms-fill-upper {
+	background: var(--deep_red);
+}
+
+input[type="range" i]::-ms-track {
+	width: 100%;
+	height: 10px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: transparent;
+	border-color: transparent;
+	color: transparent;
+}
+
+input[type="range" i]:focus::-webkit-slider-runnable-track {
+	background: var(--deep_red);
+}*/
+
 /*Impressum page*/
 .imprint-table {
 	width: 100%;
