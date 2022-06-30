@@ -115,13 +115,11 @@ namespace Project_Omni_Ride_Network {
 
             orderModel.Totalprice = PriceCalc.CalculateTotalprice(orderModel);
 
-
             try {
                 await dbStore.AddOrderAsync(orderModel);
             } catch (DatabaseAPIException e) {
                 return await Error(418);
             }
-
 
             mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), user.Email , mailtxt.CreateOrderSubject(orderModel),
                 mailtxt.CreateOrderResponse(orderModel));
@@ -305,6 +303,32 @@ namespace Project_Omni_Ride_Network {
 
         #region Page Information Routes
 
+        [Route(Routes.KARRIERE)]
+        public async Task<IActionResult> Karriere() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        [Route(Routes.DATENSCHUTZ)]
+        public async Task<IActionResult> Datenschutz() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        [Route(Routes.PARTNER)]
+        public async Task<IActionResult> Partner() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        [Route(Routes.IMPRESSUM)]
+        public async Task<IActionResult> Impressum() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        [Route(Routes.AGB)]
+        public async Task<IActionResult> AGB() {
+            return View(await PrepareBaseViewModel());
+        }
+
+        #endregion
 
         #region Kontakt
 
@@ -339,34 +363,6 @@ namespace Project_Omni_Ride_Network {
         }
 
         #endregion
-
-        [Route(Routes.KARRIERE)]
-        public async Task<IActionResult> Karriere() {
-            return View(await PrepareBaseViewModel());
-        }
-
-        [Route(Routes.DATENSCHUTZ)]
-        public async Task<IActionResult> Datenschutz() {
-            return View(await PrepareBaseViewModel());
-        }
-
-        [Route(Routes.PARTNER)]
-        public async Task<IActionResult> Partner() {
-            return View(await PrepareBaseViewModel());
-        }
-
-        [Route(Routes.IMPRESSUM)]
-        public async Task<IActionResult> Impressum() {
-            return View(await PrepareBaseViewModel());
-        }
-
-        [Route(Routes.AGB)]
-        public async Task<IActionResult> AGB() {
-            return View(await PrepareBaseViewModel());
-        }
-
-        #endregion
-
 
     }
 }

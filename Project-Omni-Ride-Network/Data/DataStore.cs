@@ -20,10 +20,10 @@ namespace Project_Omni_Ride_Network {
         public DataStore(ApplicationDbContext ctx) {
             dbContext = ctx;
         }
+
         #endregion
 
         #region Database functions
-        // TODO : Add Parameters and Return Values to Database functions;   + Create the APIModels or Datamodels to communicate
 
         public async Task EnsureDataStoreAsync() {
             await dbContext.Database.EnsureCreatedAsync();
@@ -182,25 +182,6 @@ namespace Project_Omni_Ride_Network {
         }
 
         #endregion
-
-        #endregion
-
-        #region Helpers 
-
-        private string HashString(string s) {
-            StringBuilder sb = new StringBuilder();
-
-            using (SHA256 hash = SHA256Managed.Create()) {
-                Encoding enc = Encoding.UTF8;
-                byte[] result = hash.ComputeHash(enc.GetBytes(s));
-
-                foreach (byte b in result) {
-                    sb.Append(b.ToString("x2"));
-                }
-            }
-
-            return sb.ToString();
-        }
 
         #endregion
     }

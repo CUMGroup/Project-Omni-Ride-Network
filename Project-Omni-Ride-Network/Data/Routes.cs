@@ -33,7 +33,6 @@ namespace Project_Omni_Ride_Network {
         public const string IMPRESSUM = "impressum";
         public const string AGB = "agb";
 
-
         public const string VEHICLE_ADD = "addvehicle";
         public const string VEHICLE_REMOVE = "removevehicle";
         public const string FILTERED_VEHICLES = "filteredvehicles";

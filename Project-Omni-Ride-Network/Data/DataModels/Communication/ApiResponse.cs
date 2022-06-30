@@ -1,5 +1,4 @@
-﻿
-namespace Project_Omni_Ride_Network {
+﻿namespace Project_Omni_Ride_Network {
     public class ApiResponse {
 
         public string Status { get; set; }

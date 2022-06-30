@@ -1,7 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net;
-using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +27,7 @@ namespace Project_Omni_Ride_Network {
             IConfiguration config, DataStore dbStore, Mailer mailer, MailTxt mailTxt) {
             this.userManager = userManager;
             this.roleManager = roleManager;
-            this._configuration = config;
+            _configuration = config;
             this.dbStore = dbStore;
             this.mailer = mailer;
             this.mailTxt = mailTxt;
@@ -247,35 +241,7 @@ namespace Project_Omni_Ride_Network {
         }
         #endregion
 
-        #region Contact
-
-
-        [HttpPost]
-        [Route(Routes.CONTACT)]
-        public IActionResult Contact([FromBody] ContactModel contact) {
-            if (ModelState.IsValid) {
-                var ourMail = _configuration.GetValue<String>("MailCredentials:Email");
-                var senderMail = contact.SenderEmail;
-                var subject = contact.Subject;
-                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
-
-                try {
-                    mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());
-                    mailer.MailerAsync(ourMail, senderMail, "Ihr Anliegen: " + subject, mailTxt.CreateServiceResponse(contact.SenderName));
-                } catch (Exception ex) {
-                    return View();
-                }
-                return Ok(new ApiResponse { Status = "Success", Message = "Mail sent!" });
-            }
-            return StatusCode(StatusCodes.Status400BadRequest);
-        }
-
-        #endregion
-
         #region Orders
-
-        //TODO:
-        //Get User and Vehicle to complete body of order
 
         [HttpDelete]
         [Route(Routes.ORDER_DEL)]
