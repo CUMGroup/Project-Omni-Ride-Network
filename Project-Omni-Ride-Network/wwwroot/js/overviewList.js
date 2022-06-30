@@ -3,6 +3,8 @@
 		document.getElementById(y).value = x)
 	getVehicleList();
 	$('#filterForm').change(getVehicleList);
+	$('#minOutput')[0].value = $('#minPriceFilter')[0].value;
+	$('#maxOutput')[0].value = $('#maxPriceFilter')[0].value;
 });
 
 function getVehicleList() {
