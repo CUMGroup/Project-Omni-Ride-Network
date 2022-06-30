@@ -593,52 +593,7 @@ input[type='range'] {
 		width: 20px;
 	}
 
-/*input[type=range]::-webkit-slider-runnable-track {
-	width: 100%;
-	height: 10px;
-	cursor: pointer;
-	animate: 0.2s;
-	box-shadow: 1px 1px 1px #000000;
-	background: var(--deep_red);
-	border-radius: 5px;
-	border: 1px solid #000000;
-}
 
-input[type="range" i]::-ms-fill-lower {
-	background: var(--deep_red);
-	border: 1px solid #000000;
-	border-radius: 10px;
-	box-shadow: 1px 1px 1px #000000;
-}
-
-input[type="range" i]::-ms-fill-upper {
-	background: var(--deep_red);
-	border: 1px solid #000000;
-	border-radius: 10px;
-	box-shadow: 1px 1px 1px #000000;
-}
-
-input[type="range" i]:focus::-ms-fill-lower {
-	background: var(--deep_red);
-}
-
-input[type="range" i]:focus::-ms-fill-upper {
-	background: var(--deep_red);
-}
-
-input[type="range" i]::-ms-track {
-	width: 100%;
-	height: 10px;
-	cursor: pointer;
-	animate: 0.2s;
-	background: transparent;
-	border-color: transparent;
-	color: transparent;
-}
-
-input[type="range" i]:focus::-webkit-slider-runnable-track {
-	background: var(--deep_red);
-}*/
 
 /*Impressum page*/
 .imprint-table {
