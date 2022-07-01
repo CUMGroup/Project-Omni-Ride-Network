@@ -21,7 +21,8 @@ namespace Project_Omni_Ride_Network {
         private readonly IConfiguration configuration;
         private readonly MailTxt mailtxt;
 
-        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration, MailTxt mailtxt) {
+        public HomeController(DataStore dbStore, SignInManager<ApplicationUser> signInManager, 
+                UserManager<ApplicationUser> userManager, Mailer mailer, IConfiguration configuration, MailTxt mailtxt) {
             this.dbStore = dbStore;
             dbStore.EnsureDataStore();
 
@@ -199,7 +200,8 @@ namespace Project_Omni_Ride_Network {
             {
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
-                    return RedirectToAction("Register", "Home", new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                    return RedirectToAction("Register", "Home", 
+                        new ApiResponse { Status = "Error", Message = "User creation failed! Please check user details and try again." });
             }
             Customer customer = new Customer {
                 KdBirth = model.KdBirth,
@@ -258,10 +260,12 @@ namespace Project_Omni_Ride_Network {
         [Route(Routes.RATING)]
         public async Task<IActionResult> Rating() {
             List<Rating> ratings = await dbStore.GetRatingsAsync();
-            int[] count = { ratings.Where(e => e.Stars == 1).Count(), ratings.Where(e => e.Stars == 2).Count(), ratings.Where(e => e.Stars == 3).Count(), ratings.Where(e => e.Stars == 4).Count(), ratings.Where(e => e.Stars == 5).Count() };
+            int[] count = { ratings.Where(e => e.Stars == 1).Count(), ratings.Where(e => e.Stars == 2).Count(), ratings.Where(e => e.Stars == 3).Count(), 
+                ratings.Where(e => e.Stars == 4).Count(), ratings.Where(e => e.Stars == 5).Count() };
             int sumCount = count[0] + count[1] + count[2] + count[3] + count[4];
             if(sumCount == 0) sumCount = 1;
-            int[] dist = { CalcRatingDistribution(count[0], sumCount), CalcRatingDistribution(count[1], sumCount), CalcRatingDistribution(count[2], sumCount), CalcRatingDistribution(count[3], sumCount), CalcRatingDistribution(count[4], sumCount) };
+            int[] dist = { CalcRatingDistribution(count[0], sumCount), CalcRatingDistribution(count[1], sumCount), 
+                CalcRatingDistribution(count[2], sumCount), CalcRatingDistribution(count[3], sumCount), CalcRatingDistribution(count[4], sumCount) };
 
             bool userAlreadyReviewed = false;
             if(User.Identity.IsAuthenticated) {
@@ -344,7 +348,8 @@ namespace Project_Omni_Ride_Network {
                 var ourMail = configuration.GetValue<String>("MailCredentials:Email");
                 var senderMail = contact.SenderEmail;
                 var subject = contact.Subject;
-                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
+                var mailText = ("<html><body><p>" + "Name: " + contact.SenderName + "<br>" + "E-Mail: " 
+                    + contact.SenderEmail + "<br>" + contact.Message + "</p></body></html>");
 
                 try {
                     mailer.MailerAsync(ourMail, ourMail, subject, mailText.ToString());

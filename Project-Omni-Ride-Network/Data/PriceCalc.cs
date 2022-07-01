@@ -23,7 +23,7 @@ namespace Project_Omni_Ride_Network {
                 var tp = (float) timeprice;
                 return tp;
             }
-            if (order.Vehicle.Category == 2) {
+            else if (order.Vehicle.Category == 2) {
                 var counter = Math.Ceiling(duration.TotalHours);
                 var timeprice = counter * order.Vehicle.PriceHD;
                 var tp = (float)timeprice;

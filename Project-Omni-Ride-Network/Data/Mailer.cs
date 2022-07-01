@@ -29,10 +29,12 @@ namespace Project_Omni_Ride_Network {
                     mail.Body = message;
                     mail.IsBodyHtml = true;
 
-                    using (var smtpClient = new SmtpClient(_configuration.GetValue<string>("MailCredentials:Hostname"), _configuration.GetValue<int>("MailCredentials:Port"))) {
+                    using (var smtpClient = new SmtpClient(_configuration.GetValue<string>("MailCredentials:Hostname"),
+                            _configuration.GetValue<int>("MailCredentials:Port"))) {
                         smtpClient.EnableSsl = true;
                         smtpClient.UseDefaultCredentials = false;
-                        smtpClient.Credentials = new NetworkCredential(_configuration.GetValue<string>("MailCredentials:Email"), _configuration.GetValue<string>("MailCredentials:Passwort"));
+                        smtpClient.Credentials = new NetworkCredential(_configuration.GetValue<string>("MailCredentials:Email"), 
+                            _configuration.GetValue<string>("MailCredentials:Passwort"));
                         await smtpClient.SendMailAsync(mail);
                     }
 
