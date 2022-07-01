@@ -704,7 +704,7 @@ form.loginpage {
 	padding: 10pt;
 }
 
-lable.loginpage {
+label.loginpage {
 	color: var(--documents);
 	margin-top: 15pt;
 }
