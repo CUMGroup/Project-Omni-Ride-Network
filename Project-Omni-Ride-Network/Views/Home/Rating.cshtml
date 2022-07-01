@@ -76,7 +76,7 @@
                 <i class="rating-userstar editable-star" id="star5"></i>
             </div>
 
-            <script src="~/js/ratingFunctionality.js" type="text/javascript"></script>
+            <script src="~/js/ratingFunctionality.js"></script>
             <form onsubmit="event.preventDefault(); return addReview('@Url.Action("RatingAction", "Home")')">
                 <textarea id="commentArea" rows="5" placeholder="Kommentar..." required="required" style="width:100%;"></textarea><br/>
                 <input type="submit" class="rating submit" value="Kommentieren"/>
@@ -87,7 +87,7 @@
     <div id ="reviewList">
     </div>
 
-    <form class="pageswitch" method="get" action="">
+    <form class="pageswitch" method="get">
         <input name="page" id="page" type="hidden" value=""/>
         <input class="pageswitch" onclick="switchPage(-1)" type="submit" value="&#8656;" />
         &nbsp;
@@ -95,6 +95,6 @@
     </form>
 
     <script>let apiUrl="@Url.Action("GetRatingListView", "Api")"</script>
-    <script src="~/js/reviewList.js" type="text/javascript"></script>
+    <script src="~/js/reviewList.js"></script>
 </section>
 

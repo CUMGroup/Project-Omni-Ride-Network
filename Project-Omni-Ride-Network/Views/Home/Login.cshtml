@@ -8,10 +8,10 @@
 <form class="loginpage" method="POST" action="@Url.Action("LoginAction", "Home")">
     <input class="loginpage" id="ReturnUrl" name="ReturnUrl" type="hidden" value="@ViewData["ReturnUrl"]" />
     
-    <lable class="loginpage" for="Email">E-Mail Adresse</lable>
+    <label class="loginpage" for="Email">E-Mail Adresse</label>
     <input class="loginpage user" id="Email" autofocus="autofocus"  name="Email" type="text" required="required"/>
     
-    <lable class="loginpage" for="Password">Passwort</lable>
+    <label class="loginpage" for="Password">Passwort</label>
     <input class="loginpage user" id="Password" name="Password" type="password" required="required"/>
     
     @if (ViewData["ApiMessage"].ToString() == "User information incorrect")

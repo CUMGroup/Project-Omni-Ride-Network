@@ -605,6 +605,7 @@ input[type='range'] {
 
 .imprint-table tr td {
 	vertical-align:top;
+	padding: 4px;
 }
 
 /*Error seite*/
@@ -710,7 +711,7 @@ form.loginpage {
 	padding: 10pt;
 }
 
-lable.loginpage {
+label.loginpage {
 	color: var(--documents);
 	margin-top: 15pt;
 }
@@ -1025,8 +1026,12 @@ mark.home.disclaimer{
 
 /*-----profile-------*/
 
-lable.profile{
+p.profile{
 	color: var(--accents);
+}
+
+p.profile span {
+	color: var(--font);
 }
 
 mark.boxtitle{
