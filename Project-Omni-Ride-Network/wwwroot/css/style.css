@@ -385,6 +385,9 @@ a:hover.intext{
   color: var(--font);
 }
 /*booking----------------------------------------------*/
+#bookingcenter{
+	text-align: center;
+}
 
 .booki .fahrzeuginfo{
 	justify-content: space-around;
@@ -632,6 +635,10 @@ input[type='range'] {
 }
 
 /*Contact Page*/
+
+#contactpage{
+	text-align: center;
+}
 
 textarea {
 	padding: 1ex;
