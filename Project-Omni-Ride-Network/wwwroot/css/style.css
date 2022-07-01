@@ -602,6 +602,7 @@ input[type='range'] {
 
 .imprint-table tr td {
 	vertical-align:top;
+	padding: 4px;
 }
 
 /*Error seite*/
