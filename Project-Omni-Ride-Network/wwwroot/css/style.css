@@ -1019,8 +1019,12 @@ mark.home.disclaimer{
 
 /*-----profile-------*/
 
-lable.profile{
+p.profile{
 	color: var(--accents);
+}
+
+p.profile span {
+	color: var(--font);
 }
 
 mark.boxtitle{
