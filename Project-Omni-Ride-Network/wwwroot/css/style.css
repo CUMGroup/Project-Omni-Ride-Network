@@ -725,13 +725,14 @@ input.loginpage {
 	margin-top: 15pt;
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
+	width: 100%;
 }
 
 input.loginpage.user {
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
+	width: 100%;
 }
 
 input.loginpage.submit {
@@ -759,6 +760,7 @@ select:-webkit-autofill:focus {
 	-webkit-text-fill-color: var(--font);
 	-webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
 	transition: background-color 5000s ease-in-out 0s;
+	width: 100%;
 }
 
 .loginError{
@@ -802,7 +804,7 @@ select.loginpage {
 	margin-top: 15pt;
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
+	width: 100%;
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
