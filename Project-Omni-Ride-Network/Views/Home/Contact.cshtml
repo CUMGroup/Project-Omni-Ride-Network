@@ -4,6 +4,7 @@
 
 <div id="contactpage">
 
+
     <h1 class="home">Kontakt</h1>
 
     <p>
@@ -15,12 +16,11 @@
 
     <script type="text/javascript" src="~/js/contact.js" ></script>
     <form action="@Url.Action("ContactAction", "Home")" method="POST" name="contactForm" id="contactForm">
-    
-   
+
         <input type="text" name="SenderName" id="SenderName" class="contact" placeholder="Max Mustermann" maxlength="100" required="required"/>
 
         <input type="text" name="SenderEmail" id="SenderEmail" class="contact mailIn" placeholder="example@mail.de" maxlength="100"
-            onblur="checkEmail($('#SenderEmail')[0].value)" required="required" pattern="^[a-zA-Z0-9._%,+-]{2,}@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" /><br>
+         onblur="checkEmail($('#SenderEmail')[0].value)" required="required" pattern="^[a-zA-Z0-9._%,+-]{2,}@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" /><br>
 
         <div id="Mailincorrect" class="mailincorrect"></div>
 

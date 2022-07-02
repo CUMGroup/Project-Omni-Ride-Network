@@ -89,12 +89,12 @@ function calculateDate(pickupdate, returndate) {
         pickupdate = new Date(pickupdate);
         returndate = new Date(returndate);
 
-        let time = Math.round((returndate - pickupdate) / 1000 / 60 / 60);
+        let time = Math.ceil((returndate - pickupdate) / 1000 / 60 / 60);
 
         if ($('#category')[0].innerText.includes("Sharing")) {
             return time;
         } else {
-            return (time / 24);
+            return (time / 24) + 1;
         }
     }
 }

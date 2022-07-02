@@ -66,10 +66,13 @@
 					Vollkasko
 					<input name="versicherung" id="teilkasko" onchange="checkinsurance($('#vollkasko'))" class="" type="checkbox" />
 					Teilkasko<br />
-					<span class="booking hinweis">(Teilkasko mit 500&euro; Selbstbeteiligung)</span><br /><br />
+					<span class="booking hinweis">(Vollkasko: Abh&auml;ngig vom gew&auml;hlten Fahrzeug)</span><br />
+					<span class="booking hinweis">(Teilkasko: 50&euro; mit 500&euro; Selbstbeteiligung)</span><br /><br />
+
 			
 					<input name="refuel" id="refuel" class="" type="checkbox" /> 
 					Refuel-Option<br />
+					<span class="booking hinweis">(Refuel: 35&euro;)</span><br />
 					<input name="optAdd" id="optAdd" value="0" type="hidden" />
 				</div>
 			</div>
@@ -77,7 +80,7 @@
 			<div class="flex">
 				<span class="booking lable">Gesamtpreis:</span> &nbsp;
 			
-				<div id="gesamtpreis">@String.Format("{0:0.00}", Model.Vehicle.BasicPrice)</div> &nbsp;&euro;
+				<div id="gesamtpreis">@String.Format("{0:0.00}", Model.Vehicle.BasicPrice + Model.Vehicle.PriceHD)</div> &nbsp;&euro;
 			</div> <br />
 
 			<input type="submit" class="sendbutton" value="Buchen"/>
