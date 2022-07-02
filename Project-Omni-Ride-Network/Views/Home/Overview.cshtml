@@ -79,7 +79,8 @@
 
 <form id="pageswitch" class="pageswitch" method="get">
     <input name="page" id="page" type="hidden" value=""/>
-    <input class="pageswitch" onclick="switchPage(-1)" type="button" value="&#8656;" />
+    <input id="prevPageBtn" class="pageswitch" onclick="switchPage(-1)" type="button" value="< Zur&uuml;ck" />
     &nbsp;
-    <input class="pageswitch" onclick="switchPage(1)" type="button" value="&#8658;" />
+    <input id="nextPageBtn" class="pageswitch" onclick="switchPage(1)" type="button" value="Weiter >" />
 </form>
+    <p id="pageDisplay">Seite 1 von </p>

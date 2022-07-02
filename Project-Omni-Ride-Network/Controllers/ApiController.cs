@@ -238,6 +238,9 @@ namespace Project_Omni_Ride_Network {
             if (veh != null & totalItems > 0)
                 veh = veh.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
+            ViewData["MaxPage"] = pageCount;
+            ViewData["CurrentPage"] = currentPage;
+
             return PartialView("_overviewList", veh.ToList());
         }
         #endregion

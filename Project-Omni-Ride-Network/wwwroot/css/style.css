@@ -1060,22 +1060,30 @@ form.pageswitch {
 }
 
 input.pageswitch {
-	font-size: 20pt;
+	font-size:14pt;
 	color: var(--font);
 	background: var(--deep_red);
 	border: 1px solid var(--border);
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 8px;
-	padding-right: 8px;
+	padding: 8px 5px;
+}
+
+#pageDisplay {
+	text-align: center;
+}
+
+input.pageswitch:disabled {
+	background: var(--accents);
+}
+
+input.pageswitch:enabled {
+	cursor: pointer;
 }
 
 /*Karriereseite----------------------------------------------*/
-
-#karriere .h1{
+#karriere .h1 {
 	color: var(--deep_red);
 	text-align: center;
-	margin-top:50pt;
+	margin-top: 50pt;
 }
 #karriere .center {
     display: block;
