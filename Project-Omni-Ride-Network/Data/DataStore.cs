@@ -53,23 +53,29 @@ namespace Project_Omni_Ride_Network {
                 throw new DatabaseAPIException("UserId can't be null when removing");
             }
 
-            var applUser = dbContext.Users.Where(e => e.Id.Equals(user.Id));
-            if (applUser.Any()) {
-                dbContext.Users.Remove(applUser.First()); 
-                await dbContext.SaveChangesAsync();
-            }
             var rating = dbContext.Rating.Where(r => r.UserId.Equals(user.Id));
             if (rating.Any()) {
                 dbContext.Rating.Remove(rating.First());
-                await dbContext.SaveChangesAsync();
             }
+
             var customer = dbContext.Customers.Where(e => e.UserId.Equals(user.Id));
             if (customer.Any()) {
                 dbContext.Customers.Remove(customer.First());
-                await dbContext.SaveChangesAsync();
-                return true;
             }
-            return false;
+
+            var order = dbContext.Orders.Where(r => r.User.UserId.Equals(user.Id));
+            foreach(var o in order) {
+                dbContext.Orders.Remove(o);
+            }
+
+            var applUser = dbContext.Users.Where(e => e.Id.Equals(user.Id));
+            if (applUser.Any()) {
+                dbContext.Users.Remove(applUser.First()); 
+            }
+            await dbContext.SaveChangesAsync();
+            
+            
+            return true;
         }
 
 
