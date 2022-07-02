@@ -238,6 +238,9 @@ namespace Project_Omni_Ride_Network {
             if (veh != null & totalItems > 0)
                 veh = veh.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
+            ViewData["MaxPage"] = pageCount;
+            ViewData["CurrentPage"] = currentPage;
+
             return PartialView("_overviewList", veh.ToList());
         }
         #endregion
@@ -268,8 +271,11 @@ namespace Project_Omni_Ride_Network {
                 rating = rating.Where(e => e.Stars == starFilter);
             }
 
-            if (rating == null || !rating.Any())
+            if (rating == null || !rating.Any()) {
+                ViewData["MaxPage"] = 0;
+                ViewData["CurrentPage"] = 0;
                 return PartialView("_noRatings");
+            }
 
             if(sortNewest != null && sortNewest == true) {
                 if (sortNewest.Value)
@@ -294,6 +300,9 @@ namespace Project_Omni_Ride_Network {
 
             if (rating != null & totalItems > 0)
                 rating = rating.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
+
+            ViewData["MaxPage"] = pageCount;
+            ViewData["CurrentPage"] = currentPage;
 
             return PartialView("_ratingList", rating.ToList());
         }
