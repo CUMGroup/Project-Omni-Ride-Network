@@ -725,15 +725,21 @@ input.loginpage {
 	margin-top: 15pt;
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	
 }
 
 input.loginpage.user {
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
-	width: 100%;
+	width: auto;
 }
+
+@media screen and (max-width: 980px) {
+	input.loginpage.user {
+		width: 100%;
+	}
+}
+
 
 input.loginpage.submit {
 	background: var(--deep_red);
