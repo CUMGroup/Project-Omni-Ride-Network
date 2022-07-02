@@ -10,20 +10,28 @@
 <script type="text/javascript" src="~/js/register.js" ></script>
 <form method="post" class="register" onsubmit="return check_all()"  action="@Url.Action("RegisterAction", "Home")">
     <div class="registerbox">
+        @if (ViewData["ApiStatus"].ToString() == "Error")
+        {
+        <p class="loginError">
+            Oops, etwas scheint wohl schiefgelaufen zu sein :/ <br><br>
+            Entweder existiert der Benutzer bereits oder etwas Stimmt bei den Daten nicht.
+            Bitte &uuml;berbr&uuml;fe, ob du alles richtig eingetragen hast.
+        </p>
+        }
         <p>
             1. Leg deine Anmeldedaten fest:
         </p>
 
-        <lable class="loginpage" for="Email">Gib deine E-Mail Adresse an</lable>
+        <label class="loginpage" for="Email">Gib deine E-Mail Adresse an</label>
         <input type="email" class="loginpage user" name="Email" id="Email" autofocus="autofocus" required="required"/>
 
-        <lable class="loginpage" for="Password">&Uuml;berlege dir ein Passwort</lable>
+        <label class="loginpage" for="Password">&Uuml;berlege dir ein Passwort</label>
         <p id="pwCriteria" class="registerpage passwordRQMTS">
             (Passwort Vorgaben: mind. 6 Zeichen, 1 Zahl, 1 Gro&szlig;buchstabe, 1 nicht-alphanumerisches Zeichen)
         </p>
         <input type="password" onblur="checkPW_norm($('#Password')[0].value)" class="loginpage user" name="Password" id="Password" required="required"/>
 
-        <lable class="loginpage" for="PasswordRPT">Bitte wiederhole dein Passwort:</lable>
+        <label class="loginpage" for="PasswordRPT">Bitte wiederhole dein Passwort:</label>
         <input type="password" onblur="checkPW_RPT($('#Password')[0].value, $('#PasswordRPT')[0].value)" class="loginpage user" name="PasswordRPT" id="PasswordRPT" required="required"/>
         <div id="RPTincorrect" class="RPTincorrect"></div>
     </div>
@@ -35,40 +43,33 @@
             2. Jetzt nur noch ein paar Details, damit wir wissen, wer du bist:
         </p>
 
-        <lable class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden?</lable>
-        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required">
+        <label class="loginpage" for="KdTitle">Wie m&ouml;chtest du Angesprochen werden?</label>
+        <select class="loginpage user" name="KdTitle" id="KdTitle" required="required" size="1">
+            <option value="">W&auml;hle deine Anrede</option>
             <option>Frau</option>
             <option>Herr</option>
             <option>AAAA</option>
         </select>
 
-        <lable class="loginpage" for="KdSurname">Nachname</lable>
+        <label class="loginpage" for="KdSurname">Nachname</label>
         <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" maxlength="20" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
 
-        <lable class="loginpage" for="KdName">Vorname</lable>
+        <label class="loginpage" for="KdName">Vorname</label>
         <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" maxlength="15" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
 
-        <lable class="loginpage" for="KdBirth">Geburtsdatum</lable>
+        <label class="loginpage" for="KdBirth">Geburtsdatum</label>
         <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
 
         <div id="underage" class="RPTincorrect"></div>
 
-        <lable class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</lable>
-        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required">
+        <label class="loginpage" for="Paymnt">Wie m&ouml;chtest du denn bei uns Zahlen?</label>
+        <select class="loginpage user" name="Paymnt" id="Paymnt" required="required" size="1">
+            <option value="">W&auml;hle deine Bezahlart</option>
             <option value="1">PayPal</option>
             <option value="2">Kreditkarte</option>
             <option value="3">Sofort&uuml;berweisung</option>
         </select>
     </div>
-
-    @if (ViewData["ApiStatus"].ToString() == "Error")
-    {
-        <p class="loginError">
-            Oops, etwas scheint wohl schiefgelaufen zu sein :/ <br><br>
-            Entweder existiert der Benutzer bereits oder etwas Stimmt bei den Daten nicht.
-            Bitte &uuml;berbr&uuml;fe, ob du alles richtig eingetragen hast.
-        </p>
-    }
 
     <input class="loginpage submit" type="submit" value="Registrieren"/>
 

@@ -5,23 +5,23 @@
 
 <div class="profileview">
     <p>
-       Folgende Daten haben wir von Dir gespeichert:
+       Folgende Daten haben wir von dir gespeichert:
     </p>
 
     <div class="profile box">
-        <mark class="boxtitle">Deine pers&ouml;nlichen Informationen</mark> <br /><br />
-        <lable class="profile">Anrede: </lable> @Model.Customer.KdTitle <br />
-        <lable class="profile">Vorname: </lable> @Model.Customer.KdName <br />
-        <lable class="profile">Nachname: </lable> @Model.Customer.KdSurname <br />
-        <lable class="profile">Geburtsdatum:  </lable> @(Model.Customer.KdBirth.ToString().Substring(0, 11))
+        <mark class="boxtitle">Deine pers&ouml;nlichen Informationen</mark> <br />
+        <p class="profile">Anrede: <span>@Model.Customer.KdTitle</span></p>  
+        <p class="profile">Vorname: <span>@Model.Customer.KdName</span> </p> 
+        <p class="profile">Nachname: <span>@Model.Customer.KdSurname</span> </p> 
+        <p class="profile">Geburtsdatum: <span>@(Model.Customer.KdBirth.Date.ToString("d"))</span> </p> 
     </div>
 
     <br />
 
     <div class="profile box">
-        <mark class="boxtitle">Deine Anmelde-Informationen</mark> <br /><br />
-        <lable class="profile">E-Mail: </lable> @Model.Customer.User.Email <br />
-        <lable class="profile">Passwort: </lable> <input class="profile" type="password" disabled="disabled" value="password" />
+        <mark class="boxtitle">Deine Anmelde-Informationen</mark> <br />
+        <p class="profile">E-Mail: <span>@Model.Customer.User.Email</span> </p>
+        <p class="profile">Passwort: <input class="profile" type="password" disabled="disabled" value="password" /> </p> 
     </div>
 
     <br />
@@ -29,21 +29,21 @@
     <div class="profile box">
         @{
             if(Model.Customer.Paymnt == 1) {
-                <div><lable class="profile">Bezahlmethode: </lable> PayPal</div>
+                <div><p class="profile">Bezahlmethode: <span>PayPal</span></p> </div>
             }
             else if (Model.Customer.Paymnt == 1) {
-                <div><lable class="profile">Bezahlmethode: </lable> Kreditkarte</div>
+                <div><p class="profile">Bezahlmethode: <span>Kreditkarte</span></p> </div>
             } else {
-                <div><lable class="profile">Bezahlmethode: </lable> Sofort&uuml;berweisung</div>
+                <div><p class="profile">Bezahlmethode: <span>Sofort&uuml;berweisung</span></p> </div>
             }
         }
     </div>
 
     <p class="profile info">
-        Falls du kein Konto mehr bei uns haben m&oumlchtest, kannst du auch gerne dein Konto l&ouml;schen. 
+        Falls du kein Konto mehr bei uns haben m&ouml;chtest, kannst du auch gerne dein Konto l&ouml;schen. 
         Wir entfernen dann deine Daten aus unserer Datenbank. 
         <br /><br />
-        Wenn Informationen falsch sind und du diese korrigieren m&oumlchtest, dann musst du dein Konto l&ouml;schen und ein neues erstellen ._.
+        Wenn Informationen falsch sind und du diese korrigieren m&ouml;chtest, dann musst du dein Konto l&ouml;schen und ein neues erstellen ._.
     </p>
 
     <form method="post" action="@Url.Action("RemoveUser", "Home")">
