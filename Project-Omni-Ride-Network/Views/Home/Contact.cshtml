@@ -2,7 +2,7 @@
     ViewData["Title"] = "Kontakt";
 }
 
-<center>
+<div>
 
     <h1 class="home">Kontakt</h1>
 
@@ -10,18 +10,16 @@
         Teilen Sie uns Ihr Anliegen mit. Wir helfen Ihnen gerne.
     </p>
 
-</center>
+    <img src="/images/train.png" id="zugzug" hidden="hidden" style="position: absolute; left: -4500px;"/>
 
-<img src="/images/train.png" id="zugzug" hidden="hidden" style="position: absolute; left: -4500px;"/>
-
-<script type="text/javascript" src="~/js/contact.js" ></script>
-<form action="@Url.Action("ContactAction", "Home")" method="POST" name="contactForm" id="contactForm">
+    <script type="text/javascript" src="~/js/contact.js" ></script>
+    <form action="@Url.Action("ContactAction", "Home")" method="POST" name="contactForm" id="contactForm">
     
-    <center>
+    
         <input type="text" name="SenderName" id="SenderName" class="contact" placeholder="Max Mustermann" maxlength="100" required="required"/>
 
         <input type="text" name="SenderEmail" id="SenderEmail" class="contact mailIn" placeholder="example@mail.de" maxlength="100"
-            onblur="checkEmail($('#SenderEmail')[0].value)" required="required" pattern="^[a-zA-Z0-9._%,+-]{2,}@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" /><br>
+         onblur="checkEmail($('#SenderEmail')[0].value)" required="required" pattern="^[a-zA-Z0-9._%,+-]{2,}@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" /><br>
 
         <div name="Mailincorrect" id="Mailincorrect" class="mailincorrect"></div>
 
@@ -31,7 +29,7 @@
 
         <input class="contactpage submit" type="submit" value="Senden" position="center"/>
 
-    </center>
 
+    </form>
 
-</form>
+</div>

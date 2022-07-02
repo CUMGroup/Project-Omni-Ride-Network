@@ -633,6 +633,10 @@ input[type='range'] {
 
 /*Contact Page*/
 
+#contactpage {
+	text-align: center;
+}
+
 textarea {
 	padding: 1ex;
 	font-family: Arial, sans-serif;
