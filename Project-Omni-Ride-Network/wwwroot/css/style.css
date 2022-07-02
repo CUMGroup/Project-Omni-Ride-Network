@@ -553,7 +553,7 @@ input[type="text"][data-form="pageswitch"] {
 	color: var(--font);
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
+	width: 95%;
 	background: var(--column_dark);
 	border: none;
 	border-bottom: 2pt solid var(--accents);
@@ -928,20 +928,6 @@ select.loginpage option {
 	}
 }
 
-
-
-
-.bar-0 { width: 0%;}
-.bar-1 { width: 10%;}
-.bar-2 { width: 20%;}
-.bar-3 { width: 30%;}
-.bar-4 { width: 40%;}
-.bar-5 { width: 50%;}
-.bar-6 { width: 60%;}
-.bar-7 { width: 70%;}
-.bar-8 { width: 80%;}
-.bar-9 { width: 90%;}
-.bar-10 { width: 100%;}
 #rating .ratingbar {
 	height:18px;
 	background-color: var(--bright_red);
