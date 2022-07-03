@@ -62,3 +62,14 @@ Fügen Sie die appsettings.json-Datei im Stammverzeichnis des Projekts nach dies
     "AllowedHosts": "*"
 
 }
+``` 
+
+
+
+
+## Unser Team
+
+**Frontend-Developers:** : Jasmin Hübner- Elnaz Gharoon
+
+**Backend- Developers:** Anna Weber- Alexander Hagl 
+
