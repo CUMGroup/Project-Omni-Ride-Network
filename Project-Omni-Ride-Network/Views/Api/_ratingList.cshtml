@@ -2,7 +2,7 @@
 @foreach(var r in Model) {
     <div class="child">
         <div class="">
-            <p>@r.User.KdName @r.User.KdSurname <span class="review-date">@r.CmntTime.ToShortDateString()</span>
+            <p>@r.User.KdName @r.User.KdSurname <span class="review-date">@r.CmntTime.ToString("dd/MM/yyyy")</span>
                 <br />
                 <span>
                     <i class="rating-userstar checked"></i>
