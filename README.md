@@ -4,37 +4,36 @@
 </p>
 
 
-# Project-Omni-Ride-Network(Car Utility Management)  [Unsere Webseite](https://c-u-m.azurewebsites.net/)
+# Project-Omni-Ride-Network [(Car Utility Management)](https://c-u-m.azurewebsites.net/)
 
 
 
-Ein Projektteam bezüglisch der **Webengenireeing** [Project-Omni-Ride-Network](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/tree/master/Project-Omni-Ride-Network) and **Projektmanagment** [Projektmanagement](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/tree/master/Projektmanagement) Vorlessungen 
-an der Dualen Hochschule Baden-Württemberg Karlsruhe.[
-karlsruhe.dhbw.de/](karlsruhe.dhbw.de/).
+Ein Projekt, das im Rahmen der **Webengineering I** [Project-Omni-Ride-Network](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/tree/master/Project-Omni-Ride-Network) und **Projektmanagement** [Projektmanagement](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/tree/master/Projektmanagement) Vorlesungen 
+der Dualen Hochschule Baden-Württemberg Karlsruhe [
+karlsruhe.dhbw.de/](karlsruhe.dhbw.de/) entstanden ist.
 
-Car Utility Manager is ein Carsharing Anbieter.  Kund*innen schließen mit dem Anbieter bei der Anmeldung einen Rahmenvertrag. Danach können sie alle Fahrzeuge des Anbieters rund um die Uhr selbstständig buchen. 
+Car Utility Management ist ein fiktiver Carsharing Anbieter, den wir für dieses Projekt erfunden haben. 
+
+Die Funktionen der Webseite beinhalten das erstellen eines Profils, um Fahrzeuge von verschiedenen Anbietern buchen zu können, sowie eine Bewertung der Seite zu hinterlassen. Natürlich sind die Buchungen rein fiktiv, es wird dabei kein Geld abgebucht oder Fahrzeug verbucht.
 
 Viel Spaß und gute Fahrt :red_car: :motorcycle:
 
 ## Dokumentation 
-[Fachkonzept Porn](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/blob/master/Projektmanagement/Fachkonzept%20PORN.pdf)
+tbd
 
-## Use it locally
+## Installation
 
-Um auch die Code in Ihr system nutzen zu können
+Um das Projekt lokal aufzusetzen:
 
-Um create die Webseite locally von current branch, 
-
-``` #clone the project
+``` # Projekt klonen
  
 git clone https://github.com/Annalytic-programming/Project-Omni-Ride-Network.git
 
-
 ```
 
-## Konfigurationseinstellungen für Identity Server
+## Konfigurationsdatei anlegen
 
-Fügen Sie die appsettings.json-Datei im Stammverzeichnis des Projekts nach diesem Muster: 
+Füge eine 'appsettings.json' Datei im Verzeichnis [Project-Omni-Ride-Network/Project-Omni-Ride-Network/](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/tree/master/Project-Omni-Ride-Network), nach diesem Muster, ein: 
 
 ``` {
     "MailCredentials": {
@@ -63,13 +62,13 @@ Fügen Sie die appsettings.json-Datei im Stammverzeichnis des Projekts nach dies
 
 }
 ``` 
-
+<sub>* Wechsle in CAPS geschriebene Wörter mit deinen eigenen Daten aus</sub>
 
 
 
 ## Unser Team
 
-**Frontend-Developers:** : Jasmin Hübner- Elnaz Gharoon
+**Frontend-Developers:** : Jasmin Hübner - Elnaz Gharoon
 
-**Backend- Developers:** Anna Weber- Alexander Hagl 
+**Backend-Developers:** Anna Weber - Alexander Hagl 
 
