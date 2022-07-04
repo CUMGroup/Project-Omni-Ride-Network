@@ -23,9 +23,14 @@
                     </div>
                 </div>
             </div>
-            <img src="@veh.PathToImg" width="120em" height="120em" />
+            <img src="@veh.PathToImg" alt="image of vehicle" width="120" height="120" />
             <div class="break"></div>
             <a class="button" href="/booking/@veh.VehicleId">Zur Buchung</a>
         </div>
     </div>
 }
+
+<script>
+    dataPage = @ViewData["CurrentPage"].ToString();
+    dataMaxPage = @ViewData["MaxPage"].ToString();
+</script>

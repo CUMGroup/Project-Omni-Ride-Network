@@ -13,7 +13,7 @@
         </div>
         <div class="middle">
             <div class="bar-container">
-                <div class="ratingbar bar-@Model.RatingDistribution[4]"></div>
+                <div class="ratingbar" style="width: @(Model.RatingDistribution[4])%;"></div>
             </div>
         </div>
         <div class="side right">
@@ -24,7 +24,7 @@
         </div>
         <div class="middle">
             <div class="bar-container">
-                <div class="ratingbar bar-@Model.RatingDistribution[3]"></div>
+                <div class="ratingbar" style="width: @(Model.RatingDistribution[3])%;"></div>
             </div>
         </div>
         <div class="side right">
@@ -35,7 +35,7 @@
         </div>
         <div class="middle">
             <div class="bar-container">
-                <div class="ratingbar bar-@Model.RatingDistribution[2]"></div>
+                <div class="ratingbar" style="width: @(Model.RatingDistribution[2])%;"></div>
             </div>
         </div>
         <div class="side right">
@@ -46,7 +46,7 @@
         </div>
         <div class="middle">
             <div class="bar-container">
-                <div class="ratingbar bar-@Model.RatingDistribution[1]"></div>
+                <div class="ratingbar" style="width: @(Model.RatingDistribution[1])%;"></div>
             </div>
         </div>
         <div class="side right">
@@ -57,7 +57,7 @@
         </div>
         <div class="middle">
             <div class="bar-container">
-                <div class="ratingbar bar-@Model.RatingDistribution[0]"></div>
+                <div class="ratingbar" style="width: @(Model.RatingDistribution[0])%;"></div>
             </div>
         </div>
         <div class="side right">
@@ -76,7 +76,7 @@
                 <i class="rating-userstar editable-star" id="star5"></i>
             </div>
 
-            <script src="~/js/ratingFunctionality.js" type="text/javascript"></script>
+            <script src="~/js/ratingFunctionality.js"></script>
             <form onsubmit="event.preventDefault(); return addReview('@Url.Action("RatingAction", "Home")')">
                 <textarea id="commentArea" rows="5" placeholder="Kommentar..." required="required" style="width:100%;"></textarea><br/>
                 <input type="submit" class="rating submit" value="Kommentieren"/>
@@ -85,16 +85,18 @@
         </div>
     }
     <div id ="reviewList">
+        <!-- Gets generated via API Controller and Partial view : Views/Api/_ratingList.cshtml -->
     </div>
 
-    <form class="pageswitch" method="get" action="">
+    <form class="pageswitch" method="get">
         <input name="page" id="page" type="hidden" value=""/>
-        <input class="pageswitch" onclick="switchPage(-1)" type="submit" value="&#8656;" />
+        <input id="prevPageBtn" class="pageswitch" onclick="switchPage(-1)" type="button" value="< Zur&uuml;ck" />
         &nbsp;
-        <input class="pageswitch" onclick="switchPage(1)" type="submit" value="&#8658;" />
+        <input id="nextPageBtn" class="pageswitch" onclick="switchPage(1)" type="button" value="Weiter >" />
     </form>
+    <p id="pageDisplay">Seite 1 von </p>
 
     <script>let apiUrl="@Url.Action("GetRatingListView", "Api")"</script>
-    <script src="~/js/reviewList.js" type="text/javascript"></script>
+    <script src="~/js/reviewList.js"></script>
 </section>
 

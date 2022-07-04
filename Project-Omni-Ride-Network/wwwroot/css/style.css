@@ -385,6 +385,9 @@ a:hover.intext{
   color: var(--font);
 }
 /*booking----------------------------------------------*/
+#bookingcenter{
+	text-align: center;
+}
 
 .booki .fahrzeuginfo{
 	justify-content: space-around;
@@ -550,7 +553,7 @@ input[type="text"][data-form="pageswitch"] {
 	color: var(--font);
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
+	width: 95%;
 	background: var(--column_dark);
 	border: none;
 	border-bottom: 2pt solid var(--accents);
@@ -602,6 +605,7 @@ input[type='range'] {
 
 .imprint-table tr td {
 	vertical-align:top;
+	padding: 4px;
 }
 
 /*Error seite*/
@@ -707,7 +711,7 @@ form.loginpage {
 	padding: 10pt;
 }
 
-lable.loginpage {
+label.loginpage {
 	color: var(--documents);
 	margin-top: 15pt;
 }
@@ -721,14 +725,21 @@ input.loginpage {
 	margin-top: 15pt;
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
 }
 
 input.loginpage.user {
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
+	width: auto;
 }
+
+@media screen and (max-width: 980px) {
+	input.loginpage.user {
+		width: 100%;
+	}
+}
+
 
 input.loginpage.submit {
 	background: var(--deep_red);
@@ -755,6 +766,7 @@ select:-webkit-autofill:focus {
 	-webkit-text-fill-color: var(--font);
 	-webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
 	transition: background-color 5000s ease-in-out 0s;
+	width: 100%;
 }
 
 .loginError{
@@ -798,7 +810,7 @@ select.loginpage {
 	margin-top: 15pt;
 	margin-bottom: 15pt;
 	font-size: 14pt;
-	width: auto;
+	width: 100%;
 	background: transparent;
 	border: none;
 	border-bottom: 2pt solid var(--column_bright);
@@ -924,20 +936,6 @@ select.loginpage option {
 	}
 }
 
-
-
-
-.bar-0 { width: 0%;}
-.bar-1 { width: 10%;}
-.bar-2 { width: 20%;}
-.bar-3 { width: 30%;}
-.bar-4 { width: 40%;}
-.bar-5 { width: 50%;}
-.bar-6 { width: 60%;}
-.bar-7 { width: 70%;}
-.bar-8 { width: 80%;}
-.bar-9 { width: 90%;}
-.bar-10 { width: 100%;}
 #rating .ratingbar {
 	height:18px;
 	background-color: var(--bright_red);
@@ -1022,8 +1020,12 @@ mark.home.disclaimer{
 
 /*-----profile-------*/
 
-lable.profile{
+p.profile{
 	color: var(--accents);
+}
+
+p.profile span {
+	color: var(--font);
 }
 
 mark.boxtitle{
@@ -1066,22 +1068,30 @@ form.pageswitch {
 }
 
 input.pageswitch {
-	font-size: 20pt;
+	font-size:14pt;
 	color: var(--font);
 	background: var(--deep_red);
 	border: 1px solid var(--border);
-	padding-top: 2px;
-	padding-bottom: 2px;
-	padding-left: 8px;
-	padding-right: 8px;
+	padding: 8px 5px;
+}
+
+#pageDisplay {
+	text-align: center;
+}
+
+input.pageswitch:disabled {
+	background: var(--accents);
+}
+
+input.pageswitch:enabled {
+	cursor: pointer;
 }
 
 /*Karriereseite----------------------------------------------*/
-
-#karriere .h1{
+#karriere .h1 {
 	color: var(--deep_red);
 	text-align: center;
-	margin-top:50pt;
+	margin-top: 50pt;
 }
 #karriere .center {
     display: block;

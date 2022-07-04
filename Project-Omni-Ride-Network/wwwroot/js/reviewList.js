@@ -17,6 +17,10 @@ function getRatingList() {
 		},
 		success: (res) => {
 			$('#reviewList').html('').html(res);
+
+			$('#nextPageBtn').prop("disabled", dataPage >= dataMaxPage);
+			$('#prevPageBtn').prop("disabled", dataPage <= 1);
+			$('#pageDisplay').text("Seite " + dataPage + " von " + dataMaxPage);
 		},
 		error: (err) => {
 			console.log(err);

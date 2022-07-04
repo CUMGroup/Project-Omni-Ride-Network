@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="de-de">
 	<head>
 		<meta charset="UTF-8"/>
 		 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>@ViewData["Title"]</title>
-		<link rel="icon" type="image" href="~/images/icon.png"/>
+		<link rel="icon" type="image/x-icon" href="~/images/icon.png"/>
 		<link rel="stylesheet" href="~/css/style.css" />
 		<script src="https://code.jquery.com/jquery-3.5.0.js" ></script>
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function() {
 				$(".menubutton").click(function() {
 					$("nav").toggleClass("navactive");
@@ -24,7 +24,7 @@
 						<ul>
 							<li>
 								<a class="menubutton" href="#menu">
-									<img class="img-menu-button" src="~/images/menu.png"/>
+									<img class="img-menu-button" src="~/images/menu.png" alt="menu-button"/>
 								</a>
 							</li>
 						</ul>
@@ -75,17 +75,17 @@
 		</div>
 		<footer>
 			<ul>
-				<li class="mail"><img src="~/images/icons/mail.svg"/><a href="/contact">Kontakt</a></li>
-				<li class="tell"><img src="~/images/icons/phone.svg"/><a href="tel:+4987113562165">+49 871 1356 2165</a></li>
-				<li class="instagram"><img src="~/images/icons/instagram.svg"/><a href="https://www.instagram.com/carutilitymanagement/" target="_blank">Instagram</a></li>
-				<li class="youtube"><img src="~/images/icons/youtube.svg"/><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">YouTube</a></li>
+				<li class="mail"><img src="~/images/icons/mail.svg" alt="mail-icon"/><a href="/contact">Kontakt</a></li>
+				<li class="tell"><img src="~/images/icons/phone.svg" alt="phone-icon"/><a href="tel:+4987113562165">+49 176 6130 0820</a></li>
+				<li class="instagram"><img src="~/images/icons/instagram.svg" alt="instagram-icon"/><a href="https://www.instagram.com/carutilitymanagement/" target="_blank">Instagram</a></li>
+				<li class="youtube"><img src="~/images/icons/youtube.svg" alt="youtube-icon"/><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">YouTube</a></li>
 			</ul>
 			<ul>
 				<li><a href="/partner">Unsere Partner</a></li>
 				<li><a href="/karriere">Karriere bei uns!</a></li>
 				<li style="color: #202020">75 69 75 87</li>
 				<li style="color: #202020">I like trains</li>
-				<li>&copy Copyright @DateTime.Now.Year</li>
+				<li>&copy; Copyright @DateTime.Now.Year</li>
 			</ul>
 			<ul>
 				<li><a href="/impressum">Impressum</a></li>

@@ -278,7 +278,7 @@ namespace Project_Omni_Ride_Network {
         }
 
         private int CalcRatingDistribution(int starCount, int totalSum) {
-            return (int)Math.Ceiling((starCount / (double)totalSum) * 10);
+            return (int)Math.Ceiling((starCount / (double)totalSum) * 100);
         }
 
         [Route(Routes.RATING)]

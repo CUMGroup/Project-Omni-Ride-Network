@@ -13,8 +13,7 @@
 
 function checkPW_norm(pw) {
     let password = "" + pw;
-    let criteria = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,15}$/;
-
+    let criteria = /^(?=.*?[A-Z])(?=(.*[a-z]))(?=(.*[\d]))(?=(.*[^a-zA-Z0-9])).{6,}$/g;
     if (!(password.match(criteria))) {
         $('#Password')[0].classList = "loginpage user RPTincorrect";
         $('#pwCriteria')[0].classList = "registerpage RPTincorrect";
