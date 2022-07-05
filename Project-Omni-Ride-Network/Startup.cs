@@ -1,6 +1,5 @@
 using Dna;
 using Dna.AspNet;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +33,7 @@ namespace Project_Omni_Ride_Network {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
 
+            // Add Services for the dependency injection
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(Framework.Construction.Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<DataStore>(provider => new DataStore(provider.GetService<ApplicationDbContext>()));
             services.AddScoped<Mailer>(provider => new Mailer(Configuration));
@@ -52,6 +52,7 @@ namespace Project_Omni_Ride_Network {
                 //Adds a provider for random keys and hashes
                 .AddDefaultTokenProviders();
 
+            // Setup token authentication
             services.AddAuthentication()
             .AddJwtBearer(options => {
                 options.SaveToken = true;
@@ -65,6 +66,7 @@ namespace Project_Omni_Ride_Network {
                 };
             });
 
+            // Setup login cookie
             services.ConfigureApplicationCookie(options => {
                 options.LoginPath = $"/{Routes.LOGIN}"; 
                 options.ExpireTimeSpan = TimeSpan.FromHours(3); 
@@ -82,6 +84,7 @@ namespace Project_Omni_Ride_Network {
 
             app.UseAuthentication();
 
+            // Redirect errors
             app.UseStatusCodePagesWithReExecute("/error/{0}");
 
             if (env.IsDevelopment()) {
@@ -99,13 +102,12 @@ namespace Project_Omni_Ride_Network {
 
             app.UseAuthorization();
 
+            // Map default endpoints to the home controller
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-
-            
         }
 
         #endregion
