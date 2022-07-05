@@ -52,10 +52,10 @@
         </select>
 
         <label class="loginpage" for="KdSurname">Nachname</label>
-        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" maxlength="20" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
+        <input type="text" class="loginpage user" name="KdSurname" id="KdSurname" required="required" maxlength="20" pattern="^[\w'\-,.][^0-9_!&#161;?&#247;?&iquest;\/\\+=@@#$%&Hat;&*(){}|~<>;:[\]]+$"/>
 
         <label class="loginpage" for="KdName">Vorname</label>
-        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" maxlength="15" pattern="^(?:[A-Za-z&auml;&uuml;&ouml;&szlig;]+[\s-]?[A-Za-z&auml;&uuml;&ouml;&szlig;])+$"/>
+        <input type="text" class="loginpage user" name="KdName" id="KdName" required="required" maxlength="15" pattern="^[\w'\-,.][^0-9_!&#161;?&#247;?&iquest;\/\\+=@@#$%&Hat;&*(){}|~<>;:[\]]+$"/>
 
         <label class="loginpage" for="KdBirth">Geburtsdatum</label>
         <input type="date" onblur="check_age()" class="loginpage user" name="KdBirth" id="KdBirth" required="required"/>
