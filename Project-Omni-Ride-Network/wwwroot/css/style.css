@@ -840,6 +840,10 @@ select.loginpage option {
 	user-select: none;
 }
 
+#rating .child .commenttext {
+	overflow-wrap: break-word;
+}
+
 #rating .rating-userstar:before {
 	content: "\2605";
 }
