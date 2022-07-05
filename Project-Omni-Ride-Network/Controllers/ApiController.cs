@@ -126,7 +126,7 @@ namespace Project_Omni_Ride_Network {
             }
 
             // Send Register mail
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+            _ = mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ,
                 mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
@@ -186,7 +186,7 @@ namespace Project_Omni_Ride_Network {
             }
 
             // Send register mail
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+            _ = mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ,
                 mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
