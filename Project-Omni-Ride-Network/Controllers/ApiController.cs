@@ -334,31 +334,36 @@ namespace Project_Omni_Ride_Network {
         }
 
         #endregion
-        
+
         #region Rating
 
         /// <summary>
-        /// 
+        /// Get Endpoint to retrieve a filtered, 20 element page from all ratings
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="starFilter"></param>
-        /// <param name="sortNewest"></param>
-        /// <param name="sortByHighestStars"></param>
-        /// <returns></returns>
+        /// <param name="page">Page to get</param>
+        /// <param name="starFilter">Filter by amount of stars</param>
+        /// <param name="sortNewest">Sort result by Newest; Null: no sorting; true: Sort by Newest; false: Sort by Oldest</param>
+        /// <param name="sortByHighestStars">Sort result by Highest rating; Null: no sorting; true: Sort by best ratings; false: Sort by worst ratings</param>
+        /// <returns>Partial Html View, that contains the maximum 20 element, filtered page. You can embed the result via Javascript</returns>
         [HttpGet]
         [Route(Routes.FILTERED_RATINGS)]
         public async Task<PartialViewResult> GetRatingListView(int? page, int? starFilter, bool? sortNewest, bool? sortByHighestStars) {
+            // Retrieve all ratings from db
             IEnumerable<Rating> rating = await dbStore.GetRatingsAsync();
+
+            // if filter is not null: filter
             if (starFilter != null && starFilter > 0 && starFilter < 6) {
                 rating = rating.Where(e => e.Stars == starFilter);
             }
 
+            // No Ratings? -> Return special view
             if (rating == null || !rating.Any()) {
                 ViewData["MaxPage"] = 0;
                 ViewData["CurrentPage"] = 0;
                 return PartialView("_noRatings");
             }
 
+            // Sort the result set according to the params
             if(sortNewest != null && sortNewest == true) {
                 if (sortNewest.Value)
                     rating.OrderByDescending(e => e.CmntTime);
@@ -372,6 +377,7 @@ namespace Project_Omni_Ride_Network {
                     rating.OrderBy(e => e.Stars);
             }
 
+            // Calculate the page
             int itemsPerPage = 20;
             int currentPage = page ?? 1;
             if (currentPage <= 0) currentPage = 1;
@@ -380,9 +386,11 @@ namespace Project_Omni_Ride_Network {
             int pageCount = totalItems > 0 ? (int)Math.Ceiling(totalItems / (double)itemsPerPage) : 0;
             if (currentPage > pageCount) currentPage = pageCount;
 
+            // Get filtered page view
             if (rating != null & totalItems > 0)
                 rating = rating.Skip((currentPage - 1) * itemsPerPage).Take(itemsPerPage);
 
+            // Set metadata for view
             ViewData["MaxPage"] = pageCount;
             ViewData["CurrentPage"] = currentPage;
 
