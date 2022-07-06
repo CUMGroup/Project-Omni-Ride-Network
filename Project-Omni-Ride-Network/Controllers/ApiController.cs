@@ -27,16 +27,14 @@ namespace Project_Omni_Ride_Network {
         private readonly DataStore dbStore;
         // Email functions
         private readonly Mailer mailer;
-        private readonly MailTxt mailTxt;
 
         public ApiController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, 
-            IConfiguration config, DataStore dbStore, Mailer mailer, MailTxt mailTxt) {
+            IConfiguration config, DataStore dbStore, Mailer mailer) {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = config;
             this.dbStore = dbStore;
-            this.mailer = mailer;
-            this.mailTxt = mailTxt;   
+            this.mailer = mailer; 
         }
 
         #endregion
@@ -127,7 +125,7 @@ namespace Project_Omni_Ride_Network {
 
             // Send Register mail
             mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
-                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
+                MailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
 
         }
@@ -186,8 +184,8 @@ namespace Project_Omni_Ride_Network {
             }
 
             // Send register mail
-            mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
-                mailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
+            _ = mailer.MailerAsync(_configuration.GetValue<string>("MailCredentials:Email"), model.Email, MailTxt.REGISTRY_SUBJ, 
+                MailTxt.CreateRegistryResponse(model.KdTitle, model.KdSurname));
             return Ok(new ApiResponse { Status = "Success", Message = "User created successfully!" });
         }
 
