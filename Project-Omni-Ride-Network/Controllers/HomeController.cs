@@ -58,7 +58,7 @@ namespace Project_Omni_Ride_Network {
                         name = customer.First().KdName + " " + customer.First().KdSurname;
                 }
             }
-            // 
+            // Authorized and Username are important to know, to display the profile dropdown in the Layout correctly
             return new BaseViewModel { Authorized = authorized, UserName = name };
         }
 
