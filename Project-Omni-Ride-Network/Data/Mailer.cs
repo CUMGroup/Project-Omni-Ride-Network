@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
     public class Mailer {
-
+        // class for mailer method
         #region constructor
 
         private readonly IConfiguration _configuration;
@@ -19,8 +19,17 @@ namespace Project_Omni_Ride_Network {
 
         #region mailerMethod
 
+        /// <summary>
+        /// Method that sends mail from a smtp server
+        /// </summary>
+        /// <param name="ourMail"></param>
+        /// <param name="senderMail"></param>
+        /// <param name="subject"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task<bool> MailerAsync(string ourMail, string senderMail, string subject, string message) {
             try {
+                // create mail
                 using (var mail = new MailMessage()) {
 
                     mail.From = new MailAddress(ourMail);
@@ -29,6 +38,7 @@ namespace Project_Omni_Ride_Network {
                     mail.Body = message;
                     mail.IsBodyHtml = true;
 
+                    // send mail via smtp server
                     using (var smtpClient = new SmtpClient(_configuration.GetValue<string>("MailCredentials:Hostname"),
                             _configuration.GetValue<int>("MailCredentials:Port"))) {
                         smtpClient.EnableSsl = true;
@@ -42,7 +52,7 @@ namespace Project_Omni_Ride_Network {
 
                 return true;
 
-            } catch (Exception ex) {
+            } catch (Exception) {
                 return false;
             }
 

@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Project_Omni_Ride_Network {
-    public class MailTxt {
+    public static class MailTxt {
+        // class that handles the mail texts that need to be send
+
+        #region constantTexts
+        // constant mail texts
 
         private const string SALUTATIONS = "<html><body><p> Hallo ";
 
@@ -49,17 +50,25 @@ namespace Project_Omni_Ride_Network {
 
         public const string REGISTRY_SUBJ = "Ihre Registrierung";
 
-        public string CreateRegistryResponse(string anrede, string surname) {
+        #endregion
+
+        #region createMails
+        // Methods that create mails for specific reasons
+
+        // register confirmation mail
+        public static string CreateRegistryResponse(string anrede, string surname) {
             string mail = SALUTATIONS + anrede + " " + surname + REGISTRY_RESP;
             return mail;
         }
 
-        public string CreateServiceResponse(string name) {
+        // service response mail
+        public static string CreateServiceResponse(string name) {
             string mail = SALUTATIONS + name + SERVICE_RESP;
             return mail;
         }
 
-        public string CreateOrderSubject(Order order) {
+        // subject for order confirmation mail
+        public static string CreateOrderSubject(Order order) {
 
             string subject = ORDER_SUBJECT + order.OrderId;
 
@@ -67,7 +76,8 @@ namespace Project_Omni_Ride_Network {
 
         }
 
-        public string CreateOrderResponse(Order order) {
+        // order confirmation mail
+        public static string CreateOrderResponse(Order order) {
 
             string mail = SALUTATIONS + order.User.KdTitle + " " + order.User.KdSurname + ORDER_RESP_START +
                 "Ihre Order-ID: " + order.OrderId + "<br>" +
@@ -80,7 +90,7 @@ namespace Project_Omni_Ride_Network {
             return mail;
         }
 
-
+        #endregion
 
     }
 }
