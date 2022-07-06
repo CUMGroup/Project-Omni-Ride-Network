@@ -42,7 +42,7 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Preperation method for BaseViewModel
         /// </summary>
-        /// <returns> BaseViewModel </returns>
+        /// <returns></returns>
         public async Task<BaseViewModel> PrepareBaseViewModel() {
             bool authorized = User.Identity.IsAuthenticated;
             string name = "";
@@ -58,6 +58,7 @@ namespace Project_Omni_Ride_Network {
                         name = customer.First().KdName + " " + customer.First().KdSurname;
                 }
             }
+            // 
             return new BaseViewModel { Authorized = authorized, UserName = name };
         }
 
@@ -85,7 +86,7 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to Overview for all vehicles
         /// </summary>
-        /// <returns> Overviewviewmodel </returns>
+        /// <returns></returns>
         [Route(Routes.OVERVIEW)]
         public async Task<IActionResult> Overview() {
             // Get all Vehicles from Database and hand over to View
@@ -102,8 +103,8 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to the bookingview of a vehicle with specific VehicleId
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns> Bookingviewmodel for specific vehicle </returns>
+        /// <param name="id">Vehicle Id</param>
+        /// <returns></returns>
         [Route(Routes.BOOKING)]
         public async Task<IActionResult> Booking(string id) {
 
@@ -119,9 +120,9 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to logical booking action 
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="orderModel"></param>
-        /// <returns> Bookingdoneview </returns>
+        /// <param name="id">Vehicle Id</param>
+        /// <param name="orderModel">Order Data</param>
+        /// <returns></returns>
         [Route(Routes.BOOKING + "/bookingaction")]
         [HttpPost]
         [Authorize]
@@ -152,7 +153,7 @@ namespace Project_Omni_Ride_Network {
             // Create corresponding Order entry
             try {
                 await dbStore.AddOrderAsync(orderModel);
-            } catch (DatabaseAPIException e) {
+            } catch (DatabaseAPIException) {
                 return await Error(418);
             }
 
@@ -174,8 +175,8 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to loginpage
         /// </summary>
-        /// <param name="response"></param>
-        /// <param name="ReturnUrl"></param>
+        /// <param name="response">http Status</param>
+        /// <param name="ReturnUrl">Origin URL</param>
         /// <returns> View </returns>
         [Route(Routes.LOGIN)]
         public async Task<IActionResult> Login(ApiResponse response, string ReturnUrl) {
@@ -191,8 +192,8 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to loginaction
         /// </summary>
-        /// <param name="loginModel"></param>
-        /// <param name="ReturnUrl"></param>
+        /// <param name="loginModel">Login Data</param>
+        /// <param name="ReturnUrl">Origin URL</param>
         /// <returns></returns>
         [HttpPost]
         [Route(Routes.LOGIN + Routes.ACTION_SUFFIX)]
@@ -234,7 +235,7 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="response"></param>
+        /// <param name="response">http Status</param>
         /// <returns></returns>
         [Route(Routes.REGISTER)]
         public async Task<IActionResult> Register(ApiResponse response) {
@@ -249,8 +250,8 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to Registeraction
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns>  </returns>
+        /// <param name="model">Register Data</param>
+        /// <returns></returns>
         [HttpPost]
         [Route(Routes.REGISTER + Routes.ACTION_SUFFIX)]
         public async Task<IActionResult> RegisterAction([FromForm] RegisterApiModel model) {
@@ -298,7 +299,7 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint Profile
         /// </summary>
-        /// <returns>  </returns>
+        /// <returns></returns>
         [Route(Routes.PROFILE)]
         [Authorize]
         public async Task<IActionResult> Profile() {
@@ -333,11 +334,13 @@ namespace Project_Omni_Ride_Network {
                 if (a == null) {
                     return Unauthorized();
                 }
+                
                 // remove customer as well as corresponding AspNetUser and all Orders of these costumer
                 await dbStore.RemoveCustomerAsync(a);
             } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
             }
+
             // delete session cookie
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
@@ -369,7 +372,12 @@ namespace Project_Omni_Ride_Network {
             return View(new RatingViewModel(await PrepareBaseViewModel()) { RatingCounts = count, RatingDistribution = dist, UserAlreadyReviewed=userAlreadyReviewed});
         }
 
-        //Helpermethod for calculating ratingbar
+        /// <summary>
+        /// Helpermethod for calculating ratingbar
+        /// </summary>
+        /// <param name="starCount">Amount of same star rating</param>
+        /// <param name="totalSum">Totalamount of stars</param>
+        /// <returns></returns>
         private int CalcRatingDistribution(int starCount, int totalSum) {
             return (int)Math.Ceiling((starCount / (double)totalSum) * 100);
         }
@@ -377,7 +385,7 @@ namespace Project_Omni_Ride_Network {
         /// <summary>
         /// Endpoint to ratingaction
         /// </summary>
-        /// <param name="model"></param>
+        /// <param name="model">Rating Data</param>
         /// <returns></returns>
         [Route(Routes.RATING)]
         [HttpPost]
@@ -446,8 +454,8 @@ namespace Project_Omni_Ride_Network {
         /// Endpoint to contactaction
         /// get mail from customer and send response mail
         /// </summary>
-        /// <param name="contact"></param>
-        /// <returns> ContactDone View </returns>
+        /// <param name="contact">Contact Data</param>
+        /// <returns>ContactDoneView</returns>
         [HttpPost]
         [Route(Routes.CONTACT + Routes.ACTION_SUFFIX)]
         public IActionResult ContactAction([FromForm] ContactModel contact) {
