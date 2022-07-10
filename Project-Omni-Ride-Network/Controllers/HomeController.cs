@@ -342,7 +342,12 @@ namespace Project_Omni_Ride_Network {
 
             // delete session cookie
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DeleteDone", "Home");
+        }
+
+        [Route(Routes.DELETE_USER_DONE)]
+        public async Task<IActionResult> DeleteDone() {
+            return View(await PrepareBaseViewModel());
         }
 
         /// <summary>
