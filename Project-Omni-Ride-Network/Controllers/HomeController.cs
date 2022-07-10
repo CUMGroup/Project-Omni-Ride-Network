@@ -94,7 +94,6 @@ namespace Project_Omni_Ride_Network {
             var modelList = vehicles.Select(m => m.Model).Distinct().OrderBy(e => e).ToList();
             var brandList = vehicles.Select(b => b.Brand).Distinct().OrderBy(e => e).ToList();
             return View(new OverviewViewModel(await PrepareBaseViewModel()) {
-                Vehicles = vehicles,
                 ModelFilterList = modelList,
                 BrandFilterList = brandList
             });
