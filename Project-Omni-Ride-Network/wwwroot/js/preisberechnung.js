@@ -5,7 +5,15 @@
 
         if ($('#category')[0].innerText.includes("Sharing")) {
             today += "T";
-            today += date.toLocaleString('sv', { timeZoneName: 'short' }).substring(11, 16);
+
+            if (date.getHours() < 10) {
+                today += "0";
+                today += date.toLocaleString('sv', { timeZoneName: 'short' }).substring(11, 15);
+            }
+            else {
+                today += date.toLocaleString('sv', { timeZoneName: 'short' }).substring(11, 16);
+            }
+
         }
 
         $("#pickupdate")[0].value = today;
