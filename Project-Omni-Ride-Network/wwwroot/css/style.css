@@ -29,6 +29,19 @@ h2 {
 	color: var(--font);
 }
 
+.sendbutton {
+	padding: 10pt 30pt;
+	background: var(--deep_red);
+	border: 1pt solid var(--font);
+	text-align: center;
+	color: var(--font);
+	font-size: 14pt;
+}
+
+.sendbutton:hover {
+	background: var(--bright_red);
+}
+
 /*header-----------------------------------------------*/
 header {
 	display: block;
@@ -499,42 +512,9 @@ input[type="datetime-local"] {
 	flex-wrap: wrap;
 }
 
-.sendbutton {
-	padding: 10pt 30pt;
-	background: var(--deep_red);
-	border: 1pt solid var(--font);
-	text-align: center;
-	color: var(--font);
-	font-size: 14pt;
-}
-
-.sendbutton:hover {
-	background: var(--bright_red);
-}
-
 div.break {
 	flex-basis: 100%;
 	height: 0;
-}
-
-.prod a.button {
-	/*border: none;
-	color: var(--font);
-	background-color: var(--deep_red);
-	padding: 15px 32px;
-	text-align: center;
-	display: inline-block;
-	margin: 4px 2px;*/
-	padding: 10pt 30pt;
-	background: var(--deep_red);
-	border: 1pt solid var(--font);
-	text-align: center;
-	color: var(--font);
-	font-size: 14pt;
-}
-
-.prod a.button :hover {
-	background: var(--bright_red);
 }
 
 .overview-grid .prod {
@@ -705,27 +685,7 @@ input.contact.mailInFalse {
 	visibility: hidden;
 }
 
-input.contactpage.submit {
-	/*background: var(--deep_red);
-	padding: 7px;
-	font-size: 17pt;
-	color: var(--font);
-	border: solid var(--deep_red) 0.1em;*/
-	padding: 10pt 30pt;
-	background: var(--deep_red);
-	border: 1pt solid var(--font);
-	text-align: center;
-	color: var(--font);
-	font-size: 14pt;
-}
 
-input.contactpage.submit:hover {
-	/*background: var(--bright_red);
-	border: solid var(--bright_red) 0.1em;
-	padding: 7px;
-	font-size: 17pt;*/
-	background: var(--bright_red);
-}
 
 /*Login*/
 form.loginpage {
@@ -763,25 +723,6 @@ input.loginpage.user {
 	input.loginpage.user {
 		width: 100%;
 	}
-}
-
-
-input.loginpage.submit {
-	/*background: var(--deep_red);
-	padding: 5pt;
-	font-size: 14pt;*/
-	padding: 10pt 30pt;
-	background: var(--deep_red);
-	border: 1pt solid var(--font);
-	text-align: center;
-	color: var(--font);
-	font-size: 14pt;
-}
-
-input.loginpage.submit:hover {
-	background: var(--bright_red);
-	/*padding: 5pt;
-font-size: 14pt;*/
 }
 
 input:-webkit-autofill,
@@ -974,27 +915,6 @@ select.loginpage option {
 	background-color: var(--bright_red);
 }
 
-
-input.rating.submit {
-	/*background: var(--deep_red);
-	padding: 7px;
-	font-size: 17pt;
-	color: var(--font);
-	border: solid var(--deep_red) 0.1em;*/
-	padding: 10pt 30pt;
-	background: var(--deep_red);
-	border: 1pt solid var(--font);
-	text-align: center;
-	color: var(--font);
-	font-size: 14pt;
-}
-
-	input.rating.submit:hover {
-		background: var(--bright_red);
-		/*border: solid var(--bright_red) 0.1em;
-	padding: 7px;
-	font-size: 17pt;*/
-	}
 
 /*Partner Seite*/
 
