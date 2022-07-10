@@ -66,6 +66,11 @@ namespace Project_Omni_Ride_Network {
             return View(await PrepareBaseViewModel());
         }
 
+        [Route(Routes.START)]
+        public async Task<IActionResult> Start() {
+            return View(await PrepareBaseViewModel());
+        }
+
         #region Error Routes
         
         [Route(Routes.ERROR_404)]
@@ -342,7 +347,12 @@ namespace Project_Omni_Ride_Network {
 
             // delete session cookie
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DeleteDone", "Home");
+        }
+
+        [Route(Routes.DELETE_USER_DONE)]
+        public async Task<IActionResult> DeleteDone() {
+            return View(await PrepareBaseViewModel());
         }
 
         /// <summary>

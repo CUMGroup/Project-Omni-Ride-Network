@@ -4,6 +4,8 @@ namespace Project_Omni_Ride_Network {
 
         public const string ACTION_SUFFIX = "action";
 
+        public const string START = "start";
+
         #region Error Routes
 
         public const string ERROR_404 = "error/404";
@@ -34,6 +36,7 @@ namespace Project_Omni_Ride_Network {
         public const string RATING = "rating";
 
         public const string DELETE_USER = "deleteuser";
+        public const string DELETE_USER_DONE = "deleteuserdone";
 
         #region API Routes
         public const string FILTERED_RATINGS = "filteredratings";
