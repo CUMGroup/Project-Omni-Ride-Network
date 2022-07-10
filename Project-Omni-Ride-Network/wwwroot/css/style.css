@@ -37,6 +37,7 @@ h2 {
 	text-align: center;
 	color: var(--font);
 	font-size: 14pt;
+	cursor: pointer;
 }
 
 .sendbutton:hover {
