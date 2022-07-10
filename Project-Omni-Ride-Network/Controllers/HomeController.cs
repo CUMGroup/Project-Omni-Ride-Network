@@ -66,6 +66,11 @@ namespace Project_Omni_Ride_Network {
             return View(await PrepareBaseViewModel());
         }
 
+        [Route(Routes.START)]
+        public async Task<IActionResult> Start() {
+            return View(await PrepareBaseViewModel());
+        }
+
         #region Error Routes
         
         [Route(Routes.ERROR_404)]
