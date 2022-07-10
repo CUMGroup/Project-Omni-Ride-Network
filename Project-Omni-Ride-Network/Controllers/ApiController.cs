@@ -364,15 +364,15 @@ namespace Project_Omni_Ride_Network {
             // Sort the result set according to the params
             if(sortNewest != null && sortNewest == true) {
                 if (sortNewest.Value)
-                    rating.OrderByDescending(e => e.CmntTime);
+                    rating = rating.OrderByDescending(e => e.CmntTime);
                 else
-                    rating.OrderBy(e => e.CmntTime);
+                    rating = rating.OrderBy(e => e.CmntTime);
             }
             if(sortByHighestStars != null) {
                 if (sortByHighestStars.Value)
-                    rating.OrderByDescending(e => e.Stars);
+                    rating = rating.OrderByDescending(e => e.Stars);
                 else
-                    rating.OrderBy(e => e.Stars);
+                    rating = rating.OrderBy(e => e.Stars);
             }
 
             // Calculate the page
