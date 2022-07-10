@@ -30,7 +30,8 @@ h2 {
 }
 
 .sendbutton {
-	padding: 10pt 30pt;
+	margin: 10pt;
+	padding: 10pt 20pt;
 	background: var(--deep_red);
 	border: 1pt solid var(--font);
 	text-align: center;
