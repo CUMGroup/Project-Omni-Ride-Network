@@ -19,7 +19,7 @@ Die Funktionen der Webseite beinhalten das erstellen eines Profils, um Fahrzeuge
 Viel Spaß und gute Fahrt :red_car: :motorcycle:
 
 ## Dokumentation 
-tbd
+Die technische Dokumentation gibt es [hier](https://github.com/Annalytic-programming/Project-Omni-Ride-Network/blob/master/Projektmanagement/Dokumentation.pdf)
 
 ## Installation
 
