@@ -1060,6 +1060,18 @@ input.pageswitch:enabled {
 	margin-right: auto;
 }
 
+#karriere .karriere-img {
+	width: 60%;
+	height: auto;
+}
+
+@media screen and (max-width: 900px) {
+	#karriere .karriere-img {
+		width: 100%;
+		height: auto;
+	}
+}
+
 #karriere .box {
 	justify-content: center;
 	align-items: center;
