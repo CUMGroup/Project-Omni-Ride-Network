@@ -46,9 +46,26 @@ namespace Project_Omni_Ride_Network {
             "We are FUTURE <br>" +
             "</p></body></html>";
 
+        private const string DELETE_RESP = ", <br><br>" +
+            "Schade, dass Sie uns verlassen!<br> " +
+            "Mit der Löschung Ihres Kontos haben wir auch die Daten Ihrer Bestellungen gelöscht.<br>" +
+            "Leider ist es uns nicht möglich die Daten hierzu wiederherzustellen. Wir bitten um Ihr Verständnis.<br>" +
+            "Falls Sie sich entscheiden doch wieder mit uns zu reisen fühlen Sie sich frei sich jederzeit wieder anzumelden.<br><br>" +
+            "Die Löschung Ihres Kundenkontos ist hiermit abgeschlossen.<br> " +
+            "Wir wünschen Ihnen weiterhin eine gute Fahrt! <br><br>" +
+            "Ihr Car Utility Management Team <br> " +
+            "------------------------------- <br>" +
+            "We are MOBILITY <br>" +
+            "We are INNOVATION <br>" +
+            "We are LIBERTY <br>" +
+            "We are FUTURE <br>" +
+            "</p></body></html>";
+
         private const string ORDER_SUBJECT = "Ihre Bestellung: ";
 
         public const string REGISTRY_SUBJ = "Ihre Registrierung";
+
+        public const string DELETE_SUBJ = "Löschung Ihres Kundenkontos";
 
         #endregion
 
@@ -89,6 +106,12 @@ namespace Project_Omni_Ride_Network {
 
             return mail;
         }
+
+        public static string CreateUserDeleteResponse(string anrede, string surname) {
+            string mail = SALUTATIONS + anrede + " " + surname + DELETE_RESP;
+            return mail;
+        }
+
 
         #endregion
 

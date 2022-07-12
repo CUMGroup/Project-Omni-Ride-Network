@@ -338,9 +338,13 @@ namespace Project_Omni_Ride_Network {
                 if (a == null) {
                     return Unauthorized();
                 }
-                
+
+                var cust = (await dbStore.GetCustomersAsync()).First(e => e.UserId.Equals(a.Id));
+
                 // remove customer as well as corresponding AspNetUser and all Orders of these costumer
                 await dbStore.RemoveCustomerAsync(a);
+                _ = mailer.MailerAsync(configuration.GetValue<string>("MailCredentials:Email"), a.Email, MailTxt.DELETE_SUBJ,
+                MailTxt.CreateUserDeleteResponse(cust.KdTitle, cust.KdSurname));
             } catch (DatabaseAPIException) {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse { Status = "Error", Message = "Error on deleting customer" });
             }
