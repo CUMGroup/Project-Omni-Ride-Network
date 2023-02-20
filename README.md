@@ -68,7 +68,7 @@ Füge eine 'appsettings.json' Datei im Verzeichnis [Project-Omni-Ride-Network/Pr
 
 ## Unser Team
 
-**Frontend-Developers:** : Jasmin Hübner - Elnaz Gharoon
+**Frontend-Developers:** : [@jas20202](https://github.com/jas20202) - [@elnaz-gharoon](https://github.com/elnaz-gharoon)
 
-**Backend-Developers:** Anna Weber - Alexander Hagl 
+**Backend-Developers:** [@Annalytic-programming](https://github.com/Annalytic-programming) - [@AlexMi-Ha](https://github.com/AlexMi-Ha)
 
